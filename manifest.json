@@ -3,7 +3,7 @@
   "name": "WorkSpace Plus Group",
   "version": "1.0.0",
   "minAppVersion": "1.5.0",
-  "description": "Quickly switch and manage workspaces",
+  "description": "Quickly switch and manage workspaces with hierarchy support.",
   "author": "cnwenzhihong",
   "authorUrl": "https://github.com/cnwenzhihong",
   "isDesktopOnly": true

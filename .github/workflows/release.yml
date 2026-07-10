@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  id-token: write
+  attestations: write
 
 jobs:
   release:
@@ -18,6 +20,13 @@ jobs:
         run: |
           mkdir package
           cp main.js styles.css manifest.json package/
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            package/main.js
+            package/styles.css
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
