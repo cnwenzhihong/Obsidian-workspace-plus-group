@@ -1,7 +1,7 @@
 # WorkSpace Plus Group
 
-Enhanced workspace management for Obsidian's built-in Workspaces core plugin — workspace hierarchy, mode switching, and quick switcher.
-增强 Obsidian 原生 Workspaces 核心插件，提供工作区层级管理、模式切换和快速切换。
+Enhanced workspace management for Obsidian's built-in Workspaces core plugin — workspace hierarchy, mode switching,and quickly switch workspaces via shortcut keys
+增强 Obsidian 原生 Workspaces 核心插件，提供工作区层级管理、模式切换和通过快捷键快速切换工作区
 
 > **Prerequisite / 前提**：Enable the **Workspaces** core plugin in Settings → Core Plugins.
 > 需先在 设置 → 核心插件 中启用 **Workspaces** 插件。
@@ -11,8 +11,8 @@ Enhanced workspace management for Obsidian's built-in Workspaces core plugin —
 ## Features / 功能
 
 ### Quick Workspace Switcher / 快速切换
-Open via command palette or click the status bar workspace name. Fuzzy search with keyboard shortcuts — type a new name and press **Enter** to create a new workspace.
-通过命令面板或状态栏打开，模糊搜索，输入新名称按 **Enter** 直接创建新工作区。
+Open via command palette or click the status bar workspace name or bind shortcut keys(**recommend shift+tab**). Fuzzy search with keyboard shortcuts — type a new name and press **Enter** to create a new workspace.
+通过命令面板或状态栏或快捷键(**推荐 shift+tab**)打开，模糊搜索，输入新名称按 **Enter** 直接创建新工作区。
 
 ### Workspace Hierarchy / 工作区层级
 Drag and drop workspaces in the settings panel to build parent-child relationships, clearly displayed with indentation in the switcher modal.
@@ -112,5 +112,5 @@ Original author / 原作者：[NothingIsLost](https://github.com/nothingislost)
 
 ---
 
-> Desktop only / 仅桌面端 · Requires Obsidian 1.0.0+
+> Desktop only / 仅桌面端 · Requires Obsidian 1.5.0+
 
