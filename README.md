@@ -70,22 +70,22 @@ Shows current workspace and mode. **Shift+Click** to save.
 
 ### Workspace Switcher / 工作区弹窗
 
-| Shortcut | Action | 快捷键 | 操作 |
-|----------|--------|--------|------|
-| `Enter` | Switch / create new | `Enter` | 切换或新建工作区 |
-| `Shift + Enter` | Save and switch | `Shift + Enter` | 保存并切换 |
-| `Alt + Enter` | Save current, then switch | `Alt + Enter` | 保存当前后切换 |
-| `Ctrl + Enter` | Rename workspace | `Ctrl + Enter` | 重命名工作区 |
-| `Shift + Delete` | Delete workspace | `Shift + Delete` | 删除工作区 |
-| `Escape` | Close modal | `Escape` | 关闭弹窗 |
+| Shortcut | Action | 操作 |
+|----------|--------|------|
+| `Enter` | Switch / create new | 切换或新建工作区 |
+| `Shift + Enter` | Save and switch | 保存并切换 |
+| `Alt + Enter` | Save current, then switch | 保存当前后切换 |
+| `Ctrl + Enter` | Rename workspace | 重命名工作区 |
+| `Shift + Delete` | Delete workspace | 删除工作区 |
+| `Escape` | Close modal | 关闭弹窗 |
 
 ### Mode Switcher / 模式弹窗
 
-| Shortcut | Action | 快捷键 | 操作 |
-|----------|--------|--------|------|
-| `Enter` | Load selected mode | `Enter` | 加载选中模式 |
-| `Ctrl + Enter` | Rename mode | `Ctrl + Enter` | 重命名模式 |
-| `Shift + Delete` | Delete mode | `Shift + Delete` | 删除模式 |
+| Shortcut | Action | 操作 |
+|----------|--------|------|
+| `Enter` | Load selected mode | 加载选中模式 |
+| `Ctrl + Enter` | Rename mode | 重命名模式 |
+| `Shift + Delete` | Delete mode | 删除模式 |
 
 ---
 
