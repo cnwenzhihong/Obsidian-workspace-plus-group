@@ -3,8 +3,8 @@
 Enhanced workspace management for Obsidian's built-in Workspaces core plugin — workspace hierarchy, mode switching, and quickly switch workspaces via shortcut keys.  
 增强 Obsidian 原生 Workspaces 核心插件，提供工作区层级管理、模式切换和通过快捷键快速切换工作区。
 
-> **Prerequisite / 前提**：Enable the **Workspaces** core plugin in Settings → Core Plugins.  
-> 需先在 设置 → 核心插件 中启用 **Workspaces** 插件。
+> **Prerequisite**：Enable the **Workspaces** core plugin in Settings → Core Plugins.  
+> **前提**：需先在 设置 → 核心插件 中启用 **Workspaces** 插件。
 
 ---
 
