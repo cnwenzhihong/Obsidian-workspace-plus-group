@@ -1,0 +1,17 @@
+{
+  "accentColor": "#ea6710",
+  "baseFontSize": 17,
+  "cssTheme": "AnuPpuccin",
+  "theme": "moonstone",
+  "textFontFamily": "Century725 Blk BT,.萍方-简",
+  "interfaceFontFamily": "Chianti XBd BT,.萍方-简",
+  "showViewHeader": true,
+  "baseFontSizeAction": true,
+  "nativeMenus": false,
+  "showRibbon": true,
+  "enabledCssSnippets": [
+    "网格背景",
+    "主题样式",
+    "yaozhuwa@CSS"
+  ]
+}

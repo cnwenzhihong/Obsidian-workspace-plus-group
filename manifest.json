@@ -1,0 +1,10 @@
+{
+  "id": "workspace-plus-group",
+  "name": "WorkSpace Plus Group",
+  "version": "1.0.0",
+  "minAppVersion": "1.5.0",
+  "description": "Quickly switch and manage workspaces",
+  "author": "cnwenzhihong",
+  "authorUrl": "https://github.com/cnwenzhihong",
+  "isDesktopOnly": true
+}

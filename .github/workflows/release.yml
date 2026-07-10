@@ -1,0 +1,46 @@
+name: Publish Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Package plugin
+        run: |
+          mkdir package
+          cp main.js styles.css manifest.json package/
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            package/main.js
+            package/styles.css
+            package/manifest.json
+          body: "See [README.md](https://github.com/${{ github.repository }}/blob/main/README.md) for details."
+
+      - name: Update versions.json
+        run: |
+          TAG="${{ github.ref_name }}"
+          if [ -f versions.json ]; then
+            jq --arg tag "$TAG" --arg minApp "1.0.0" '. + {($tag): $minApp}' versions.json > tmp.json && mv tmp.json versions.json
+          else
+            echo "{\"$TAG\": \"1.0.0\"}" > versions.json
+          fi
+
+      - name: Commit versions.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add versions.json
+          git diff --staged --quiet || git commit -m "Update versions.json for ${{ github.ref_name }}"
+          git push

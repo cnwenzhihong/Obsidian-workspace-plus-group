@@ -1,0 +1,3036 @@
+{
+  "workspaces": {
+    "丧尸行为设计": {
+      "main": {
+        "id": "0e6bff715a839a8c",
+        "type": "split",
+        "children": [
+          {
+            "id": "8bdbc1f0124f4997",
+            "type": "split",
+            "children": [
+              {
+                "id": "38dae5d45d1db5c3",
+                "type": "tabs",
+                "dimension": 49.02642559109875,
+                "children": [
+                  {
+                    "id": "09b31006aaddec82",
+                    "type": "leaf",
+                    "state": {
+                      "type": "markdown",
+                      "state": {
+                        "file": "游戏设计/笔记/现代生存/实现/丧尸通用反馈.md",
+                        "mode": "source",
+                        "source": false
+                      },
+                      "icon": "lucide-file",
+                      "title": "丧尸通用反馈"
+                    }
+                  },
+                  {
+                    "id": "3a62b26f4e84f3fe",
+                    "type": "leaf",
+                    "pinned": true,
+                    "state": {
+                      "type": "markdown",
+                      "state": {
+                        "file": "游戏设计/笔记/现代生存/实现方案.md",
+                        "mode": "source",
+                        "source": false
+                      },
+                      "pinned": true,
+                      "icon": "lucide-file",
+                      "title": "实现方案"
+                    }
+                  },
+                  {
+                    "id": "4cc72988f378ba78",
+                    "type": "leaf",
+                    "pinned": true,
+                    "state": {
+                      "type": "excalidraw",
+                      "state": {
+                        "file": "游戏设计/Lyra/枪械.md"
+                      },
+                      "pinned": true,
+                      "icon": "excalidraw-icon",
+                      "title": "枪械"
+                    }
+                  }
+                ],
+                "currentTab": 1
+              },
+              {
+                "id": "636e20a4e6ffc0ec",
+                "type": "tabs",
+                "dimension": 50.97357440890126,
+                "children": [
+                  {
+                    "id": "97bd9b25536f00e0",
+                    "type": "leaf",
+                    "pinned": true,
+                    "state": {
+                      "type": "markdown",
+                      "state": {
+                        "file": "游戏设计/笔记/现代生存/实现/枪械与敌人设计.md",
+                        "mode": "source",
+                        "source": false
+                      },
+                      "pinned": true,
+                      "icon": "lucide-file",
+                      "title": "枪械与敌人设计"
+                    }
+                  }
+                ]
+              }
+            ],
+            "direction": "horizontal"
+          },
+          {
+            "id": "2154f1663ec294f9",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "a5883e555be265ba",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "游戏设计/笔记/现代生存/实现/丧尸通用反馈.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "丧尸通用反馈"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical"
+      },
+      "left": {
+        "id": "d724488bda81f373",
+        "type": "split",
+        "children": [
+          {
+            "id": "db6b8a6c1bf25555",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "5e7683c97cf9bd25",
+                "type": "leaf",
+                "state": {
+                  "type": "file-explorer",
+                  "state": {
+                    "sortOrder": "alphabetical"
+                  },
+                  "icon": "lucide-folder-closed",
+                  "title": "文件列表"
+                }
+              },
+              {
+                "id": "4ae88eaffc3c1175",
+                "type": "leaf",
+                "state": {
+                  "type": "search",
+                  "state": {
+                    "query": "note",
+                    "matchingCase": false,
+                    "explainSearch": false,
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical"
+                  },
+                  "icon": "lucide-search",
+                  "title": "搜索"
+                }
+              },
+              {
+                "id": "5fca6f0be4fc7b9b",
+                "type": "leaf",
+                "state": {
+                  "type": "bookmarks",
+                  "state": {},
+                  "icon": "lucide-bookmark",
+                  "title": "书签"
+                }
+              },
+              {
+                "id": "01b7ad4de47d1e5d",
+                "type": "leaf",
+                "state": {
+                  "type": "recent-files",
+                  "state": {},
+                  "icon": "lucide-file",
+                  "title": "插件不再活动"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 251.5
+      },
+      "right": {
+        "id": "b36b03cb1af1b6e5",
+        "type": "split",
+        "children": [
+          {
+            "id": "031ef75e79971033",
+            "type": "tabs",
+            "dimension": 35.625,
+            "children": [
+              {
+                "id": "feff2da0cd1d9eb5",
+                "type": "leaf",
+                "state": {
+                  "type": "quiet-outline",
+                  "state": {},
+                  "icon": "lines-of-text",
+                  "title": "Quiet Outline"
+                }
+              },
+              {
+                "id": "12d21c39b7035c05",
+                "type": "leaf",
+                "state": {
+                  "type": "tag",
+                  "state": {
+                    "sortOrder": "frequency",
+                    "useHierarchy": true
+                  },
+                  "icon": "lucide-tags",
+                  "title": "标签"
+                }
+              },
+              {
+                "id": "1f992bfff1f5be27",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-emoji",
+                  "state": {},
+                  "icon": "lucide-smile",
+                  "title": "Emoji"
+                }
+              },
+              {
+                "id": "4d41a741d2c6f7d2",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-color",
+                  "state": {},
+                  "icon": "lucide-palette",
+                  "title": "Color"
+                }
+              },
+              {
+                "id": "cbac27f86f93de2b",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-colorpicker",
+                  "state": {},
+                  "icon": "lucide-pipette",
+                  "title": "ColorPicker"
+                }
+              },
+              {
+                "id": "6a6ce06c454e29cc",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-flaticon",
+                  "state": {},
+                  "icon": "lucide-pen-tool",
+                  "title": "FlatIcon"
+                }
+              },
+              {
+                "id": "660facb97d855909",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-freebies",
+                  "state": {},
+                  "icon": "lucide-scan-line",
+                  "title": "Freebies"
+                }
+              },
+              {
+                "id": "756f2bdc9a2c4272",
+                "type": "leaf",
+                "state": {
+                  "type": "calendar",
+                  "state": {},
+                  "icon": "calendar-with-checkmark",
+                  "title": "Calendar"
+                }
+              },
+              {
+                "id": "818c92c438ab9f1d",
+                "type": "leaf",
+                "state": {
+                  "type": "all-properties",
+                  "state": {
+                    "sortOrder": "frequency",
+                    "showSearch": false,
+                    "searchQuery": ""
+                  },
+                  "icon": "lucide-archive",
+                  "title": "添加笔记属性"
+                }
+              },
+              {
+                "id": "2268fd7aba28b374",
+                "type": "leaf",
+                "state": {
+                  "type": "backlink",
+                  "state": {
+                    "file": "游戏设计/笔记/笔记/跳跃.md",
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical",
+                    "showSearch": false,
+                    "searchQuery": "",
+                    "backlinkCollapsed": false,
+                    "unlinkedCollapsed": true
+                  },
+                  "icon": "links-coming-in",
+                  "title": "跳跃 的反向链接列表"
+                }
+              },
+              {
+                "id": "749b32f752be73a8",
+                "type": "leaf",
+                "state": {
+                  "type": "outgoing-link",
+                  "state": {
+                    "file": "游戏设计/笔记/笔记/跳跃.md",
+                    "linksCollapsed": false,
+                    "unlinkedCollapsed": true
+                  },
+                  "icon": "links-going-out",
+                  "title": "跳跃 的出链列表"
+                }
+              },
+              {
+                "id": "582cb9401d088c83",
+                "type": "leaf",
+                "state": {
+                  "type": "outline",
+                  "state": {
+                    "file": "游戏设计/笔记/笔记/跳跃.md"
+                  },
+                  "icon": "lucide-list",
+                  "title": "跳跃 的大纲"
+                }
+              }
+            ]
+          },
+          {
+            "id": "5daaefc21cd763d1",
+            "type": "tabs",
+            "dimension": 64.375,
+            "children": [
+              {
+                "id": "88bad755e98a21b5",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "kanban",
+                  "state": {
+                    "file": "游戏设计/笔记/现代生存/任务/未命名看板.md",
+                    "kanbanViewState": {
+                      "kanban-plugin": "board",
+                      "list-collapse": [
+                        false,
+                        false,
+                        false,
+                        false
+                      ]
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "lucide-trello",
+                  "title": "未命名看板"
+                }
+              },
+              {
+                "id": "fe3b8468e9607b89",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "游戏设计/笔记/笔记/笔记.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "笔记"
+                }
+              },
+              {
+                "id": "00e03e9623419b69",
+                "type": "leaf",
+                "state": {
+                  "type": "mx-webpage",
+                  "state": {
+                    "source": "https://cdn.jsdelivr.net/gh/cnwenzhihong/ImageHosting/ProjectMarkdown/20241113181942.png"
+                  },
+                  "icon": "globe",
+                  "title": "20241113181942.png (733×204) - Website"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 574.5
+      },
+      "left-ribbon": {
+        "hiddenItems": {
+          "audio-recorder:开始/结束录音": false,
+          "switcher:打开快速切换": false,
+          "graph:查看关系图谱": false,
+          "canvas:新建白板": true,
+          "daily-notes:打开/创建今天的日记": true,
+          "templates:插入模板": true,
+          "command-palette:打开命令面板": true,
+          "webpage-html-export:Export Vault to HTML": true,
+          "workspaces:管理工作区布局": false,
+          "markdown-importer:打开 Markdown 格式转换器": false,
+          "obsidian-focus-mode:Toggle Focus Mode (Shift + Click to show active pane only)": false,
+          "templater-obsidian:Templater": false,
+          "notion-like-tables:Create loom": true,
+          "obsidian-excalidraw-plugin:新建绘图文件": true,
+          "media-extended:Open media": false,
+          "obsidian-kanban:创建新看板": true
+        }
+      },
+      "active": "97bd9b25536f00e0",
+      "mtime": "2024-11-20T19:33:13+08:00"
+    },
+    "人": {
+      "main": {
+        "id": "0e6bff715a839a8c",
+        "type": "split",
+        "children": [
+          {
+            "id": "2f5620faea48f464",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "0ddeb399338b9761",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "生活/交流/交流对象/丹.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "丹"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical"
+      },
+      "left": {
+        "id": "d724488bda81f373",
+        "type": "split",
+        "children": [
+          {
+            "id": "db6b8a6c1bf25555",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "5e7683c97cf9bd25",
+                "type": "leaf",
+                "state": {
+                  "type": "file-explorer",
+                  "state": {
+                    "sortOrder": "alphabetical"
+                  },
+                  "icon": "lucide-folder-closed",
+                  "title": "文件列表"
+                }
+              },
+              {
+                "id": "4ae88eaffc3c1175",
+                "type": "leaf",
+                "state": {
+                  "type": "search",
+                  "state": {
+                    "query": "path:\"电脑/知识管理/\" ",
+                    "matchingCase": false,
+                    "explainSearch": false,
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical"
+                  },
+                  "icon": "lucide-search",
+                  "title": "搜索"
+                }
+              },
+              {
+                "id": "5fca6f0be4fc7b9b",
+                "type": "leaf",
+                "state": {
+                  "type": "bookmarks",
+                  "state": {},
+                  "icon": "lucide-bookmark",
+                  "title": "书签"
+                }
+              },
+              {
+                "id": "01b7ad4de47d1e5d",
+                "type": "leaf",
+                "state": {
+                  "type": "recent-files",
+                  "state": {},
+                  "icon": "lucide-file",
+                  "title": "插件不再活动"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 618.5
+      },
+      "right": {
+        "id": "b36b03cb1af1b6e5",
+        "type": "split",
+        "children": [
+          {
+            "id": "031ef75e79971033",
+            "type": "tabs",
+            "dimension": 35.625,
+            "children": [
+              {
+                "id": "feff2da0cd1d9eb5",
+                "type": "leaf",
+                "state": {
+                  "type": "quiet-outline",
+                  "state": {},
+                  "icon": "lines-of-text",
+                  "title": "Quiet Outline"
+                }
+              },
+              {
+                "id": "12d21c39b7035c05",
+                "type": "leaf",
+                "state": {
+                  "type": "tag",
+                  "state": {
+                    "sortOrder": "frequency",
+                    "useHierarchy": true
+                  },
+                  "icon": "lucide-tags",
+                  "title": "标签"
+                }
+              },
+              {
+                "id": "1f992bfff1f5be27",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-emoji",
+                  "state": {},
+                  "icon": "lucide-smile",
+                  "title": "Emoji"
+                }
+              },
+              {
+                "id": "4d41a741d2c6f7d2",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-color",
+                  "state": {},
+                  "icon": "lucide-palette",
+                  "title": "Color"
+                }
+              },
+              {
+                "id": "cbac27f86f93de2b",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-colorpicker",
+                  "state": {},
+                  "icon": "lucide-pipette",
+                  "title": "ColorPicker"
+                }
+              },
+              {
+                "id": "6a6ce06c454e29cc",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-flaticon",
+                  "state": {},
+                  "icon": "lucide-pen-tool",
+                  "title": "FlatIcon"
+                }
+              },
+              {
+                "id": "660facb97d855909",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-freebies",
+                  "state": {},
+                  "icon": "lucide-scan-line",
+                  "title": "Freebies"
+                }
+              },
+              {
+                "id": "756f2bdc9a2c4272",
+                "type": "leaf",
+                "state": {
+                  "type": "calendar",
+                  "state": {},
+                  "icon": "calendar-with-checkmark",
+                  "title": "Calendar"
+                }
+              },
+              {
+                "id": "818c92c438ab9f1d",
+                "type": "leaf",
+                "state": {
+                  "type": "all-properties",
+                  "state": {
+                    "sortOrder": "frequency",
+                    "showSearch": false,
+                    "searchQuery": ""
+                  },
+                  "icon": "lucide-archive",
+                  "title": "添加笔记属性"
+                }
+              },
+              {
+                "id": "2268fd7aba28b374",
+                "type": "leaf",
+                "state": {
+                  "type": "backlink",
+                  "state": {
+                    "file": "游戏设计/笔记/笔记/跳跃.md",
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical",
+                    "showSearch": false,
+                    "searchQuery": "",
+                    "backlinkCollapsed": false,
+                    "unlinkedCollapsed": true
+                  },
+                  "icon": "links-coming-in",
+                  "title": "跳跃 的反向链接列表"
+                }
+              },
+              {
+                "id": "749b32f752be73a8",
+                "type": "leaf",
+                "state": {
+                  "type": "outgoing-link",
+                  "state": {
+                    "file": "游戏设计/笔记/笔记/跳跃.md",
+                    "linksCollapsed": false,
+                    "unlinkedCollapsed": true
+                  },
+                  "icon": "links-going-out",
+                  "title": "跳跃 的出链列表"
+                }
+              },
+              {
+                "id": "582cb9401d088c83",
+                "type": "leaf",
+                "state": {
+                  "type": "outline",
+                  "state": {
+                    "file": "游戏设计/笔记/笔记/跳跃.md"
+                  },
+                  "icon": "lucide-list",
+                  "title": "跳跃 的大纲"
+                }
+              }
+            ]
+          },
+          {
+            "id": "5daaefc21cd763d1",
+            "type": "tabs",
+            "dimension": 64.375,
+            "children": [
+              {
+                "id": "8fa756e0979cbd2e",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "kanban",
+                  "state": {
+                    "file": "工作/小程序/未命名看板.md",
+                    "kanbanViewState": {
+                      "kanban-plugin": "board",
+                      "list-collapse": [
+                        false,
+                        false,
+                        false,
+                        false
+                      ]
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "lucide-trello",
+                  "title": "未命名看板"
+                }
+              },
+              {
+                "id": "fe3b8468e9607b89",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "游戏设计/笔记/笔记/笔记.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "笔记"
+                }
+              },
+              {
+                "id": "00e03e9623419b69",
+                "type": "leaf",
+                "state": {
+                  "type": "mx-webpage",
+                  "state": {
+                    "source": "https://cdn.jsdelivr.net/gh/cnwenzhihong/ImageHosting/ProjectMarkdown/20241113181942.png"
+                  },
+                  "icon": "globe",
+                  "title": "20241113181942.png (733×204) - Website"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 793.5
+      },
+      "left-ribbon": {
+        "hiddenItems": {
+          "obsidian42-brat:BRAT": false,
+          "audio-recorder:开始/结束录音": false,
+          "switcher:打开快速切换": false,
+          "graph:查看关系图谱": false,
+          "canvas:新建白板": true,
+          "daily-notes:打开/创建今天的日记": true,
+          "templates:插入模板": true,
+          "command-palette:打开命令面板": true,
+          "webpage-html-export:Export Vault to HTML": true,
+          "workspaces:管理工作区布局": false,
+          "markdown-importer:打开 Markdown 格式转换器": false,
+          "obsidian-focus-mode:Toggle Focus Mode (Shift + Click to show active pane only)": false,
+          "templater-obsidian:Templater": false,
+          "notion-like-tables:Create loom": true,
+          "obsidian-excalidraw-plugin:新建绘图文件": true,
+          "media-extended:Open media": false,
+          "obsidian-kanban:创建新看板": true
+        }
+      },
+      "active": "0ddeb399338b9761",
+      "mtime": "2025-02-07T16:08:58+08:00"
+    },
+    "NAS": {
+      "main": {
+        "id": "0e6bff715a839a8c",
+        "type": "split",
+        "children": [
+          {
+            "id": "62aa56518bdae397",
+            "type": "split",
+            "children": [
+              {
+                "id": "2f5620faea48f464",
+                "type": "tabs",
+                "dimension": 65.85535465924896,
+                "children": [
+                  {
+                    "id": "23b8807f60acc33b",
+                    "type": "leaf",
+                    "state": {
+                      "type": "markdown",
+                      "state": {
+                        "file": "电脑/NAS.md",
+                        "mode": "source",
+                        "source": false
+                      },
+                      "icon": "lucide-file",
+                      "title": "NAS"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "beb0f1c72b94c17c",
+                "type": "tabs",
+                "dimension": 34.14464534075105,
+                "children": [
+                  {
+                    "id": "fa9e4ca47616968f",
+                    "type": "leaf",
+                    "state": {
+                      "type": "markdown",
+                      "state": {
+                        "file": "电脑/装机必备.md",
+                        "mode": "source",
+                        "source": false
+                      },
+                      "icon": "lucide-file",
+                      "title": "装机必备"
+                    }
+                  }
+                ]
+              }
+            ],
+            "direction": "horizontal"
+          }
+        ],
+        "direction": "vertical"
+      },
+      "left": {
+        "id": "d724488bda81f373",
+        "type": "split",
+        "children": [
+          {
+            "id": "db6b8a6c1bf25555",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "5e7683c97cf9bd25",
+                "type": "leaf",
+                "state": {
+                  "type": "file-explorer",
+                  "state": {
+                    "sortOrder": "alphabetical",
+                    "autoReveal": false
+                  },
+                  "icon": "lucide-folder-closed",
+                  "title": "文件列表"
+                }
+              },
+              {
+                "id": "4ae88eaffc3c1175",
+                "type": "leaf",
+                "state": {
+                  "type": "search",
+                  "state": {
+                    "query": "",
+                    "matchingCase": false,
+                    "explainSearch": false,
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical"
+                  },
+                  "icon": "lucide-search",
+                  "title": "搜索"
+                }
+              },
+              {
+                "id": "5fca6f0be4fc7b9b",
+                "type": "leaf",
+                "state": {
+                  "type": "bookmarks",
+                  "state": {},
+                  "icon": "lucide-bookmark",
+                  "title": "书签"
+                }
+              },
+              {
+                "id": "01b7ad4de47d1e5d",
+                "type": "leaf",
+                "state": {
+                  "type": "recent-files",
+                  "state": {},
+                  "icon": "lucide-file",
+                  "title": "插件不再活动"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 618.5
+      },
+      "right": {
+        "id": "b36b03cb1af1b6e5",
+        "type": "split",
+        "children": [
+          {
+            "id": "031ef75e79971033",
+            "type": "tabs",
+            "dimension": 35.625,
+            "children": [
+              {
+                "id": "feff2da0cd1d9eb5",
+                "type": "leaf",
+                "state": {
+                  "type": "quiet-outline",
+                  "state": {},
+                  "icon": "lines-of-text",
+                  "title": "Quiet Outline"
+                }
+              },
+              {
+                "id": "12d21c39b7035c05",
+                "type": "leaf",
+                "state": {
+                  "type": "tag",
+                  "state": {
+                    "sortOrder": "frequency",
+                    "useHierarchy": true
+                  },
+                  "icon": "lucide-tags",
+                  "title": "标签"
+                }
+              },
+              {
+                "id": "1f992bfff1f5be27",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-emoji",
+                  "state": {},
+                  "icon": "lucide-smile",
+                  "title": "Emoji"
+                }
+              },
+              {
+                "id": "4d41a741d2c6f7d2",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-color",
+                  "state": {},
+                  "icon": "lucide-palette",
+                  "title": "Color"
+                }
+              },
+              {
+                "id": "cbac27f86f93de2b",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-colorpicker",
+                  "state": {},
+                  "icon": "lucide-pipette",
+                  "title": "ColorPicker"
+                }
+              },
+              {
+                "id": "6a6ce06c454e29cc",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-flaticon",
+                  "state": {},
+                  "icon": "lucide-pen-tool",
+                  "title": "FlatIcon"
+                }
+              },
+              {
+                "id": "660facb97d855909",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-freebies",
+                  "state": {},
+                  "icon": "lucide-scan-line",
+                  "title": "Freebies"
+                }
+              },
+              {
+                "id": "756f2bdc9a2c4272",
+                "type": "leaf",
+                "state": {
+                  "type": "calendar",
+                  "state": {},
+                  "icon": "calendar-with-checkmark",
+                  "title": "Calendar"
+                }
+              },
+              {
+                "id": "818c92c438ab9f1d",
+                "type": "leaf",
+                "state": {
+                  "type": "all-properties",
+                  "state": {
+                    "sortOrder": "frequency",
+                    "showSearch": false,
+                    "searchQuery": ""
+                  },
+                  "icon": "lucide-archive",
+                  "title": "添加笔记属性"
+                }
+              },
+              {
+                "id": "2268fd7aba28b374",
+                "type": "leaf",
+                "state": {
+                  "type": "backlink",
+                  "state": {
+                    "file": "游戏设计/笔记/笔记/跳跃.md",
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical",
+                    "showSearch": false,
+                    "searchQuery": "",
+                    "backlinkCollapsed": false,
+                    "unlinkedCollapsed": true
+                  },
+                  "icon": "links-coming-in",
+                  "title": "跳跃 的反向链接列表"
+                }
+              },
+              {
+                "id": "749b32f752be73a8",
+                "type": "leaf",
+                "state": {
+                  "type": "outgoing-link",
+                  "state": {
+                    "file": "游戏设计/笔记/笔记/跳跃.md",
+                    "linksCollapsed": false,
+                    "unlinkedCollapsed": true
+                  },
+                  "icon": "links-going-out",
+                  "title": "跳跃 的出链列表"
+                }
+              },
+              {
+                "id": "582cb9401d088c83",
+                "type": "leaf",
+                "state": {
+                  "type": "outline",
+                  "state": {
+                    "file": "游戏设计/笔记/笔记/跳跃.md"
+                  },
+                  "icon": "lucide-list",
+                  "title": "跳跃 的大纲"
+                }
+              }
+            ]
+          },
+          {
+            "id": "5daaefc21cd763d1",
+            "type": "tabs",
+            "dimension": 64.375,
+            "children": [
+              {
+                "id": "8fa756e0979cbd2e",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "kanban",
+                  "state": {
+                    "file": "工作/小程序/未命名看板.md",
+                    "kanbanViewState": {
+                      "kanban-plugin": "board",
+                      "list-collapse": [
+                        false,
+                        false
+                      ]
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "lucide-trello",
+                  "title": "未命名看板"
+                }
+              },
+              {
+                "id": "fe3b8468e9607b89",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "游戏设计/笔记/笔记/笔记.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "笔记"
+                }
+              },
+              {
+                "id": "00e03e9623419b69",
+                "type": "leaf",
+                "state": {
+                  "type": "mx-webpage",
+                  "state": {
+                    "source": "https://cdn.jsdelivr.net/gh/cnwenzhihong/ImageHosting/ProjectMarkdown/20241113181942.png"
+                  },
+                  "icon": "globe",
+                  "title": "20241113181942.png (733×204) - Website"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 885.5
+      },
+      "left-ribbon": {
+        "hiddenItems": {
+          "zk-prefixer:创建时间戳笔记": false,
+          "obsidian42-brat:BRAT": false,
+          "audio-recorder:开始/结束录音": false,
+          "switcher:打开快速切换": false,
+          "graph:查看关系图谱": false,
+          "canvas:新建白板": true,
+          "daily-notes:打开/创建今天的日记": true,
+          "templates:插入模板": true,
+          "command-palette:打开命令面板": true,
+          "webpage-html-export:Export Vault to HTML": true,
+          "workspaces:管理工作区布局": false,
+          "markdown-importer:打开 Markdown 格式转换器": false,
+          "obsidian-focus-mode:Toggle Focus Mode (Shift + Click to show active pane only)": false,
+          "templater-obsidian:Templater": false,
+          "notion-like-tables:Create loom": true,
+          "obsidian-excalidraw-plugin:新建绘图文件": true,
+          "media-extended:Open media": false,
+          "obsidian-kanban:创建新看板": true
+        }
+      },
+      "active": "23b8807f60acc33b",
+      "mtime": "2025-02-08T15:01:12+08:00"
+    },
+    "AI": {
+      "main": {
+        "id": "0e6bff715a839a8c",
+        "type": "split",
+        "children": [
+          {
+            "id": "2f5620faea48f464",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "db87e0df22d335b3",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "AI/编程/cursor.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "cursor"
+                }
+              },
+              {
+                "id": "f8e82c0986f67793",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "webviewer",
+                  "state": {
+                    "url": "https://2925.com/#/readMail/0/Inbox/unread/29b6fa8886b444f5810feb6751315e01",
+                    "title": "2925邮箱-无限邮",
+                    "mode": "webview"
+                  },
+                  "pinned": true,
+                  "icon": "globe-2",
+                  "title": "2925邮箱-无限邮"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical"
+      },
+      "left": {
+        "id": "d724488bda81f373",
+        "type": "split",
+        "children": [
+          {
+            "id": "db6b8a6c1bf25555",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "5e7683c97cf9bd25",
+                "type": "leaf",
+                "state": {
+                  "type": "file-explorer",
+                  "state": {
+                    "sortOrder": "alphabetical",
+                    "autoReveal": true
+                  },
+                  "icon": "lucide-folder-closed",
+                  "title": "文件列表"
+                }
+              },
+              {
+                "id": "4ae88eaffc3c1175",
+                "type": "leaf",
+                "state": {
+                  "type": "search",
+                  "state": {
+                    "query": "",
+                    "matchingCase": false,
+                    "explainSearch": false,
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical"
+                  },
+                  "icon": "lucide-search",
+                  "title": "搜索"
+                }
+              },
+              {
+                "id": "5fca6f0be4fc7b9b",
+                "type": "leaf",
+                "state": {
+                  "type": "bookmarks",
+                  "state": {},
+                  "icon": "lucide-bookmark",
+                  "title": "书签"
+                }
+              },
+              {
+                "id": "01b7ad4de47d1e5d",
+                "type": "leaf",
+                "state": {
+                  "type": "recent-files",
+                  "state": {},
+                  "icon": "lucide-file",
+                  "title": "插件不再活动"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 290.5
+      },
+      "right": {
+        "id": "b36b03cb1af1b6e5",
+        "type": "split",
+        "children": [
+          {
+            "id": "031ef75e79971033",
+            "type": "tabs",
+            "dimension": 35.625,
+            "children": [
+              {
+                "id": "feff2da0cd1d9eb5",
+                "type": "leaf",
+                "state": {
+                  "type": "quiet-outline",
+                  "state": {},
+                  "icon": "lines-of-text",
+                  "title": "Quiet Outline"
+                }
+              },
+              {
+                "id": "12d21c39b7035c05",
+                "type": "leaf",
+                "state": {
+                  "type": "tag",
+                  "state": {
+                    "sortOrder": "frequency",
+                    "useHierarchy": true
+                  },
+                  "icon": "lucide-tags",
+                  "title": "标签"
+                }
+              },
+              {
+                "id": "1f992bfff1f5be27",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-emoji",
+                  "state": {},
+                  "icon": "lucide-smile",
+                  "title": "Emoji"
+                }
+              },
+              {
+                "id": "4d41a741d2c6f7d2",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-color",
+                  "state": {},
+                  "icon": "lucide-palette",
+                  "title": "Color"
+                }
+              },
+              {
+                "id": "cbac27f86f93de2b",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-colorpicker",
+                  "state": {},
+                  "icon": "lucide-pipette",
+                  "title": "ColorPicker"
+                }
+              },
+              {
+                "id": "6a6ce06c454e29cc",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-flaticon",
+                  "state": {},
+                  "icon": "lucide-pen-tool",
+                  "title": "FlatIcon"
+                }
+              },
+              {
+                "id": "660facb97d855909",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-freebies",
+                  "state": {},
+                  "icon": "lucide-scan-line",
+                  "title": "Freebies"
+                }
+              },
+              {
+                "id": "756f2bdc9a2c4272",
+                "type": "leaf",
+                "state": {
+                  "type": "calendar",
+                  "state": {},
+                  "icon": "calendar-with-checkmark",
+                  "title": "Calendar"
+                }
+              },
+              {
+                "id": "818c92c438ab9f1d",
+                "type": "leaf",
+                "state": {
+                  "type": "all-properties",
+                  "state": {
+                    "sortOrder": "frequency",
+                    "showSearch": false,
+                    "searchQuery": ""
+                  },
+                  "icon": "lucide-archive",
+                  "title": "添加笔记属性"
+                }
+              },
+              {
+                "id": "2268fd7aba28b374",
+                "type": "leaf",
+                "state": {
+                  "type": "backlink",
+                  "state": {
+                    "file": "游戏设计/笔记/笔记/跳跃.md",
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical",
+                    "showSearch": false,
+                    "searchQuery": "",
+                    "backlinkCollapsed": false,
+                    "unlinkedCollapsed": true
+                  },
+                  "icon": "links-coming-in",
+                  "title": "跳跃 的反向链接列表"
+                }
+              },
+              {
+                "id": "749b32f752be73a8",
+                "type": "leaf",
+                "state": {
+                  "type": "outgoing-link",
+                  "state": {
+                    "file": "游戏设计/笔记/笔记/跳跃.md",
+                    "linksCollapsed": false,
+                    "unlinkedCollapsed": true
+                  },
+                  "icon": "links-going-out",
+                  "title": "跳跃 的出链列表"
+                }
+              },
+              {
+                "id": "582cb9401d088c83",
+                "type": "leaf",
+                "state": {
+                  "type": "outline",
+                  "state": {
+                    "file": "游戏设计/笔记/笔记/跳跃.md"
+                  },
+                  "icon": "lucide-list",
+                  "title": "跳跃 的大纲"
+                }
+              }
+            ]
+          },
+          {
+            "id": "5daaefc21cd763d1",
+            "type": "tabs",
+            "dimension": 64.375,
+            "children": [
+              {
+                "id": "00e03e9623419b69",
+                "type": "leaf",
+                "state": {
+                  "type": "mx-webpage",
+                  "state": {
+                    "source": "https://cdn.jsdelivr.net/gh/cnwenzhihong/ImageHosting/ProjectMarkdown/20241113181942.png"
+                  },
+                  "icon": "globe",
+                  "title": "20241113181942.png (733×204) - Website"
+                }
+              },
+              {
+                "id": "e0d8be83595a63f0",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "AI/任务/B站收藏处理.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "B站收藏处理"
+                }
+              }
+            ],
+            "currentTab": 1
+          }
+        ],
+        "direction": "horizontal",
+        "width": 555.5
+      },
+      "left-ribbon": {
+        "hiddenItems": {
+          "zk-prefixer:创建时间戳笔记": false,
+          "obsidian42-brat:BRAT": false,
+          "audio-recorder:开始/结束录音": false,
+          "switcher:打开快速切换": false,
+          "graph:查看关系图谱": false,
+          "canvas:新建白板": true,
+          "daily-notes:打开/创建今天的日记": true,
+          "templates:插入模板": true,
+          "command-palette:打开命令面板": true,
+          "webpage-html-export:Export Vault to HTML": true,
+          "workspaces:管理工作区布局": false,
+          "markdown-importer:打开 Markdown 格式转换器": false,
+          "obsidian-focus-mode:Toggle Focus Mode (Shift + Click to show active pane only)": false,
+          "templater-obsidian:Templater": false,
+          "notion-like-tables:Create loom": true,
+          "obsidian-excalidraw-plugin:新建绘图文件": true,
+          "media-extended:Open media": false,
+          "obsidian-kanban:创建新看板": true
+        }
+      },
+      "active": "5e7683c97cf9bd25",
+      "mtime": "2025-03-14T17:23:58+08:00"
+    },
+    "射击游戏": {
+      "main": {
+        "id": "0e6bff715a839a8c",
+        "type": "split",
+        "children": [
+          {
+            "id": "fef06b74233ab803",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "897ca3bef7bd5c51",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "游戏设计/客栈/模拟尖塔/1. 能力维度的强度要求.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "1. 能力维度的强度要求"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "vertical"
+      },
+      "left": {
+        "id": "d724488bda81f373",
+        "type": "split",
+        "children": [
+          {
+            "id": "c9be65dbf2529a06",
+            "type": "tabs",
+            "dimension": 53.05313243457574,
+            "children": [
+              {
+                "id": "74c92063eb38fbf3",
+                "type": "leaf",
+                "state": {
+                  "type": "file-explorer",
+                  "state": {
+                    "sortOrder": "alphabetical",
+                    "autoReveal": false
+                  },
+                  "icon": "lucide-folder-closed",
+                  "title": "文件列表"
+                }
+              },
+              {
+                "id": "5469113f7c22f975",
+                "type": "leaf",
+                "state": {
+                  "type": "tagfolder-view",
+                  "state": {},
+                  "icon": "stacked-levels",
+                  "title": "Tag Folder"
+                }
+              }
+            ]
+          },
+          {
+            "id": "db6b8a6c1bf25555",
+            "type": "tabs",
+            "dimension": 46.94686756542426,
+            "children": [
+              {
+                "id": "5bf81c224507d8f7",
+                "type": "leaf",
+                "state": {
+                  "type": "recent-notes-view",
+                  "state": {},
+                  "icon": "clock-10",
+                  "title": "最近笔记"
+                }
+              },
+              {
+                "id": "4ae88eaffc3c1175",
+                "type": "leaf",
+                "state": {
+                  "type": "search",
+                  "state": {
+                    "query": "",
+                    "matchingCase": false,
+                    "explainSearch": false,
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical"
+                  },
+                  "icon": "lucide-search",
+                  "title": "搜索"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 392.5
+      },
+      "right": {
+        "id": "b36b03cb1af1b6e5",
+        "type": "split",
+        "children": [
+          {
+            "id": "031ef75e79971033",
+            "type": "tabs",
+            "dimension": 35.625,
+            "children": [
+              {
+                "id": "7994fd2f6e4c2bc1",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "chinese-calendar-view",
+                  "state": {},
+                  "pinned": true,
+                  "icon": "calendar-with-checkmark",
+                  "title": "日历"
+                }
+              },
+              {
+                "id": "6a6ce06c454e29cc",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-flaticon",
+                  "state": {},
+                  "icon": "lucide-pen-tool",
+                  "title": "FlatIcon"
+                }
+              },
+              {
+                "id": "4d41a741d2c6f7d2",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-color",
+                  "state": {},
+                  "icon": "lucide-palette",
+                  "title": "Color"
+                }
+              },
+              {
+                "id": "8776889159f97ef2",
+                "type": "leaf",
+                "state": {
+                  "type": "tag",
+                  "state": {
+                    "sortOrder": "frequency",
+                    "useHierarchy": true,
+                    "showSearch": false,
+                    "searchQuery": ""
+                  },
+                  "icon": "lucide-tags",
+                  "title": "标签"
+                }
+              }
+            ]
+          },
+          {
+            "id": "5daaefc21cd763d1",
+            "type": "tabs",
+            "dimension": 64.375,
+            "children": [
+              {
+                "id": "a99b84b2f0119242",
+                "type": "leaf",
+                "state": {
+                  "type": "webviewer",
+                  "state": {
+                    "url": "https://yuewudev.feishu.cn/wiki/MXi4wobMPiSQDakg9QDcng6DnHh",
+                    "title": "使用指南 - 飞书云文档",
+                    "mode": "webview"
+                  },
+                  "icon": "globe-2",
+                  "title": "使用指南 - 飞书云文档"
+                }
+              },
+              {
+                "id": "fe3b8468e9607b89",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "游戏设计/设计/笔记/笔记.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "笔记"
+                }
+              },
+              {
+                "id": "02f2e835d3d9ca95",
+                "type": "leaf",
+                "state": {
+                  "type": "webviewer",
+                  "state": {
+                    "url": "https://zhuanlan.zhihu.com/p/482748722",
+                    "title": "UE4/UE5 骨骼动画 高级运动系统 走跑混合初步 - 知乎",
+                    "mode": "webview"
+                  },
+                  "icon": "globe-2",
+                  "title": "UE4/UE5 骨骼动画 高级运动系统 走跑混合初步 - 知乎"
+                }
+              }
+            ],
+            "currentTab": 2
+          }
+        ],
+        "direction": "horizontal",
+        "width": 567.5
+      },
+      "left-ribbon": {
+        "hiddenItems": {
+          "mermaid-tools:Open Mermaid Toolbar": false,
+          "templify:Templify 市场": false,
+          "obsidian42-brat:BRAT": false,
+          "obsidian-importer:Open Importer": true,
+          "obsidian-excalidraw-plugin:新建绘图文件": true,
+          "recent-notes:最近笔记": true,
+          "foldercanvas:Folder Canvas": false,
+          "ai-tagger-universe:Analyze and tag current note": false,
+          "ai-tagger-universe:View tag relationships network": false,
+          "better-plugins-manager:插件管理器": false,
+          "switcher:打开快速切换": true,
+          "canvas:新建白板": true,
+          "daily-notes:打开/创建今天的日记": true,
+          "templates:插入模板": true,
+          "command-palette:打开命令面板": true,
+          "webpage-html-export:Export Vault to HTML": true,
+          "workspaces:管理工作区布局": false,
+          "markdown-importer:打开 Markdown 格式转换器": true,
+          "templater-obsidian:Templater": true,
+          "obsidian-kanban:创建新看板": true
+        }
+      },
+      "active": "897ca3bef7bd5c51",
+      "mtime": "2025-05-18T22:42:57+08:00"
+    },
+    "小程序": {
+      "main": {
+        "id": "0e6bff715a839a8c",
+        "type": "split",
+        "children": [
+          {
+            "id": "7cba2b6cbdeeb261",
+            "type": "split",
+            "children": [
+              {
+                "id": "2f5620faea48f464",
+                "type": "tabs",
+                "dimension": 59.30501930501931,
+                "children": [
+                  {
+                    "id": "e0d8be83595a63f0",
+                    "type": "leaf",
+                    "pinned": true,
+                    "state": {
+                      "type": "markdown",
+                      "state": {
+                        "file": "工作/小程序/项目.md",
+                        "mode": "preview",
+                        "source": false,
+                        "backlinks": false
+                      },
+                      "pinned": true,
+                      "icon": "lucide-file",
+                      "title": "项目"
+                    }
+                  },
+                  {
+                    "id": "10025324a91b9979",
+                    "type": "leaf",
+                    "state": {
+                      "type": "markdown",
+                      "state": {
+                        "file": "工作/小程序/各种字体效果.md",
+                        "mode": "source",
+                        "source": false,
+                        "backlinks": false
+                      },
+                      "icon": "lucide-file",
+                      "title": "各种字体效果"
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "27e0e7e201a2a621",
+                "type": "tabs",
+                "dimension": 40.69498069498069,
+                "children": [
+                  {
+                    "id": "83435653c010079c",
+                    "type": "leaf",
+                    "pinned": true,
+                    "state": {
+                      "type": "webviewer",
+                      "state": {
+                        "url": "https://cm.mzlmwh.com/#/login?redirect=%2Fyoumengzi%2Farticle",
+                        "title": "云蒙旅图管理系统",
+                        "mode": "webview"
+                      },
+                      "pinned": true,
+                      "icon": "globe-2",
+                      "title": "云蒙旅图管理系统"
+                    }
+                  },
+                  {
+                    "id": "f04a36e1fc042fc8",
+                    "type": "leaf",
+                    "pinned": true,
+                    "state": {
+                      "type": "webviewer",
+                      "state": {
+                        "url": "http://222.219.132.247:50001/",
+                        "title": "1Panel",
+                        "mode": "webview"
+                      },
+                      "pinned": true,
+                      "icon": "globe-2",
+                      "title": "1Panel"
+                    }
+                  }
+                ]
+              }
+            ],
+            "direction": "horizontal"
+          }
+        ],
+        "direction": "vertical"
+      },
+      "left": {
+        "id": "d724488bda81f373",
+        "type": "split",
+        "children": [
+          {
+            "id": "db6b8a6c1bf25555",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "4ae88eaffc3c1175",
+                "type": "leaf",
+                "state": {
+                  "type": "search",
+                  "state": {
+                    "query": "",
+                    "matchingCase": false,
+                    "explainSearch": false,
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical"
+                  },
+                  "icon": "lucide-search",
+                  "title": "搜索"
+                }
+              },
+              {
+                "id": "f8da81aff81a2bae",
+                "type": "leaf",
+                "state": {
+                  "type": "ffs-plugin-file-tree-view",
+                  "state": {},
+                  "icon": "dock",
+                  "title": "FolderFile Splitter Plugin File Tree"
+                }
+              },
+              {
+                "id": "677775c9e415fe9a",
+                "type": "leaf",
+                "state": {
+                  "type": "file-explorer",
+                  "state": {
+                    "sortOrder": "alphabetical",
+                    "autoReveal": false
+                  },
+                  "icon": "lucide-folder-closed",
+                  "title": "文件列表"
+                }
+              }
+            ],
+            "currentTab": 2
+          },
+          {
+            "id": "8e3916be574aff0b",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "585c307d543993d0",
+                "type": "leaf",
+                "state": {
+                  "type": "vertical-tabs",
+                  "state": {},
+                  "icon": "vertical-tabs",
+                  "title": "Vertical tabs"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 448.50618982315063
+      },
+      "right": {
+        "id": "b36b03cb1af1b6e5",
+        "type": "split",
+        "children": [
+          {
+            "id": "031ef75e79971033",
+            "type": "tabs",
+            "dimension": 40.68150208623088,
+            "children": [
+              {
+                "id": "12d21c39b7035c05",
+                "type": "leaf",
+                "state": {
+                  "type": "tag",
+                  "state": {
+                    "sortOrder": "frequency",
+                    "useHierarchy": true,
+                    "showSearch": false,
+                    "searchQuery": ""
+                  },
+                  "icon": "lucide-tags",
+                  "title": "标签"
+                }
+              },
+              {
+                "id": "1f992bfff1f5be27",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-emoji",
+                  "state": {},
+                  "icon": "lucide-smile",
+                  "title": "Emoji"
+                }
+              },
+              {
+                "id": "4d41a741d2c6f7d2",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-color",
+                  "state": {},
+                  "icon": "lucide-palette",
+                  "title": "Color"
+                }
+              },
+              {
+                "id": "cbac27f86f93de2b",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-colorpicker",
+                  "state": {},
+                  "icon": "lucide-pipette",
+                  "title": "ColorPicker"
+                }
+              },
+              {
+                "id": "6a6ce06c454e29cc",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-flaticon",
+                  "state": {},
+                  "icon": "lucide-pen-tool",
+                  "title": "FlatIcon"
+                }
+              },
+              {
+                "id": "660facb97d855909",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-freebies",
+                  "state": {},
+                  "icon": "lucide-scan-line",
+                  "title": "Freebies"
+                }
+              }
+            ]
+          },
+          {
+            "id": "5daaefc21cd763d1",
+            "type": "tabs",
+            "dimension": 59.31849791376912,
+            "children": [
+              {
+                "id": "8fa756e0979cbd2e",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "kanban",
+                  "state": {
+                    "file": "工作/小程序/未命名看板.md",
+                    "kanbanViewState": {
+                      "kanban-plugin": "board",
+                      "list-collapse": [
+                        false,
+                        false
+                      ]
+                    }
+                  },
+                  "pinned": true,
+                  "icon": "lucide-trello",
+                  "title": "未命名看板"
+                }
+              },
+              {
+                "id": "bd5d047545b9bd96",
+                "type": "leaf",
+                "state": {
+                  "type": "excalidraw",
+                  "state": {
+                    "file": "工作/小程序/临时图文.md"
+                  },
+                  "icon": "excalidraw-icon",
+                  "title": "临时图文"
+                }
+              },
+              {
+                "id": "00e03e9623419b69",
+                "type": "leaf",
+                "state": {
+                  "type": "mx-webpage",
+                  "state": {
+                    "source": "https://cdn.jsdelivr.net/gh/cnwenzhihong/ImageHosting/ProjectMarkdown/20241113181942.png"
+                  },
+                  "icon": "lucide-file",
+                  "title": "插件不再活动"
+                }
+              }
+            ],
+            "currentTab": 1
+          }
+        ],
+        "direction": "horizontal",
+        "width": 946.5
+      },
+      "left-ribbon": {
+        "hiddenItems": {
+          "folder-file-splitter:FolderFile Splitter Plugin File Tree": true,
+          "recent-notes:最近笔记": true,
+          "foldercanvas:Folder Canvas": false,
+          "ai-tagger-universe:Analyze and tag current note": false,
+          "ai-tagger-universe:View tag relationships network": false,
+          "obsidian-importer:Open Importer": false,
+          "better-plugins-manager:插件管理器": false,
+          "switcher:打开快速切换": true,
+          "canvas:新建白板": true,
+          "daily-notes:打开/创建今天的日记": true,
+          "templates:插入模板": true,
+          "command-palette:打开命令面板": true,
+          "webpage-html-export:Export Vault to HTML": true,
+          "workspaces:管理工作区布局": false,
+          "markdown-importer:打开 Markdown 格式转换器": true,
+          "obsidian-focus-mode:Toggle Focus Mode (Shift + Click to show active pane only)": true,
+          "templater-obsidian:Templater": true,
+          "obsidian-excalidraw-plugin:新建绘图文件": true,
+          "obsidian-kanban:创建新看板": true
+        }
+      },
+      "active": "e0d8be83595a63f0",
+      "mtime": "2025-04-13T09:19:26+08:00"
+    },
+    "Obsidian": {
+      "main": {
+        "id": "0e6bff715a839a8c",
+        "type": "split",
+        "children": [
+          {
+            "id": "2f5620faea48f464",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "db87e0df22d335b3",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "电脑/知识管理/ob提示框(callout)样式展示.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "ob提示框(callout)样式展示"
+                }
+              },
+              {
+                "id": "876fc124fc8cb98e",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "电脑/知识管理/知识管理.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "知识管理"
+                }
+              }
+            ],
+            "currentTab": 1
+          }
+        ],
+        "direction": "vertical"
+      },
+      "left": {
+        "id": "d724488bda81f373",
+        "type": "split",
+        "children": [
+          {
+            "id": "db6b8a6c1bf25555",
+            "type": "tabs",
+            "dimension": 46.472392638036816,
+            "children": [
+              {
+                "id": "f007f48e10f5c3ef",
+                "type": "leaf",
+                "state": {
+                  "type": "file-explorer",
+                  "state": {
+                    "sortOrder": "alphabetical",
+                    "autoReveal": false
+                  },
+                  "icon": "lucide-folder-closed",
+                  "title": "文件列表"
+                }
+              },
+              {
+                "id": "4ae88eaffc3c1175",
+                "type": "leaf",
+                "state": {
+                  "type": "search",
+                  "state": {
+                    "query": "tag:#ALS",
+                    "matchingCase": false,
+                    "explainSearch": false,
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical"
+                  },
+                  "icon": "lucide-search",
+                  "title": "搜索"
+                }
+              },
+              {
+                "id": "8c2061d3ab861174",
+                "type": "leaf",
+                "state": {
+                  "type": "file-cardify-view",
+                  "state": {},
+                  "icon": "blocks",
+                  "title": "File Cardify View"
+                }
+              }
+            ]
+          },
+          {
+            "id": "52dd1d6072572f30",
+            "type": "tabs",
+            "dimension": 53.527607361963184,
+            "children": [
+              {
+                "id": "0c61a133aa17818a",
+                "type": "leaf",
+                "state": {
+                  "type": "recent-notes-view",
+                  "state": {},
+                  "icon": "clock-10",
+                  "title": "最近笔记"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 600.5
+      },
+      "right": {
+        "id": "b36b03cb1af1b6e5",
+        "type": "split",
+        "children": [
+          {
+            "id": "031ef75e79971033",
+            "type": "tabs",
+            "dimension": 55.28511821974965,
+            "children": [
+              {
+                "id": "feff2da0cd1d9eb5",
+                "type": "leaf",
+                "state": {
+                  "type": "quiet-outline",
+                  "state": {},
+                  "icon": "lucide-file",
+                  "title": "插件不再活动"
+                }
+              },
+              {
+                "id": "12d21c39b7035c05",
+                "type": "leaf",
+                "state": {
+                  "type": "tag",
+                  "state": {
+                    "sortOrder": "frequency",
+                    "useHierarchy": true,
+                    "showSearch": false,
+                    "searchQuery": ""
+                  },
+                  "icon": "lucide-tags",
+                  "title": "标签"
+                }
+              },
+              {
+                "id": "1f992bfff1f5be27",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-emoji",
+                  "state": {},
+                  "icon": "lucide-smile",
+                  "title": "Emoji"
+                }
+              },
+              {
+                "id": "4d41a741d2c6f7d2",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-color",
+                  "state": {},
+                  "icon": "lucide-palette",
+                  "title": "Color"
+                }
+              },
+              {
+                "id": "cbac27f86f93de2b",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-colorpicker",
+                  "state": {},
+                  "icon": "lucide-pipette",
+                  "title": "ColorPicker"
+                }
+              },
+              {
+                "id": "6a6ce06c454e29cc",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-flaticon",
+                  "state": {},
+                  "icon": "lucide-pen-tool",
+                  "title": "FlatIcon"
+                }
+              },
+              {
+                "id": "660facb97d855909",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-freebies",
+                  "state": {},
+                  "icon": "lucide-scan-line",
+                  "title": "Freebies"
+                }
+              }
+            ]
+          },
+          {
+            "id": "5daaefc21cd763d1",
+            "type": "tabs",
+            "dimension": 44.71488178025035,
+            "children": [
+              {
+                "id": "8de52c3be36970f4",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "chinese-calendar-view",
+                  "state": {},
+                  "pinned": true,
+                  "icon": "calendar-with-checkmark",
+                  "title": "日历"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 593.5
+      },
+      "left-ribbon": {
+        "hiddenItems": {
+          "mermaid-tools:Open Mermaid Toolbar": false,
+          "templify:Templify 市场": false,
+          "obsidian42-brat:BRAT": true,
+          "obsidian-excalidraw-plugin:新建绘图文件": true,
+          "obsidian-importer:Open Importer": false,
+          "switcher:打开快速切换": true,
+          "canvas:新建白板": true,
+          "daily-notes:打开/创建今天的日记": true,
+          "templates:插入模板": true,
+          "command-palette:打开命令面板": true,
+          "markdown-importer:打开 Markdown 格式转换器": false,
+          "templater-obsidian:Templater": true,
+          "obsidian-kanban:创建新看板": true,
+          "recent-notes:最近笔记": true,
+          "foldercanvas:Folder Canvas": false,
+          "ai-tagger-universe:Analyze and tag current note": true,
+          "ai-tagger-universe:View tag relationships network": true,
+          "webpage-html-export:Export Vault to HTML": true,
+          "better-plugins-manager:插件管理器": false,
+          "workspaces:管理工作区布局": false
+        }
+      },
+      "active": "f007f48e10f5c3ef",
+      "mtime": "2025-05-13T18:37:30+08:00"
+    },
+    "网站开发": {
+      "main": {
+        "id": "0e6bff715a839a8c",
+        "type": "split",
+        "children": [
+          {
+            "id": "fef06b74233ab803",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "5bd901ae23ecdff7",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "网站开发/1-Input/1-原始资料/标签管理.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "标签管理"
+                }
+              },
+              {
+                "id": "d75666f1faff848b",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "网站开发/2-output/通用知识管理中的分类问题.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "通用知识管理中的分类问题"
+                }
+              },
+              {
+                "id": "b63d6ed5b8205a48",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "游戏设计/设计/现代生存/实现方案.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "实现方案"
+                }
+              }
+            ],
+            "stacked": true
+          }
+        ],
+        "direction": "vertical"
+      },
+      "left": {
+        "id": "d724488bda81f373",
+        "type": "split",
+        "children": [
+          {
+            "id": "c9be65dbf2529a06",
+            "type": "tabs",
+            "dimension": 44.04761904761906,
+            "children": [
+              {
+                "id": "b7d5191fcf1256e4",
+                "type": "leaf",
+                "state": {
+                  "type": "file-explorer",
+                  "state": {
+                    "sortOrder": "alphabetical",
+                    "autoReveal": true
+                  },
+                  "icon": "lucide-folder-closed",
+                  "title": "文件列表"
+                }
+              },
+              {
+                "id": "dfd311068530cc55",
+                "type": "leaf",
+                "state": {
+                  "type": "tagfolder-view",
+                  "state": {},
+                  "icon": "stacked-levels",
+                  "title": "Tag Folder"
+                }
+              }
+            ]
+          },
+          {
+            "id": "db6b8a6c1bf25555",
+            "type": "tabs",
+            "dimension": 55.95238095238094,
+            "children": [
+              {
+                "id": "5bf81c224507d8f7",
+                "type": "leaf",
+                "state": {
+                  "type": "recent-notes-view",
+                  "state": {},
+                  "icon": "clock-10",
+                  "title": "最近笔记"
+                }
+              },
+              {
+                "id": "4ae88eaffc3c1175",
+                "type": "leaf",
+                "state": {
+                  "type": "search",
+                  "state": {
+                    "query": "",
+                    "matchingCase": false,
+                    "explainSearch": false,
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical"
+                  },
+                  "icon": "lucide-search",
+                  "title": "搜索"
+                }
+              }
+            ],
+            "currentTab": 1
+          }
+        ],
+        "direction": "horizontal",
+        "width": 387.51103591918945
+      },
+      "right": {
+        "id": "b36b03cb1af1b6e5",
+        "type": "split",
+        "children": [
+          {
+            "id": "5daaefc21cd763d1",
+            "type": "tabs",
+            "dimension": 50,
+            "children": [
+              {
+                "id": "a99b84b2f0119242",
+                "type": "leaf",
+                "state": {
+                  "type": "webviewer",
+                  "state": {
+                    "url": "https://yuewudev.feishu.cn/wiki/MXi4wobMPiSQDakg9QDcng6DnHh",
+                    "title": "使用指南 - 飞书云文档",
+                    "mode": "webview"
+                  },
+                  "icon": "globe-2",
+                  "title": "使用指南 - 飞书云文档"
+                }
+              },
+              {
+                "id": "fe3b8468e9607b89",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "游戏设计/设计/笔记/笔记.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "笔记"
+                }
+              },
+              {
+                "id": "02f2e835d3d9ca95",
+                "type": "leaf",
+                "state": {
+                  "type": "webviewer",
+                  "state": {
+                    "url": "https://zhuanlan.zhihu.com/p/482748722",
+                    "title": "UE4/UE5 骨骼动画 高级运动系统 走跑混合初步 - 知乎",
+                    "mode": "webview"
+                  },
+                  "icon": "globe-2",
+                  "title": "UE4/UE5 骨骼动画 高级运动系统 走跑混合初步 - 知乎"
+                }
+              },
+              {
+                "id": "4d41a741d2c6f7d2",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-color",
+                  "state": {},
+                  "icon": "lucide-palette",
+                  "title": "Color"
+                }
+              },
+              {
+                "id": "6a6ce06c454e29cc",
+                "type": "leaf",
+                "state": {
+                  "type": "custom-frames-flaticon",
+                  "state": {},
+                  "icon": "lucide-pen-tool",
+                  "title": "FlatIcon"
+                }
+              },
+              {
+                "id": "8776889159f97ef2",
+                "type": "leaf",
+                "state": {
+                  "type": "tag",
+                  "state": {
+                    "sortOrder": "frequency",
+                    "useHierarchy": true,
+                    "showSearch": false,
+                    "searchQuery": ""
+                  },
+                  "icon": "lucide-tags",
+                  "title": "标签"
+                }
+              },
+              {
+                "id": "229e8ef72d8e034c",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "电脑/知识管理/知识管理.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "知识管理"
+                }
+              },
+              {
+                "id": "76795673805d958a",
+                "type": "leaf",
+                "state": {
+                  "type": "mk-path-view",
+                  "state": {},
+                  "icon": "layout-grid",
+                  "title": "Navigator"
+                }
+              }
+            ],
+            "currentTab": 7
+          },
+          {
+            "id": "9402c024654318d6",
+            "type": "tabs",
+            "dimension": 50,
+            "children": [
+              {
+                "id": "7994fd2f6e4c2bc1",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "chinese-calendar-view",
+                  "state": {},
+                  "pinned": true,
+                  "icon": "calendar-with-checkmark",
+                  "title": "日历"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 572.5
+      },
+      "left-ribbon": {
+        "hiddenItems": {
+          "obsidian-importer:Open Importer": false,
+          "obsidian-excalidraw-plugin:新建绘图文件": true,
+          "recent-notes:最近笔记": true,
+          "foldercanvas:Folder Canvas": false,
+          "ai-tagger-universe:Analyze and tag current note": false,
+          "ai-tagger-universe:View tag relationships network": false,
+          "better-plugins-manager:插件管理器": false,
+          "switcher:打开快速切换": true,
+          "canvas:新建白板": true,
+          "daily-notes:打开/创建今天的日记": true,
+          "templates:插入模板": true,
+          "command-palette:打开命令面板": true,
+          "webpage-html-export:Export Vault to HTML": true,
+          "workspaces:管理工作区布局": false,
+          "markdown-importer:打开 Markdown 格式转换器": true,
+          "templater-obsidian:Templater": true,
+          "obsidian-kanban:创建新看板": true,
+          "obsidian42-brat:BRAT": false
+        }
+      },
+      "active": "5bd901ae23ecdff7",
+      "mtime": "2025-04-21T00:50:19+08:00"
+    },
+    "游戏设计": {
+      "main": {
+        "id": "0e6bff715a839a8c",
+        "type": "split",
+        "children": [
+          {
+            "id": "2f5620faea48f464",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "db87e0df22d335b3",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "电脑/知识管理/ob提示框(callout)样式展示.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "ob提示框(callout)样式展示"
+                }
+              },
+              {
+                "id": "876fc124fc8cb98e",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "电脑/知识管理/知识管理.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "知识管理"
+                }
+              },
+              {
+                "id": "b27c3ffc3acf3a76",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "游戏设计/1-Input/GDC13 十个优秀关卡设计的原则.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "GDC13 十个优秀关卡设计的原则"
+                }
+              }
+            ],
+            "currentTab": 2
+          }
+        ],
+        "direction": "vertical"
+      },
+      "left": {
+        "id": "d724488bda81f373",
+        "type": "split",
+        "children": [
+          {
+            "id": "db6b8a6c1bf25555",
+            "type": "tabs",
+            "dimension": 46.472392638036816,
+            "children": [
+              {
+                "id": "f007f48e10f5c3ef",
+                "type": "leaf",
+                "state": {
+                  "type": "file-explorer",
+                  "state": {
+                    "sortOrder": "alphabetical",
+                    "autoReveal": false
+                  },
+                  "icon": "lucide-folder-closed",
+                  "title": "文件列表"
+                }
+              },
+              {
+                "id": "4ae88eaffc3c1175",
+                "type": "leaf",
+                "state": {
+                  "type": "search",
+                  "state": {
+                    "query": "tag:#ALS",
+                    "matchingCase": false,
+                    "explainSearch": false,
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical"
+                  },
+                  "icon": "lucide-search",
+                  "title": "搜索"
+                }
+              },
+              {
+                "id": "9b1121e6d7be9830",
+                "type": "leaf",
+                "state": {
+                  "type": "tagfolder-view",
+                  "state": {},
+                  "icon": "stacked-levels",
+                  "title": "Tag Folder"
+                }
+              }
+            ],
+            "currentTab": 2
+          },
+          {
+            "id": "52dd1d6072572f30",
+            "type": "tabs",
+            "dimension": 53.527607361963184,
+            "children": [
+              {
+                "id": "0c61a133aa17818a",
+                "type": "leaf",
+                "state": {
+                  "type": "recent-notes-view",
+                  "state": {},
+                  "icon": "clock-10",
+                  "title": "最近笔记"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 518.0094337463379
+      },
+      "right": {
+        "id": "b36b03cb1af1b6e5",
+        "type": "split",
+        "children": [
+          {
+            "id": "031ef75e79971033",
+            "type": "tabs",
+            "dimension": 51.95702225633154,
+            "children": [
+              {
+                "id": "703196ee241b82cf",
+                "type": "leaf",
+                "state": {
+                  "type": "outline",
+                  "state": {
+                    "file": "游戏设计/1-Input/GDC13 十个优秀关卡设计的原则.md",
+                    "followCursor": false,
+                    "showSearch": false,
+                    "searchQuery": ""
+                  },
+                  "icon": "lucide-list",
+                  "title": "GDC13 十个优秀关卡设计的原则 的大纲"
+                }
+              },
+              {
+                "id": "12d21c39b7035c05",
+                "type": "leaf",
+                "state": {
+                  "type": "tag",
+                  "state": {
+                    "sortOrder": "frequency",
+                    "useHierarchy": true,
+                    "showSearch": false,
+                    "searchQuery": ""
+                  },
+                  "icon": "lucide-tags",
+                  "title": "标签"
+                }
+              },
+              {
+                "id": "ca98cde92a0acd62",
+                "type": "leaf",
+                "state": {
+                  "type": "mermaid-toolbar-view",
+                  "state": {},
+                  "icon": "trident-custom",
+                  "title": "Mermaid Toolbar"
+                }
+              }
+            ],
+            "currentTab": 2
+          },
+          {
+            "id": "5daaefc21cd763d1",
+            "type": "tabs",
+            "dimension": 48.04297774366846,
+            "children": [
+              {
+                "id": "8de52c3be36970f4",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "chinese-calendar-view",
+                  "state": {},
+                  "pinned": true,
+                  "icon": "calendar-with-checkmark",
+                  "title": "日历"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 872.5
+      },
+      "left-ribbon": {
+        "hiddenItems": {
+          "mermaid-tools:Open Mermaid Toolbar": false,
+          "templify:Templify 市场": false,
+          "obsidian42-brat:BRAT": true,
+          "obsidian-excalidraw-plugin:新建绘图文件": true,
+          "obsidian-importer:Open Importer": false,
+          "switcher:打开快速切换": true,
+          "canvas:新建白板": true,
+          "daily-notes:打开/创建今天的日记": true,
+          "templates:插入模板": true,
+          "command-palette:打开命令面板": true,
+          "markdown-importer:打开 Markdown 格式转换器": false,
+          "templater-obsidian:Templater": true,
+          "obsidian-kanban:创建新看板": true,
+          "recent-notes:最近笔记": true,
+          "foldercanvas:Folder Canvas": false,
+          "webpage-html-export:Export Vault to HTML": true,
+          "better-plugins-manager:插件管理器": false,
+          "workspaces:管理工作区布局": false,
+          "obsidian-advanced-slides:Show Slide Preview": false
+        }
+      },
+      "active": "b27c3ffc3acf3a76",
+      "mtime": "2025-05-20T19:04:56+08:00"
+    },
+    "GDC翻译": {
+      "main": {
+        "id": "0e6bff715a839a8c",
+        "type": "split",
+        "children": [
+          {
+            "id": "2f5620faea48f464",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "db87e0df22d335b3",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "电脑/知识管理/ob提示框(callout)样式展示.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "ob提示框(callout)样式展示"
+                }
+              },
+              {
+                "id": "876fc124fc8cb98e",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "电脑/知识管理/知识管理.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "知识管理"
+                }
+              },
+              {
+                "id": "b27c3ffc3acf3a76",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "游戏设计/1-Input/GDC10 席德梅尔的游戏设计心理学.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "GDC10 席德梅尔的游戏设计心理学"
+                }
+              },
+              {
+                "id": "ca691e4079b2d311",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "游戏设计/1-Input/GDC12 我如何让妈妈玩《植物大战僵尸》.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "GDC12 我如何让妈妈玩《植物大战僵尸》"
+                }
+              }
+            ],
+            "currentTab": 3
+          }
+        ],
+        "direction": "vertical"
+      },
+      "left": {
+        "id": "d724488bda81f373",
+        "type": "split",
+        "children": [
+          {
+            "id": "db6b8a6c1bf25555",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "f007f48e10f5c3ef",
+                "type": "leaf",
+                "state": {
+                  "type": "file-explorer",
+                  "state": {
+                    "sortOrder": "alphabetical",
+                    "autoReveal": false
+                  },
+                  "icon": "lucide-folder-closed",
+                  "title": "文件列表"
+                }
+              },
+              {
+                "id": "4ae88eaffc3c1175",
+                "type": "leaf",
+                "state": {
+                  "type": "search",
+                  "state": {
+                    "query": "tag:GameDesign",
+                    "matchingCase": false,
+                    "explainSearch": true,
+                    "collapseAll": false,
+                    "extraContext": false,
+                    "sortOrder": "alphabetical"
+                  },
+                  "icon": "lucide-search",
+                  "title": "搜索"
+                }
+              }
+            ],
+            "currentTab": 1
+          },
+          {
+            "id": "93e3e300ba6d7861",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "d7430313b1c524ce",
+                "type": "leaf",
+                "state": {
+                  "type": "recent-notes-view",
+                  "state": {},
+                  "icon": "clock-10",
+                  "title": "最近笔记"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 277
+      },
+      "right": {
+        "id": "b36b03cb1af1b6e5",
+        "type": "split",
+        "children": [
+          {
+            "id": "031ef75e79971033",
+            "type": "tabs",
+            "dimension": 49.27091327705295,
+            "children": [
+              {
+                "id": "cad6ebfec1cbb3c8",
+                "type": "leaf",
+                "state": {
+                  "type": "quiet-outline",
+                  "state": {},
+                  "icon": "lines-of-text",
+                  "title": "Quiet Outline"
+                }
+              },
+              {
+                "id": "12d21c39b7035c05",
+                "type": "leaf",
+                "state": {
+                  "type": "tag",
+                  "state": {
+                    "sortOrder": "frequency",
+                    "useHierarchy": true,
+                    "showSearch": false,
+                    "searchQuery": ""
+                  },
+                  "icon": "lucide-tags",
+                  "title": "标签"
+                }
+              },
+              {
+                "id": "bce58bee7b9a2d76",
+                "type": "leaf",
+                "state": {
+                  "type": "chinese-calendar-view",
+                  "state": {},
+                  "icon": "calendar-with-checkmark",
+                  "title": "日历"
+                }
+              }
+            ],
+            "currentTab": 2
+          },
+          {
+            "id": "cfdcb13144ca4fea",
+            "type": "tabs",
+            "dimension": 50.72908672294705,
+            "children": [
+              {
+                "id": "4f441964a9c5b937",
+                "type": "leaf",
+                "pinned": true,
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "游戏设计/1-Input/GDC文章翻译汇总提示词.md",
+                    "mode": "source",
+                    "source": false,
+                    "backlinks": false
+                  },
+                  "pinned": true,
+                  "icon": "lucide-file",
+                  "title": "GDC文章翻译汇总提示词"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal",
+        "width": 361
+      },
+      "left-ribbon": {
+        "hiddenItems": {
+          "local-media-embedder:Toggle media server": true,
+          "pkmer:Open Pkmer Market": true,
+          "switcher:打开快速切换": true,
+          "canvas:新建白板": true,
+          "daily-notes:打开/创建今天的日记": true,
+          "templates:插入模板": true,
+          "command-palette:打开命令面板": true,
+          "markdown-importer:打开 Markdown 格式转换器": true,
+          "webpage-html-export:Export Vault to HTML": true,
+          "obsidian-advanced-slides:Show Slide Preview": true,
+          "obsidian-excalidraw-plugin:新建绘图文件": true,
+          "obsidian-focus-mode:Toggle Focus Mode (Shift + Click to show active pane only)": true,
+          "foldercanvas:Folder Canvas": true,
+          "obsidian-importer:Open Importer": true,
+          "obsidian-kanban:创建新看板": true,
+          "mermaid-tools:Open Mermaid Toolbar": false,
+          "recent-notes:最近笔记": true,
+          "templater-obsidian:Templater": true,
+          "templify:Templify 市场": false,
+          "better-plugins-manager:插件管理器": false,
+          "workspaces:管理工作区布局": false
+        }
+      },
+      "active": "ca691e4079b2d311",
+      "mtime": "2025-08-15T18:14:49+08:00"
+    }
+  },
+  "active": "GDC翻译"
+}
