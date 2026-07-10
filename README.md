@@ -1,7 +1,7 @@
 # WorkSpace Plus Group
 
-Enhanced workspace management for Obsidian's built-in Workspaces core plugin — workspace hierarchy, mode switching,and quickly switch workspaces via shortcut keys
-增强 Obsidian 原生 Workspaces 核心插件，提供工作区层级管理、模式切换和通过快捷键快速切换工作区
+Enhanced workspace management for Obsidian's built-in Workspaces core plugin — workspace hierarchy, mode switching, and quickly switch workspaces via shortcut keys.
+增强 Obsidian 原生 Workspaces 核心插件，提供工作区层级管理、模式切换和通过快捷键快速切换工作区。
 
 > **Prerequisite / 前提**：Enable the **Workspaces** core plugin in Settings → Core Plugins.
 > 需先在 设置 → 核心插件 中启用 **Workspaces** 插件。
@@ -11,25 +11,34 @@ Enhanced workspace management for Obsidian's built-in Workspaces core plugin —
 ## Features / 功能
 
 ### Quick Workspace Switcher / 快速切换
+
 Open via command palette or click the status bar workspace name or bind shortcut keys(**recommend shift+tab**). Fuzzy search with keyboard shortcuts — type a new name and press **Enter** to create a new workspace.
 通过命令面板或状态栏或快捷键(**推荐 shift+tab**)打开，模糊搜索，输入新名称按 **Enter** 直接创建新工作区。
 ![](https://github.com/cnwenzhihong/Obsidian-workspace-plus-group/blob/main/docs/Assets/Example_pop.png)
 
 ### Workspace Hierarchy / 工作区层级
+
 Drag and drop workspaces in the settings panel to build parent-child relationships, clearly displayed with indentation in the switcher modal.
 在设置面板拖拽建立父子层级，弹窗中带缩进显示。
 
-- **Make Child / 建立父子**：Drag onto the row **center** (solid outline) → becomes a child. 拖到行中央（实线框）→ 成为子工作区
-- **Reorder / 同级排序**：Drag to the row **edge** 25% (colored insertion line) → adjust sibling order. 拖到边缘 25%（彩色插入线）→ 同级排序
-- **Collapse/Expand / 折叠展开**：Click the triangle left of a parent. 点击父工作区左侧三角按钮
+- **Make Child / 建立父子**：Drag onto the row **center** (solid outline) → becomes a child.
+  拖到行中央（实线框）→ 成为子工作区
+- **Reorder / 同级排序**：Drag to the row **edge** 25% (colored insertion line) → adjust sibling order.
+  拖到边缘 25%（彩色插入线）→ 同级排序
+- **Collapse/Expand / 折叠展开**：Click the triangle left of a parent.
+  点击父工作区左侧三角按钮
 ![](https://github.com/cnwenzhihong/Obsidian-workspace-plus-group/blob/main/docs/Assets/Example_Settings.png)
 
 ### Workspace Modes / 工作区模式
+
 Bind independent Obsidian global settings (theme, font, etc.) to each workspace. Switching applies them automatically.
 为每个工作区绑定独立设置方案，切换时自动应用。
 
 ### Status Bar / 状态栏
-Shows current workspace and mode. **Shift+Click** to save. 显示当前名称，Shift+Click 快速保存。
+
+Shows current workspace and mode. **Shift+Click** to save.
+
+显示当前名称，Shift+Click 快速保存。
 
 ---
 
@@ -95,9 +104,11 @@ Each workspace auto-registers as `workspace-plus-group:<name>`, bindable to cust
 ## Installation / 安装
 
 ### Community Plugin Browser / 插件市场
+
 Search "WorkSpace Plus Group" → Install and enable.
 
 ### Manual / 手动
+
 Download `main.js`, `styles.css`, `manifest.json` → place in `<vault>/.obsidian/plugins/workspace-plus-group/` → restart and enable.
 
 ---
@@ -115,4 +126,3 @@ Original author / 原作者：[NothingIsLost](https://github.com/nothingislost)
 ---
 
 > Desktop only / 仅桌面端 · Requires Obsidian 1.5.0+
-
