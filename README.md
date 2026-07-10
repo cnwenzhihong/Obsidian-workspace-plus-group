@@ -6,6 +6,7 @@ Enhanced workspace management for Obsidian's built-in Workspaces core plugin —
 > **Prerequisite**：Enable the **Workspaces** core plugin in Settings → Core Plugins.  
 > **前提**：需先在 设置 → 核心插件 中启用 **Workspaces** 插件。
 
+![](https://repository-images.githubusercontent.com/1296781735/00c44b90-4822-4458-803a-efb42c786e7e)
 ---
 
 ## Features / 功能
