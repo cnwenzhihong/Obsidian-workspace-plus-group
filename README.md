@@ -31,8 +31,9 @@ Drag and drop workspaces in the settings panel to build parent-child relationshi
 
 ### Workspace Modes / 工作区模式
 
-Bind independent Obsidian global settings (theme, font, etc.) to each workspace. Switching applies them automatically.  
-为每个工作区绑定独立设置方案，切换时自动应用。
+Bind independent Obsidian global settings (theme, font, etc.) to each workspace. Switching applies them automatically.  The experimental function of the original author is not recommended.
+
+为每个工作区绑定独立设置方案，切换时自动应用。原作者的实验性功能，不推荐开启。
 
 ### Status Bar / 状态栏
 
