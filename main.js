@@ -2489,6 +2489,70 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         if (name === this.plugin.workspacePlugin.activeWorkspace) {
             nameEl.addClass("is-active");
         }
+        // Rename / Delete action buttons
+        const actions = row.createSpan({ cls: "hierarchy-actions" });
+        const renameBtn = actions.createSpan({ cls: "hierarchy-action-btn" });
+        renameBtn.setAttribute("aria-label", t("rename-workspace"));
+        renameBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12.9 6.858l4.242 4.243L7.242 21H3v-4.243l9.9-9.9zm1.414-1.414l2.121-2.122a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414l-2.122 2.121-4.242-4.242z"/></svg>`;
+        renameBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (nameEl.contentEditable === "true") {
+                const newName = nameEl.textContent.trim();
+                nameEl.contentEditable = "false";
+                nameEl.textContent = name;
+                if (newName && newName !== name && !this.plugin.workspacePlugin.workspaces[newName]) {
+                    this.renameInSettings(name, newName);
+                    this.plugin.saveData(this.plugin.settings);
+                    this.renderHierarchy(treeContainer);
+                }
+            } else {
+                nameEl.contentEditable = "true";
+                nameEl.focus();
+                const range = document.createRange();
+                range.selectNodeContents(nameEl);
+                const sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+                const commit = () => {
+                    const newName = nameEl.textContent.trim();
+                    nameEl.contentEditable = "false";
+                    if (newName && newName !== name && !this.plugin.workspacePlugin.workspaces[newName]) {
+                        this.renameInSettings(name, newName);
+                        this.plugin.saveData(this.plugin.settings);
+                        this.renderHierarchy(treeContainer);
+                    } else {
+                        nameEl.textContent = name;
+                    }
+                };
+                nameEl.onblur = commit;
+                nameEl.onkeydown = (ev) => {
+                    if (ev.key === "Enter") { ev.preventDefault(); commit(); }
+                    if (ev.key === "Escape") { nameEl.contentEditable = "false"; nameEl.textContent = name; }
+                };
+            }
+        });
+        const deleteBtn = actions.createSpan({ cls: "hierarchy-action-btn" });
+        deleteBtn.setAttribute("aria-label", t("delete-workspace"));
+        deleteBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M7 4V2h10v2h5v2h-2v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z"/></svg>`;
+        deleteBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (this.plugin.settings.showDeletePrompt) {
+                createConfirmationDialog(this.plugin.app, {
+                    cta: t("delete"),
+                    onAccept: () => __awaiter(this, void 0, void 0, function* () {
+                        this.plugin.workspacePlugin.deleteWorkspace(name);
+                        this.renderHierarchy(treeContainer);
+                    }),
+                    text: t("workspace-delete-confirm-text").replace("{}", name),
+                    title: t("workspace-delete-confirm-title"),
+                });
+            } else {
+                this.plugin.workspacePlugin.deleteWorkspace(name);
+                this.renderHierarchy(treeContainer);
+            }
+        });
+        // Spacer to push actions to the right
+        row.createSpan({ cls: "hierarchy-spacer" });
         // Drag and drop — two behaviors:
         //   Drop on row center → reparent (make child)
         //   Drop on row edge 25% → reorder (sibling before/after)
@@ -2646,6 +2710,15 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             targetChildren.splice(targetIdx + 1, 0, dragName);
         }
         return true;
+    }
+    renameInSettings(oldName, newName) {
+        this.plugin.workspacePlugin.workspaces[newName] = this.plugin.workspacePlugin.workspaces[oldName];
+        delete this.plugin.workspacePlugin.workspaces[oldName];
+        if (this.plugin.workspacePlugin.activeWorkspace === oldName) {
+            this.plugin.workspacePlugin.setActiveWorkspace(newName);
+        }
+        this.plugin.workspacePlugin.saveData();
+        this.plugin.renameInHierarchy(oldName, newName);
     }
 }
 // setting.settingEl.addEventListener("click", (e) => {

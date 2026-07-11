@@ -384,6 +384,43 @@ body.is-mobile .side-dock-actions div[aria-label="Manage modes"] svg {
   color: var(--text-accent);
 }
 
+.hierarchy-spacer {
+  flex: 1;
+}
+
+.hierarchy-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 100ms ease;
+}
+
+.hierarchy-row:hover .hierarchy-actions {
+  opacity: 1;
+}
+
+.hierarchy-action-btn {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  color: var(--text-muted);
+  border-radius: 3px;
+}
+
+.hierarchy-action-btn:hover {
+  background-color: var(--background-modifier-hover);
+  color: var(--text-accent);
+}
+
+.hierarchy-action-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
 /* ---- Modal Hierarchy Collapse Button ---- */
 
 .hierarchy-modal-collapse {
