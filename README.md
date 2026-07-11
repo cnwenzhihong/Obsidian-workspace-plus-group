@@ -27,6 +27,10 @@ Drag and drop workspaces in the settings panel to build parent-child relationshi
 | Make Child | Drag onto the row **center** (solid outline) → becomes a child | 建立父子 | 拖到行中央（实线框）→ 成为子工作区 |
 | Reorder | Drag to the row **edge** 25% (colored insertion line) → adjust sibling order | 同级排序 | 拖到边缘 25%（彩色插入线）→ 同级排序 |
 | Collapse/Expand | Click the triangle left of a parent | 折叠展开 | 点击父工作区左侧三角按钮 |
+| Create Workspace | Type name and click **Create** in the hierarchy section | 创建工作区 | 输入名称后点击**创建**按钮 |
+| Create as Child | Type name and click **Create as child** or press **Enter** | 创建子工作区 | 输入名称后点击**创建子工作区**或按**回车** |
+| Rename | **Double-click** name or click ✏️ icon → Enter to confirm | 重命名 | **双击**名称或点击 ✏️ 图标 → 回车确认 |
+| Delete | Click 🗑️ icon (hover to reveal) | 删除 | 点击 🗑️ 图标（hover 显示） |
 
 ![](https://github.com/cnwenzhihong/Obsidian-workspace-plus-group/blob/main/docs/Assets/Example_Settings.png)
 
