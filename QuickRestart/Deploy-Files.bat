@@ -7,7 +7,7 @@ powershell.exe ^
   -ExecutionPolicy Bypass ^
   -File "%~dp0Deploy-ObsidianPlugin.ps1" ^
   -Mode "Files" ^
-  -SourceRoot "F:\AI\Obsidian\workspace-plus-group" ^
+  -SourceRoot "F:\AI\Obsidian\Obsidian-workspace-plus-group" ^
   -TargetPluginDir "D:\project\obsidian\生活笔记\.obsidian\plugins\workspace-plus-group"
 
 if errorlevel 1 (

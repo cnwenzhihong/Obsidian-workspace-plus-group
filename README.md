@@ -97,10 +97,12 @@ Shows current workspace and mode. **Shift+Click** to save.
 
 ## Commands / 命令
 
-- **Open WorkSpace Plus Group / 打开工作区切换器**
-- **Save workspace / 保存工作区**
-- **Open WorkSpace Plus Group Modes / 打开模式切换器** (requires Workspace Modes)
-
+- **Open WorkSpace Plus Group**
+- **Save workspace**
+- **Open WorkSpace Plus Group Modes** (requires Workspace Modes)
+- **打开工作区切换器**
+- **保存工作区**
+- **打开模式切换器**(需要开启工作区模式)
 Each workspace auto-registers as `workspace-plus-group:<name>`, bindable to custom hotkeys.  
 每个工作区自动注册为独立命令，可绑定快捷键。
 
