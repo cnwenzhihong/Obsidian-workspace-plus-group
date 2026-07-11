@@ -263,10 +263,10 @@ body.is-mobile .side-dock-actions div[aria-label="Manage modes"] svg {
 }
 
 /* Compact dropdown in hierarchy section */
-.hierarchy-compact-setting {
-  border-top: none !important;
-  padding-top: 4px !important;
-  padding-bottom: 4px !important;
+.settings-container .hierarchy-compact-setting.setting-item {
+  border-top: none;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 .workspace-hierarchy-tree .setting-item-description {
