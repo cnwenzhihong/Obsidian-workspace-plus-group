@@ -2501,6 +2501,7 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             const originalName = nameEl.textContent;
             nameEl.contentEditable = "true";
             nameEl.focus();
+            row.addClass("is-editing");
             const range = document.createRange();
             range.selectNodeContents(nameEl);
             const sel = window.getSelection();
@@ -2509,6 +2510,7 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             const commit = () => {
                 const newName = nameEl.textContent.trim();
                 nameEl.contentEditable = "false";
+                row.removeClass("is-editing");
                 if (newName && newName !== originalName && !this.plugin.workspacePlugin.workspaces[newName]) {
                     this.renameInSettings(originalName, newName);
                     this.plugin.saveData(this.plugin.settings);
@@ -2520,7 +2522,7 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             nameEl.onblur = commit;
             nameEl.onkeydown = (ev) => {
                 if (ev.key === "Enter") { ev.preventDefault(); commit(); }
-                if (ev.key === "Escape") { nameEl.contentEditable = "false"; nameEl.textContent = originalName; }
+                if (ev.key === "Escape") { nameEl.contentEditable = "false"; nameEl.textContent = originalName; row.removeClass("is-editing"); }
             };
         };
         renameBtn.addEventListener("click", (e) => { e.stopPropagation(); startRename(); });
