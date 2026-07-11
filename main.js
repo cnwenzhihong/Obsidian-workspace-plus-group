@@ -2394,7 +2394,7 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         });
         const childBtn = createRow.createEl("button", {
             text: t("create-child-workspace"),
-            cls: "hierarchy-create-btn mod-child",
+            cls: "hierarchy-create-btn",
         });
         childBtn.addEventListener("click", () => {
             const name = nameInput.value.trim();

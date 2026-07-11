@@ -262,16 +262,6 @@ body.is-mobile .side-dock-actions div[aria-label="Manage modes"] svg {
   background: var(--interactive-accent-hover);
 }
 
-.hierarchy-create-btn.mod-child {
-  background: var(--background-modifier-border);
-  color: var(--text-muted);
-}
-
-.hierarchy-create-btn.mod-child:hover {
-  background: var(--background-modifier-hover);
-  color: var(--text-normal);
-}
-
 /* Compact dropdown in hierarchy section */
 .hierarchy-compact-setting {
   border-top: none !important;
