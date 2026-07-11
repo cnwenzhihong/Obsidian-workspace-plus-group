@@ -376,11 +376,6 @@ body.is-mobile .side-dock-actions div[aria-label="Manage modes"] svg {
 .hierarchy-row.is-editing {
   cursor: default;
 }
-  font-size: var(--font-ui-small);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 
 .hierarchy-name.is-active {
   font-weight: 600;
