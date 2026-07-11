@@ -223,6 +223,45 @@ body.is-mobile .side-dock-actions div[aria-label="Manage modes"] svg {
   margin: 8px 0 16px 0;
 }
 
+.hierarchy-create-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.hierarchy-create-input {
+  flex: 1;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 4px;
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-size: var(--font-ui-small);
+}
+
+.hierarchy-create-input:focus {
+  border-color: var(--interactive-accent);
+  box-shadow: 0 0 0 1px var(--interactive-accent);
+  outline: none;
+}
+
+.hierarchy-create-btn {
+  height: 30px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 4px;
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+  font-size: var(--font-ui-small);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.hierarchy-create-btn:hover {
+  background: var(--interactive-accent-hover);
+}
+
 .workspace-hierarchy-tree .setting-item-description {
   margin-bottom: 12px;
 }

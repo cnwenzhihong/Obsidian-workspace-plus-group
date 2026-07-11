@@ -2215,6 +2215,8 @@ const STRINGS = {
     "expand-workspace": { en: "Expand children", zh: "展开子工作区" },
     "move-as-root": { en: "Move to root level", zh: "移至根层级" },
     "set-as-child": { en: "Set as child", zh: "设为子工作区" },
+    "new-workspace-placeholder": { en: "New workspace name...", zh: "新工作区名称..." },
+    "create-workspace": { en: "Create", zh: "创建" },
 };
 
 let _lang = null;
@@ -2333,6 +2335,30 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         }));
         const hierarchyEl = this.addSection(containerEl, "hierarchy", t("hierarchy"));
         hierarchyEl.createEl("p", { cls: "setting-item-description", text: t("hierarchy-desc") });
+        const createRow = hierarchyEl.createDiv({ cls: "hierarchy-create-row" });
+        const nameInput = createRow.createEl("input", {
+            type: "text",
+            placeholder: t("new-workspace-placeholder"),
+            cls: "hierarchy-create-input",
+        });
+        const createBtn = createRow.createEl("button", {
+            text: t("create-workspace"),
+            cls: "hierarchy-create-btn",
+        });
+        createBtn.addEventListener("click", () => {
+            const name = nameInput.value.trim();
+            if (!name) return;
+            if (this.plugin.workspacePlugin.workspaces[name]) {
+                new obsidian.Notice("Workspace already exists: " + name);
+                return;
+            }
+            this.plugin.workspacePlugin.saveWorkspace(name);
+            nameInput.value = "";
+            this.renderHierarchy(treeContainer);
+        });
+        nameInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") { createBtn.click(); }
+        });
         const treeContainer = hierarchyEl.createDiv({ cls: "workspace-hierarchy-tree" });
         this.renderHierarchy(treeContainer);
         new obsidian.Setting(hierarchyEl)
