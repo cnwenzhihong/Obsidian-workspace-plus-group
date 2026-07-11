@@ -179,6 +179,7 @@ main.js
 10. **弹窗折叠点击**：先保存当前选中项，`updateSuggestions` 后重新 `setSelectedItem`，避免焦点跳走
 11. **弹窗折叠存储**："inherit" 读/写 `collapsedWorkspaces`，"independent" 读/写 `modalCollapsedWorkspaces`，"all-expanded"/"all-collapsed" 以 `modalCollapsedWorkspaces` 作为单项覆盖
 12. **依赖原生 Workspaces 插件**，通过 `around` Hook 原生方法
+13. **CSS 禁用 `!important`**：Obsidian 插件审核会拒绝 `!important`。应通过提高选择器特异性覆盖默认样式（如用 `.settings-container .hierarchy-compact-setting.setting-item` 代替 `.setting-item`）
 
 ## 快捷键
 
