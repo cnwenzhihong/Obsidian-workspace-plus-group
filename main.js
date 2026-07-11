@@ -2489,6 +2489,8 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         if (name === this.plugin.workspacePlugin.activeWorkspace) {
             nameEl.addClass("is-active");
         }
+        // Spacer to push action buttons to the right edge
+        row.createSpan({ cls: "hierarchy-spacer" });
         // Rename / Delete action buttons
         const actions = row.createSpan({ cls: "hierarchy-actions" });
         const renameBtn = actions.createSpan({ cls: "hierarchy-action-btn" });
@@ -2543,8 +2545,6 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
                 this.renderHierarchy(treeContainer);
             }
         });
-        // Spacer to push actions to the right
-        row.createSpan({ cls: "hierarchy-spacer" });
         // Drag and drop — two behaviors:
         //   Drop on row center → reparent (make child)
         //   Drop on row edge 25% → reorder (sibling before/after)
