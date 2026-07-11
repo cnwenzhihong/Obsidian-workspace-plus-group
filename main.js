@@ -2494,43 +2494,35 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         const renameBtn = actions.createSpan({ cls: "hierarchy-action-btn" });
         renameBtn.setAttribute("aria-label", t("rename-workspace"));
         renameBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12.9 6.858l4.242 4.243L7.242 21H3v-4.243l9.9-9.9zm1.414-1.414l2.121-2.122a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414l-2.122 2.121-4.242-4.242z"/></svg>`;
-        renameBtn.addEventListener("click", (e) => {
-            e.stopPropagation();
-            if (nameEl.contentEditable === "true") {
+        const startRename = () => {
+            if (nameEl.contentEditable === "true") return;
+            const originalName = nameEl.textContent;
+            nameEl.contentEditable = "true";
+            nameEl.focus();
+            const range = document.createRange();
+            range.selectNodeContents(nameEl);
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            const commit = () => {
                 const newName = nameEl.textContent.trim();
                 nameEl.contentEditable = "false";
-                nameEl.textContent = name;
-                if (newName && newName !== name && !this.plugin.workspacePlugin.workspaces[newName]) {
-                    this.renameInSettings(name, newName);
+                if (newName && newName !== originalName && !this.plugin.workspacePlugin.workspaces[newName]) {
+                    this.renameInSettings(originalName, newName);
                     this.plugin.saveData(this.plugin.settings);
                     this.renderHierarchy(treeContainer);
+                } else {
+                    nameEl.textContent = originalName;
                 }
-            } else {
-                nameEl.contentEditable = "true";
-                nameEl.focus();
-                const range = document.createRange();
-                range.selectNodeContents(nameEl);
-                const sel = window.getSelection();
-                sel.removeAllRanges();
-                sel.addRange(range);
-                const commit = () => {
-                    const newName = nameEl.textContent.trim();
-                    nameEl.contentEditable = "false";
-                    if (newName && newName !== name && !this.plugin.workspacePlugin.workspaces[newName]) {
-                        this.renameInSettings(name, newName);
-                        this.plugin.saveData(this.plugin.settings);
-                        this.renderHierarchy(treeContainer);
-                    } else {
-                        nameEl.textContent = name;
-                    }
-                };
-                nameEl.onblur = commit;
-                nameEl.onkeydown = (ev) => {
-                    if (ev.key === "Enter") { ev.preventDefault(); commit(); }
-                    if (ev.key === "Escape") { nameEl.contentEditable = "false"; nameEl.textContent = name; }
-                };
-            }
-        });
+            };
+            nameEl.onblur = commit;
+            nameEl.onkeydown = (ev) => {
+                if (ev.key === "Enter") { ev.preventDefault(); commit(); }
+                if (ev.key === "Escape") { nameEl.contentEditable = "false"; nameEl.textContent = originalName; }
+            };
+        };
+        renameBtn.addEventListener("click", (e) => { e.stopPropagation(); startRename(); });
+        nameEl.addEventListener("dblclick", (e) => { e.stopPropagation(); startRename(); });
         const deleteBtn = actions.createSpan({ cls: "hierarchy-action-btn" });
         deleteBtn.setAttribute("aria-label", t("delete-workspace"));
         deleteBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M7 4V2h10v2h5v2h-2v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z"/></svg>`;
