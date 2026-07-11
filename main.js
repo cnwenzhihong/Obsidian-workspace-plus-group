@@ -2217,6 +2217,7 @@ const STRINGS = {
     "set-as-child": { en: "Set as child", zh: "设为子工作区" },
     "new-workspace-placeholder": { en: "New workspace name...", zh: "新工作区名称..." },
     "create-workspace": { en: "Create", zh: "创建" },
+    "create-child-workspace": { en: "Create as child", zh: "创建子工作区" },
 };
 
 let _lang = null;
@@ -2335,6 +2336,7 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         }));
         const hierarchyEl = this.addSection(containerEl, "hierarchy", t("hierarchy"));
         new obsidian.Setting(hierarchyEl)
+            .setClass("hierarchy-compact-setting")
             .setName(t("modal-collapse-mode"))
             .addDropdown(dropdown => dropdown
                 .addOption("inherit", t("modal-collapse-mode-inherit"))
@@ -2353,23 +2355,60 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             placeholder: t("new-workspace-placeholder"),
             cls: "hierarchy-create-input",
         });
+        const createAndSave = (name, parent) => {
+            if (this.plugin.workspacePlugin.workspaces[name]) {
+                new obsidian.Notice("Workspace already exists: " + name);
+                return;
+            }
+            this.plugin.workspacePlugin.saveWorkspace(name);
+            if (parent) {
+                // Ensure parent is in hierarchy
+                let parentInHierarchy = false;
+                for (const [, children] of Object.entries(this.plugin.settings.workspaceChildren)) {
+                    if (children.includes(parent)) { parentInHierarchy = true; break; }
+                }
+                if (!parentInHierarchy) {
+                    if (!this.plugin.settings.workspaceChildren["__root__"]) {
+                        this.plugin.settings.workspaceChildren["__root__"] = [];
+                    }
+                    if (!this.plugin.settings.workspaceChildren["__root__"].includes(parent)) {
+                        this.plugin.settings.workspaceChildren["__root__"].push(parent);
+                    }
+                }
+                if (!this.plugin.settings.workspaceChildren[parent]) {
+                    this.plugin.settings.workspaceChildren[parent] = [];
+                }
+                this.plugin.settings.workspaceChildren[parent].push(name);
+                this.plugin.saveData(this.plugin.settings);
+            }
+            nameInput.value = "";
+            this.renderHierarchy(treeContainer);
+        };
         const createBtn = createRow.createEl("button", {
             text: t("create-workspace"),
             cls: "hierarchy-create-btn",
         });
         createBtn.addEventListener("click", () => {
             const name = nameInput.value.trim();
-            if (!name) return;
-            if (this.plugin.workspacePlugin.workspaces[name]) {
-                new obsidian.Notice("Workspace already exists: " + name);
-                return;
+            if (name) createAndSave(name, null);
+        });
+        const childBtn = createRow.createEl("button", {
+            text: t("create-child-workspace"),
+            cls: "hierarchy-create-btn mod-child",
+        });
+        childBtn.addEventListener("click", () => {
+            const name = nameInput.value.trim();
+            const active = this.plugin.workspacePlugin.activeWorkspace;
+            if (name) {
+                if (!active) {
+                    new obsidian.Notice("No active workspace to set as parent");
+                    return;
+                }
+                createAndSave(name, active);
             }
-            this.plugin.workspacePlugin.saveWorkspace(name);
-            nameInput.value = "";
-            this.renderHierarchy(treeContainer);
         });
         nameInput.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") { createBtn.click(); }
+            if (e.key === "Enter") { childBtn.click(); }
         });
         const treeContainer = hierarchyEl.createDiv({ cls: "workspace-hierarchy-tree" });
         this.renderHierarchy(treeContainer);
