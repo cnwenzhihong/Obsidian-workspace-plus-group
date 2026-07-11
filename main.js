@@ -2334,6 +2334,18 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             this.plugin.saveData(this.plugin.settings);
         }));
         const hierarchyEl = this.addSection(containerEl, "hierarchy", t("hierarchy"));
+        new obsidian.Setting(hierarchyEl)
+            .setName(t("modal-collapse-mode"))
+            .addDropdown(dropdown => dropdown
+                .addOption("inherit", t("modal-collapse-mode-inherit"))
+                .addOption("independent", t("modal-collapse-mode-independent"))
+                .addOption("all-expanded", t("modal-collapse-mode-all-expanded"))
+                .addOption("all-collapsed", t("modal-collapse-mode-all-collapsed"))
+                .setValue(this.plugin.settings.modalCollapseMode)
+                .onChange(value => {
+                this.plugin.settings.modalCollapseMode = value;
+                this.plugin.saveData(this.plugin.settings);
+            }));
         hierarchyEl.createEl("p", { cls: "setting-item-description", text: t("hierarchy-desc") });
         const createRow = hierarchyEl.createDiv({ cls: "hierarchy-create-row" });
         const nameInput = createRow.createEl("input", {
@@ -2361,18 +2373,6 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         });
         const treeContainer = hierarchyEl.createDiv({ cls: "workspace-hierarchy-tree" });
         this.renderHierarchy(treeContainer);
-        new obsidian.Setting(hierarchyEl)
-            .setName(t("modal-collapse-mode"))
-            .addDropdown(dropdown => dropdown
-                .addOption("inherit", t("modal-collapse-mode-inherit"))
-                .addOption("independent", t("modal-collapse-mode-independent"))
-                .addOption("all-expanded", t("modal-collapse-mode-all-expanded"))
-                .addOption("all-collapsed", t("modal-collapse-mode-all-collapsed"))
-                .setValue(this.plugin.settings.modalCollapseMode)
-                .onChange(value => {
-                this.plugin.settings.modalCollapseMode = value;
-                this.plugin.saveData(this.plugin.settings);
-            }));
     }
     renderHierarchy(treeContainer) {
         treeContainer.empty();
