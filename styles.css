@@ -61,16 +61,6 @@
   opacity: 0;
 }
 
-.workspace-results .platform {
-  display: inline-block;
-  position: absolute;
-  right: 3.3em;
-  margin-top: 0.4em;
-  fill: var(--text-muted);
-  color: var(--text-muted);
-  opacity: 0;
-}
-
 .workspace-results .add-child-workspace {
   display: inline-block;
   position: absolute;
@@ -109,15 +99,13 @@
 
 .prompt-results:not(.renaming) .workspace-item.is-selected ~ .rename-workspace,
 .prompt-results:not(.renaming) .workspace-item.is-selected ~ .delete-workspace,
-.prompt-results:not(.renaming) .workspace-item.is-selected ~ .add-child-workspace,
-.prompt-results:not(.renaming) .workspace-item.is-selected ~ .platform {
+.prompt-results:not(.renaming) .workspace-item.is-selected ~ .add-child-workspace {
   opacity: 1;
 }
 
 body.is-mobile .prompt-results:not(.renaming) .workspace-item ~ .rename-workspace,
 body.is-mobile .prompt-results:not(.renaming) .workspace-item ~ .delete-workspace,
-body.is-mobile .prompt-results:not(.renaming) .workspace-item ~ .add-child-workspace,
-body.is-mobile .prompt-results:not(.renaming) .workspace-item ~ .platform {
+body.is-mobile .prompt-results:not(.renaming) .workspace-item ~ .add-child-workspace {
   opacity: 1;
 }
 
@@ -166,7 +154,9 @@ body.is-mobile .prompt-results:not(.renaming) .workspace-item ~ .platform {
   box-shadow: 0 0 0 0.1px rgba(0, 0, 0, 0.1), 0 0 0 3px hsla(var(--accent-hsl), 0.15);
 }
 
-.workspace-item[contenteditable="true"]:focus ~ div {
+.workspace-item[contenteditable="true"]:focus ~ .rename-workspace,
+.workspace-item[contenteditable="true"]:focus ~ .delete-workspace,
+.workspace-item[contenteditable="true"]:focus ~ .add-child-workspace {
   display: none;
 }
 

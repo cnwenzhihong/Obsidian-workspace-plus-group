@@ -207,6 +207,9 @@ main.js
 ### 弹窗层级
 - `.hierarchy-modal-collapse` — `inline-flex` 20×20 居中，`visibility:hidden` 默认占位，`.has-children` 显形
 - 弹窗内 `.workspace-item` paddingLeft 按 `depth * 16px` 递增
+- 弹窗按钮栏统一风格：`add-child-workspace`(4.6em) / `rename-workspace`(2em) / `delete-workspace`(0.7em)，均 `position:absolute; opacity:0`→选中/hover 显示；已删除 `platform` 指示器
+
+### 其他
 
 ### 其他
 - `.settings-heading.is-collapsed + .settings-container` — 分组折叠隐藏

@@ -2970,15 +2970,9 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
                 : `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill="currentColor" d="M2 5l6 6 6-6H2z"/></svg>`;
             collapseBtn.setAttribute("aria-label", isCollapsed ? t("expand-workspace") : t("collapse-workspace"));
         }
-        let isMobile;
-        try {
-            isMobile = this.workspacePlugin.workspaces[workspaceName].left.type == "mobile-drawer";
-        }
-        catch (_a) { }
         this.addChildButton(wrapperEl, workspaceName);
         this.addDeleteButton(wrapperEl, workspaceName);
         this.addRenameButton(wrapperEl, el);
-        this.addPlatformButton(wrapperEl, isMobile ? "mobile" : "desktop");
     }
     wrapSuggestion(childEl, parentEl) {
         const wrapperEl = document.createElement("div");
@@ -3080,19 +3074,6 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
             this.plugin.saveData(this.plugin.settings);
             this.chooser.chooser.updateSuggestions();
         });
-    }
-
-    addPlatformButton(wrapperEl, platform) {
-        const renameIcon = wrapperEl.createDiv("platform");
-        if (platform == "mobile") {
-            renameIcon.setAttribute("aria-label", t("mobile-workspace"));
-            renameIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" style="vertical-align: -0.125em;" width="16" height="16" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><rect x="0" y="0" width="24" height="24" fill="none" stroke="none" /><path d="M3 4h17a2 2 0 0 1 2 2v2h-4V6H5v12h9v2H3a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2m14 6h6a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-6a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1m1 2v7h4v-7h-4z" fill="currentColor"/></svg>`;
-        }
-        else {
-            renameIcon.setAttribute("aria-label", t("desktop-workspace"));
-            renameIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" style="vertical-align: -0.125em;" width="16" height="16" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><rect x="0" y="0" width="24" height="24" fill="none" stroke="none" /><path d="M21 16H3V4h18m0-2H3c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h7v2H8v2h8v-2h-2v-2h7a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2z" fill="currentColor"/></svg>`;
-        }
-        renameIcon.setAttribute("aria-label-position", "top");
     }
     doDelete(workspaceName) {
         let currentSelection = this.chooser.selectedItem;
