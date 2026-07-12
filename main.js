@@ -2495,7 +2495,7 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         // Rename / Delete action buttons
         const actions = row.createSpan({ cls: "hierarchy-actions" });
         const renameBtn = actions.createSpan({ cls: "hierarchy-action-btn" });
-        renameBtn.setAttribute("title", t("rename-workspace"));
+        renameBtn.setAttribute("aria-label", t("rename-workspace"));
         renameBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12.9 6.858l4.242 4.243L7.242 21H3v-4.243l9.9-9.9zm1.414-1.414l2.121-2.122a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414l-2.122 2.121-4.242-4.242z"/></svg>`;
         const startRename = () => {
             if (nameEl.contentEditable === "true") return;
@@ -2529,7 +2529,7 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         renameBtn.addEventListener("click", (e) => { e.stopPropagation(); startRename(); });
         nameEl.addEventListener("dblclick", (e) => { e.stopPropagation(); startRename(); });
         const childBtn = actions.createSpan({ cls: "hierarchy-action-btn" });
-        childBtn.setAttribute("title", t("create-child-workspace"));
+        childBtn.setAttribute("aria-label", t("create-child-workspace"));
         childBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2zm7 8h-3v3h-2v-3H9v-2h3V7h2v3h3v2z"/></svg>`;
         childBtn.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -2582,7 +2582,7 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             }, 50);
         });
         const deleteBtn = actions.createSpan({ cls: "hierarchy-action-btn" });
-        deleteBtn.setAttribute("title", t("delete-workspace"));
+        deleteBtn.setAttribute("aria-label", t("delete-workspace"));
         deleteBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M7 4V2h10v2h5v2h-2v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z"/></svg>`;
         deleteBtn.addEventListener("click", (e) => {
             e.stopPropagation();
@@ -2863,6 +2863,12 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
         const resultsEl = this.modalEl.querySelector(".prompt-results");
         const hintBar = createDiv({ cls: "workspace-hint-bar", text: t("hint-drag-reorder") });
         resultsEl.parentElement.insertBefore(hintBar, resultsEl);
+        // Warm up Obsidian's tooltip system — first hover normally has a ~2s delay
+        const warmup = createSpan({ attr: { "aria-label": " ", "aria-label-position": "top" } });
+        warmup.style.cssText = "position:fixed;left:0;top:0;width:1px;height:1px;pointer-events:auto";
+        this.modalEl.appendChild(warmup);
+        warmup.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true }));
+        setTimeout(() => { warmup.dispatchEvent(new MouseEvent("mouseleave", { bubbles: true })); warmup.remove(); }, 200);
         let selectedIdx = this.getItems().findIndex(workspace => workspace === this.activeWorkspace);
         this.chooser.setSelectedItem(selectedIdx);
         (_a = this.chooser.suggestions[this.chooser.selectedItem]) === null || _a === void 0 ? void 0 : _a.scrollIntoViewIfNeeded();
@@ -3047,19 +3053,22 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
     }
     addRenameButton(wrapperEl, el) {
         const renameIcon = wrapperEl.createDiv("rename-workspace");
-        renameIcon.setAttribute("title", t("rename-workspace"));
+        renameIcon.setAttribute("aria-label", t("rename-workspace"));
+        renameIcon.setAttribute("aria-label-position", "top");
         renameIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="none" d="M0 0h24v24H0z"/><path d="M12.9 6.858l4.242 4.243L7.242 21H3v-4.243l9.9-9.9zm1.414-1.414l2.121-2.122a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414l-2.122 2.121-4.242-4.242z"/></svg>`;
         renameIcon.addEventListener("click", event => this.onRenameClick(event, el));
     }
     addDeleteButton(wrapperEl, workspaceName) {
         const deleteIcon = wrapperEl.createDiv("delete-workspace");
-        deleteIcon.setAttribute("title", t("delete-workspace"));
+        deleteIcon.setAttribute("aria-label", t("delete-workspace"));
+        deleteIcon.setAttribute("aria-label-position", "top");
         deleteIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="none" d="M0 0h24v24H0z"/><path d="M7 4V2h10v2h5v2h-2v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z"/></svg>`;
         deleteIcon.addEventListener("click", event => this.deleteWorkspace(workspaceName));
     }
     addChildButton(wrapperEl, workspaceName) {
         const childIcon = wrapperEl.createDiv("add-child-workspace");
-        childIcon.setAttribute("title", t("create-child-workspace"));
+        childIcon.setAttribute("aria-label", t("create-child-workspace"));
+        childIcon.setAttribute("aria-label-position", "top");
         childIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2zm7 8h-3v3h-2v-3H9v-2h3V7h2v3h3v2z"/></svg>`;
         childIcon.addEventListener("click", (e) => {
             e.stopPropagation();
