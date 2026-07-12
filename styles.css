@@ -371,10 +371,14 @@ body.is-mobile .side-dock-actions div[aria-label="Manage modes"] svg {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  user-select: inherit;
 }
 
 .hierarchy-name[contenteditable="true"] {
   cursor: text;
+  user-select: text;
+  overflow: visible;
+  white-space: pre;
 }
 
 .hierarchy-row.is-editing {
