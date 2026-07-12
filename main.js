@@ -2363,25 +2363,9 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             }
             this.plugin.workspacePlugin.saveWorkspace(name);
             if (parent) {
-                // Ensure parent is in hierarchy
-                let parentInHierarchy = false;
-                for (const [, children] of Object.entries(this.plugin.settings.workspaceChildren)) {
-                    if (children.includes(parent)) { parentInHierarchy = true; break; }
-                }
-                if (!parentInHierarchy) {
-                    if (!this.plugin.settings.workspaceChildren["__root__"]) {
-                        this.plugin.settings.workspaceChildren["__root__"] = [];
-                    }
-                    if (!this.plugin.settings.workspaceChildren["__root__"].includes(parent)) {
-                        this.plugin.settings.workspaceChildren["__root__"].push(parent);
-                    }
-                }
-                if (!this.plugin.settings.workspaceChildren[parent]) {
-                    this.plugin.settings.workspaceChildren[parent] = [];
-                }
-                this.plugin.settings.workspaceChildren[parent].push(name);
-                this.plugin.saveData(this.plugin.settings);
+                this.plugin.reparentWorkspace(name, parent);
             }
+            this.plugin.saveData(this.plugin.settings);
             nameInput.value = "";
             this.renderHierarchy(treeContainer);
         };
@@ -2409,7 +2393,7 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             }
         });
         nameInput.addEventListener("keydown", (e) => {
-            if (e.key === "Enter") { childBtn.click(); }
+            if (e.key === "Enter") { createBtn.click(); }
         });
         const treeContainer = hierarchyEl.createDiv({ cls: "workspace-hierarchy-tree" });
         this.renderHierarchy(treeContainer);
@@ -2537,17 +2521,7 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             let n = 1; while (this.plugin.workspacePlugin.workspaces[childName + n]) n++;
             const finalName = childName + n;
             this.plugin.workspacePlugin.saveWorkspace(finalName);
-            // Add as child in hierarchy
-            let parentInHierarchy = false;
-            for (const [, children] of Object.entries(this.plugin.settings.workspaceChildren)) {
-                if (children.includes(name)) { parentInHierarchy = true; break; }
-            }
-            if (!parentInHierarchy) {
-                if (!this.plugin.settings.workspaceChildren["__root__"]) this.plugin.settings.workspaceChildren["__root__"] = [];
-                if (!this.plugin.settings.workspaceChildren["__root__"].includes(name)) this.plugin.settings.workspaceChildren["__root__"].push(name);
-            }
-            if (!this.plugin.settings.workspaceChildren[name]) this.plugin.settings.workspaceChildren[name] = [];
-            this.plugin.settings.workspaceChildren[name].push(finalName);
+            this.plugin.reparentWorkspace(finalName, name);
             this.plugin.saveData(this.plugin.settings);
             this.renderHierarchy(treeContainer);
             // Enter rename mode on the new row
