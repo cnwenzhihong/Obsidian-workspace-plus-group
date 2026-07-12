@@ -71,6 +71,16 @@
   opacity: 0;
 }
 
+.workspace-results .add-child-workspace {
+  display: inline-block;
+  position: absolute;
+  right: 4.6em;
+  margin-top: 0.5em;
+  fill: var(--text-muted);
+  opacity: 0;
+  cursor: pointer;
+}
+
 .active-workspace {
   display: inline-block;
   position: absolute;
@@ -81,12 +91,14 @@
 }
 
 .rename-workspace,
-.delete-workspace {
+.delete-workspace,
+.add-child-workspace {
   cursor: pointer;
 }
 
 .rename-workspace:hover,
-.delete-workspace:hover {
+.delete-workspace:hover,
+.add-child-workspace:hover {
   fill: var(--text-accent-hover);
 }
 
@@ -97,12 +109,14 @@
 
 .prompt-results:not(.renaming) .workspace-item.is-selected ~ .rename-workspace,
 .prompt-results:not(.renaming) .workspace-item.is-selected ~ .delete-workspace,
+.prompt-results:not(.renaming) .workspace-item.is-selected ~ .add-child-workspace,
 .prompt-results:not(.renaming) .workspace-item.is-selected ~ .platform {
   opacity: 1;
 }
 
 body.is-mobile .prompt-results:not(.renaming) .workspace-item ~ .rename-workspace,
 body.is-mobile .prompt-results:not(.renaming) .workspace-item ~ .delete-workspace,
+body.is-mobile .prompt-results:not(.renaming) .workspace-item ~ .add-child-workspace,
 body.is-mobile .prompt-results:not(.renaming) .workspace-item ~ .platform {
   opacity: 1;
 }
