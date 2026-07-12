@@ -3118,7 +3118,7 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
             processWorkspace(root);
         }
         for (const name of allNames) {
-            if (!visited.has(name))
+            if (!visited.has(name) && !this.plugin.getWorkspaceParent(name))
                 result.push(name);
         }
         return result;
