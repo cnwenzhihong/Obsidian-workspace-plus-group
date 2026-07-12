@@ -2698,12 +2698,9 @@ class ConfirmationModal extends obsidian.Modal {
             });
             btnSumbit.addEventListener("click", (e) => {
                 e.preventDefault();
+                this.close();
                 onAccept();
-                setTimeout(() => this.close(), 0);
             });
-            setTimeout(() => {
-                btnSumbit.focus();
-            }, 50);
         });
     }
 }
