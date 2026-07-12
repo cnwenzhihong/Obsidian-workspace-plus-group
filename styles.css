@@ -146,6 +146,10 @@ body.is-mobile .prompt-results:not(.renaming) .workspace-item ~ .add-child-works
   cursor: pointer;
 }
 
+:where(.workspace-plus-group-modal, .workspace-plus-group-mode-modal) .workspace-item[contenteditable="true"] {
+  padding-right: 34px;
+}
+
 :where(.workspace-plus-group-modal, .workspace-plus-group-mode-modal) .workspace-item[contenteditable="true"]:focus {
   cursor: text;
   border: 1px solid var(--interactive-accent);
@@ -495,24 +499,22 @@ body.is-mobile .side-dock-actions div[aria-label="Manage modes"] svg {
 }
 
 .rename-confirm-btn {
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
-  margin-left: 6px;
+  width: 26px;
+  height: 26px;
   cursor: pointer;
   color: var(--text-muted);
-  border-radius: 3px;
-  vertical-align: middle;
-}
-
-.rename-confirm-btn:hover {
-  background-color: var(--background-modifier-hover);
-  color: var(--interactive-accent);
+  border-radius: 4px;
+  z-index: 5;
 }
 
 .rename-confirm-btn svg {
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
 }
