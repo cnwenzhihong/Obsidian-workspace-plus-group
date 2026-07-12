@@ -2915,11 +2915,10 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
             workspaceName = this.chooser.values[currentSelection].item;
         }
         if (this.settings.showDeletePrompt) {
+            const self = this;
             createConfirmationDialog(this.app, {
                 cta: t("delete"),
-                onAccept: () => __awaiter(this, void 0, void 0, function* () {
-                    this.doDelete(workspaceName);
-                }),
+                onAccept: () => { self.doDelete(workspaceName); },
                 text: t("workspace-delete-confirm-text").replace("{}", workspaceName),
                 title: t("workspace-delete-confirm-title"),
             });
