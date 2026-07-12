@@ -64,7 +64,7 @@
 .workspace-results .add-child-workspace {
   display: inline-block;
   position: absolute;
-  right: 4.6em;
+  right: 3.3em;
   margin-top: 0.5em;
   fill: var(--text-muted);
   opacity: 0;

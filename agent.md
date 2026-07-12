@@ -207,7 +207,7 @@ main.js
 ### 弹窗层级
 - `.hierarchy-modal-collapse` — `inline-flex` 20×20 居中，`visibility:hidden` 默认占位，`.has-children` 显形
 - 弹窗内 `.workspace-item` paddingLeft 按 `depth * 16px` 递增
-- 弹窗按钮栏统一风格：`add-child-workspace`(4.6em) / `rename-workspace`(2em) / `delete-workspace`(0.7em)，均 `position:absolute; opacity:0`→选中/hover 显示；已删除 `platform` 指示器
+- 弹窗按钮栏统一风格（自右向左均匀间距 1.3em）：`delete-workspace`(0.7em) / `rename-workspace`(2em) / `add-child-workspace`(3.3em)，均 `position:absolute; opacity:0`→选中/hover 显示
 
 ### 其他
 
