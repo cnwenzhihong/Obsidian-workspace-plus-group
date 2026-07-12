@@ -2528,6 +2528,59 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         };
         renameBtn.addEventListener("click", (e) => { e.stopPropagation(); startRename(); });
         nameEl.addEventListener("dblclick", (e) => { e.stopPropagation(); startRename(); });
+        const childBtn = actions.createSpan({ cls: "hierarchy-action-btn" });
+        childBtn.setAttribute("aria-label", t("create-child-workspace"));
+        childBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2zm7 8h-3v3h-2v-3H9v-2h3V7h2v3h3v2z"/></svg>`;
+        childBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const childName = name + "-child";
+            let n = 1; while (this.plugin.workspacePlugin.workspaces[childName + n]) n++;
+            const finalName = childName + n;
+            this.plugin.workspacePlugin.saveWorkspace(finalName);
+            // Add as child in hierarchy
+            let parentInHierarchy = false;
+            for (const [, children] of Object.entries(this.plugin.settings.workspaceChildren)) {
+                if (children.includes(name)) { parentInHierarchy = true; break; }
+            }
+            if (!parentInHierarchy) {
+                if (!this.plugin.settings.workspaceChildren["__root__"]) this.plugin.settings.workspaceChildren["__root__"] = [];
+                if (!this.plugin.settings.workspaceChildren["__root__"].includes(name)) this.plugin.settings.workspaceChildren["__root__"].push(name);
+            }
+            if (!this.plugin.settings.workspaceChildren[name]) this.plugin.settings.workspaceChildren[name] = [];
+            this.plugin.settings.workspaceChildren[name].push(finalName);
+            this.plugin.saveData(this.plugin.settings);
+            this.renderHierarchy(treeContainer);
+            // Enter rename mode on the new row
+            setTimeout(() => {
+                const newRow = treeContainer.querySelector(`[data-workspace-name="${finalName}"]`);
+                if (newRow) {
+                    const newNameEl = newRow.querySelector(".hierarchy-name");
+                    if (newNameEl) {
+                        newNameEl.contentEditable = "true";
+                        newNameEl.focus();
+                        const range = document.createRange();
+                        range.selectNodeContents(newNameEl);
+                        const sel = window.getSelection();
+                        sel.removeAllRanges();
+                        sel.addRange(range);
+                        const commit = () => {
+                            const nn = newNameEl.textContent.trim();
+                            newNameEl.contentEditable = "false";
+                            if (nn && nn !== finalName && !this.plugin.workspacePlugin.workspaces[nn]) {
+                                this.renameInSettings(finalName, nn);
+                                this.plugin.saveData(this.plugin.settings);
+                                this.renderHierarchy(treeContainer);
+                            }
+                        };
+                        newNameEl.onblur = commit;
+                        newNameEl.onkeydown = (ev) => {
+                            if (ev.key === "Enter") { ev.preventDefault(); commit(); }
+                            if (ev.key === "Escape") { this.renderHierarchy(treeContainer); }
+                        };
+                    }
+                }
+            }, 50);
+        });
         const deleteBtn = actions.createSpan({ cls: "hierarchy-action-btn" });
         deleteBtn.setAttribute("aria-label", t("delete-workspace"));
         deleteBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M7 4V2h10v2h5v2h-2v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z"/></svg>`;
@@ -2922,6 +2975,7 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
             isMobile = this.workspacePlugin.workspaces[workspaceName].left.type == "mobile-drawer";
         }
         catch (_a) { }
+        this.addChildButton(wrapperEl, workspaceName);
         this.addDeleteButton(wrapperEl, workspaceName);
         this.addRenameButton(wrapperEl, el);
         this.addPlatformButton(wrapperEl, isMobile ? "mobile" : "desktop");
@@ -3010,6 +3064,22 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
         deleteIcon.setAttribute("aria-label-position", "top");
         deleteIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="none" d="M0 0h24v24H0z"/><path d="M7 4V2h10v2h5v2h-2v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z"/></svg>`;
         deleteIcon.addEventListener("click", event => this.deleteWorkspace(workspaceName));
+    }
+    addChildButton(wrapperEl, workspaceName) {
+        const childIcon = wrapperEl.createDiv("add-child-workspace");
+        childIcon.setAttribute("aria-label", t("create-child-workspace"));
+        childIcon.setAttribute("aria-label-position", "top");
+        childIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2zm7 8h-3v3h-2v-3H9v-2h3V7h2v3h3v2z"/></svg>`;
+        childIcon.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const childName = workspaceName + "-child";
+            let n = 1; while (this.workspacePlugin.workspaces[childName + n]) n++;
+            const finalName = childName + n;
+            this.workspacePlugin.saveWorkspace(finalName);
+            this.plugin.reparentWorkspace(finalName, workspaceName);
+            this.plugin.saveData(this.plugin.settings);
+            this.chooser.chooser.updateSuggestions();
+        });
     }
 
     addPlatformButton(wrapperEl, platform) {
