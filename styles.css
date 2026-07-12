@@ -462,6 +462,7 @@ body.is-mobile .side-dock-actions div[aria-label="Manage modes"] svg {
   color: var(--text-faint);
   border-bottom: 1px solid var(--background-modifier-border);
   white-space: nowrap;
+  cursor: default;
 }
 
 /* Drag styles in modal */

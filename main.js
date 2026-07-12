@@ -2862,13 +2862,9 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
         this.activeWorkspace = this.workspacePlugin.activeWorkspace;
         const resultsEl = this.modalEl.querySelector(".prompt-results");
         const hintBar = createDiv({ cls: "workspace-hint-bar", text: t("hint-drag-reorder") });
+        hintBar.setAttribute("aria-label", t("hint-drag-reorder"));
+        hintBar.setAttribute("aria-label-position", "top");
         resultsEl.parentElement.insertBefore(hintBar, resultsEl);
-        // Warm up Obsidian's tooltip system — first hover normally has a ~2s delay
-        const warmup = createSpan({ attr: { "aria-label": " ", "aria-label-position": "top" } });
-        warmup.style.cssText = "position:fixed;left:0;top:0;width:1px;height:1px;pointer-events:auto";
-        this.modalEl.appendChild(warmup);
-        warmup.dispatchEvent(new MouseEvent("mouseenter", { bubbles: true }));
-        setTimeout(() => { warmup.dispatchEvent(new MouseEvent("mouseleave", { bubbles: true })); warmup.remove(); }, 200);
         let selectedIdx = this.getItems().findIndex(workspace => workspace === this.activeWorkspace);
         this.chooser.setSelectedItem(selectedIdx);
         (_a = this.chooser.suggestions[this.chooser.selectedItem]) === null || _a === void 0 ? void 0 : _a.scrollIntoViewIfNeeded();
