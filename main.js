@@ -2524,36 +2524,12 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             this.plugin.reparentWorkspace(finalName, name);
             this.plugin.saveData(this.plugin.settings);
             this.renderHierarchy(treeContainer);
-            // Enter rename mode on the new row
+            // Reuse rename logic: trigger pencil button click on the new row
             setTimeout(() => {
                 const newRow = treeContainer.querySelector(`[data-workspace-name="${finalName}"]`);
                 if (newRow) {
-                    const newNameEl = newRow.querySelector(".hierarchy-name");
-                    if (newNameEl) {
-                        newNameEl.contentEditable = "true";
-                        newNameEl.focus();
-                        newRow.addClass("is-editing");
-                        const range = document.createRange();
-                        range.selectNodeContents(newNameEl);
-                        const sel = window.getSelection();
-                        sel.removeAllRanges();
-                        sel.addRange(range);
-                        const commit = () => {
-                            const nn = newNameEl.textContent.trim();
-                            newNameEl.contentEditable = "false";
-                            newRow.removeClass("is-editing");
-                            if (nn && nn !== finalName && !this.plugin.workspacePlugin.workspaces[nn]) {
-                                this.renameInSettings(finalName, nn);
-                                this.plugin.saveData(this.plugin.settings);
-                                this.renderHierarchy(treeContainer);
-                            }
-                        };
-                        newNameEl.onblur = commit;
-                        newNameEl.onkeydown = (ev) => {
-                            if (ev.key === "Enter") { ev.preventDefault(); commit(); }
-                            if (ev.key === "Escape") { newNameEl.contentEditable = "false"; newRow.removeClass("is-editing"); this.renderHierarchy(treeContainer); }
-                        };
-                    }
+                    const renameBtn = newRow.querySelectorAll(".hierarchy-action-btn")[1];
+                    if (renameBtn) renameBtn.click();
                 }
             }, 50);
         });
@@ -3063,22 +3039,13 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
             this.plugin.reparentWorkspace(finalName, workspaceName);
             this.plugin.saveData(this.plugin.settings);
             this.chooser.chooser.updateSuggestions();
-            // Enter rename mode on the new workspace
+            // Reuse existing rename logic
             setTimeout(() => {
                 const newIdx = this.getItems().indexOf(finalName);
                 if (newIdx >= 0) {
                     this.chooser.setSelectedItem(newIdx, null);
                     const newEl = this.chooser.suggestions[newIdx];
-                    if (newEl) {
-                        newEl.contentEditable = "true";
-                        newEl.focus();
-                        const range = document.createRange();
-                        range.selectNodeContents(newEl);
-                        const sel = window.getSelection();
-                        sel.removeAllRanges();
-                        sel.addRange(range);
-                        newEl.onblur = () => { newEl.contentEditable = "false"; };
-                    }
+                    if (newEl) this.onRenameClick(new MouseEvent("click"), newEl);
                 }
             }, 100);
         });
