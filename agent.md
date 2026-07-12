@@ -207,7 +207,7 @@ main.js
 ### 弹窗层级
 - `.hierarchy-modal-collapse` — `inline-flex` 20×20 居中，`visibility:hidden` 默认占位，`.has-children` 显形
 - 弹窗内 `.workspace-item` paddingLeft 按 `depth * 16px` 递增
-- 弹窗按钮栏统一风格（自右向左均匀间距 1.3em）：`delete-workspace`(0.7em) / `rename-workspace`(2em) / `add-child-workspace`(3.3em)，均 `position:absolute; opacity:0`→选中/hover 显示；按钮 SVG 不设 `fill` 属性，由父级 CSS `fill` 控制颜色
+- 弹窗按钮栏统一风格（自右向左均匀间距 1.3em）：`delete-workspace`(0.7em) / `rename-workspace`(2em) / `add-child-workspace`(3.3em)，均 `position:absolute; opacity:0`→选中/hover 显示；按钮 SVG 不设 `fill` 属性，由父级 CSS `fill` 控制颜色；提示文字用原生 `title` 属性（不用 `aria-label`+`aria-label-position`，避免首次 2s 延迟）
 
 ### 其他
 
