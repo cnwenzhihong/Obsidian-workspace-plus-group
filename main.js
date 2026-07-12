@@ -2768,6 +2768,20 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
                 el.addEventListener("input", function refill() {
                     if (!el.textContent) el.textContent = "\u200B";
                 });
+                // Confirm button
+                const wrapper = el.parentElement;
+                const confirmBtn = createSpan({ cls: "rename-confirm-btn" });
+                confirmBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z"/></svg>`;
+                wrapper.appendChild(confirmBtn);
+                confirmBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    this.handleRename(el);
+                });
+                el.onblur = () => {
+                    if (confirmBtn.parentElement) confirmBtn.remove();
+                    el.parentElement.parentElement.removeClass("renaming");
+                    el.contentEditable = "false";
+                };
             }
             const selection = window.getSelection();
             const range = document.createRange();
@@ -2775,10 +2789,6 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
             range.selectNodeContents(el);
             selection.addRange(range);
             el.focus();
-            el.onblur = ev => {
-                el.parentElement.parentElement.removeClass("renaming");
-                el.contentEditable = "false";
-            };
         };
         this.app = plugin.app;
         this.plugin = plugin;

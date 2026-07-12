@@ -493,3 +493,26 @@ body.is-mobile .side-dock-actions div[aria-label="Manage modes"] svg {
 .workspace-plus-group-modal .workspace-results.drag-insert-after {
   border-bottom: 3px solid var(--interactive-accent);
 }
+
+.rename-confirm-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  margin-left: 6px;
+  cursor: pointer;
+  color: var(--text-muted);
+  border-radius: 3px;
+  vertical-align: middle;
+}
+
+.rename-confirm-btn:hover {
+  background-color: var(--background-modifier-hover);
+  color: var(--interactive-accent);
+}
+
+.rename-confirm-btn svg {
+  width: 14px;
+  height: 14px;
+}
