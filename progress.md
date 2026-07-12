@@ -10,34 +10,21 @@
 
 ### 第二阶段：工作区层级功能
 - 数据模型：`workspaceChildren`、`collapsedWorkspaces`、`modalCollapseMode`、`modalCollapsedWorkspaces`
-- 辅助方法：`getWorkspaceParent`（跳过 `__root__`）、`getWorkspaceChildren`、`getWorkspaceDepth`、`getOrderedWorkspaces`、`getModalCollapseState`、`cleanupHierarchy`、`renameInHierarchy`、`reparentWorkspace`、`reorderWorkspace`
-- 设置面板：拖拽树形视图（行中央=父子高亮框，边缘 25%=同级排序插入线）
-- 弹窗：缩进 + 折叠/展开按钮（内联 SVG 前置固定占位）+ 4 种折叠规则下拉
+- 辅助方法：`getWorkspaceParent`(跳过`__root__`)、`getWorkspaceChildren`、`getWorkspaceDepth`、`getOrderedWorkspaces`、`getModalCollapseState`、`cleanupHierarchy`、`renameInHierarchy`、`reparentWorkspace`、`reorderWorkspace`、`renameInSettings`
+- 设置面板：拖拽树形视图（行中央=父子高亮框，边缘25%=同级排序插入线）+ 折叠/展开 + 新建工作区输入框 + 创建子工作区按钮 + 双击/铅笔重命名 + 垃圾桶删除
+- 弹窗：缩进层级 + 折叠/展开按钮(前置20×20内联SVG) + 4种折叠规则 + 拖拽排序 + 操作提示栏
 - 生命周期：删除/重命名自动清理层级引用
+- 版本发布：GitHub Actions 自动构建 + artifact attestations
 
-### 第三阶段：Bug 修复
-- `getWorkspaceParent` 跳过 `__root__`（避免根级工作区消失和 depth+1 错误）
-- `reparentWorkspace` 创建父子关系（非兄弟）
-- 拖拽用 `_dragName` 属性替代 `dataTransfer.getData`
-- 折叠图标统一用内联 SVG（`obsidian.setIcon` 的 "down-triangle" 不存在）
-- 弹窗折叠按钮前置固定 20×20 占位（`visibility` 控制），标题对齐
-- 弹窗点击折叠后保持当前选中项不跳
-- `renderHierarchy`/`getOrderedWorkspaces` 根级排序：`__root__` 手动顺序优先 → 孤儿字母序排后
-- 移除缩进/缩出按钮（拖拽完全替代）
-- `modal-collapse-mode` 名称改为"弹窗折叠规则"
-
-## 关键决策
-
-1. **层级数据**：`{ parentName: [child...], "__root__": [root...] }`
-2. **`__root__` 非父级**：`getWorkspaceParent` 必须 `continue` 跳过
-3. **拖拽双行为**：行中央=父子（`.drag-over` 实线框），边缘 25%=同级排序（`::before`/`::after` 彩线）
-4. **根级排序**：`__root__` 项保持手动顺序在前，未纳入的孤儿字母序在后
-5. **拖拽数据**：`this._dragName`（非 `dataTransfer`）
-6. **折叠图标**：全部内联 SVG + `fill="currentColor"`（非 `obsidian.setIcon`）
-7. **弹窗折叠按钮**：`el.prepend()` 前置 + `visibility: hidden` 占位 + `.has-children` 显形
-8. **i18n**：所有文本 STRINGS 中英文双译
+### 第三阶段：Bug修复
+- `getWorkspaceParent` 跳过 `__root__`
+- 拖拽用 `_dragName` 替代 `dataTransfer`
+- 折叠图标全用内联SVG（No `obsidian.setIcon`）
+- 弹窗折叠按钮前置占位对齐，点击保持选中项
+- 根级排序：`__root__` 手动顺序 > 孤儿字母序
+- 编辑状态 cursor: text
+- CSS 禁用 `!important`
 
 ## 未完成
-
-- [ ] 清理冗余代码：cMenu 集成、Periodic Notes 集成、backupCoreConfig
-- [ ] 弹窗每次 renderSuggestion 重建按钮（性能微优化，功能正常）
+- 清理冗余：cMenu、Periodic Notes、backupCoreConfig
+- Workspace Modes 功能标记为 beta/不推荐
