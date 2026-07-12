@@ -462,11 +462,19 @@ body.is-mobile .side-dock-actions div[aria-label="Manage modes"] svg {
 
 /* Drag styles in modal */
 .workspace-plus-group-modal .workspace-results.dragging {
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .workspace-plus-group-modal .workspace-results.drag-over {
   outline: 2px solid var(--interactive-accent);
   outline-offset: -2px;
   border-radius: 4px;
+}
+
+.workspace-plus-group-modal .workspace-results.drag-insert-before {
+  border-top: 3px solid var(--interactive-accent);
+}
+
+.workspace-plus-group-modal .workspace-results.drag-insert-after {
+  border-bottom: 3px solid var(--interactive-accent);
 }

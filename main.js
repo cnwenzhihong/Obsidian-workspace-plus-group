@@ -2600,11 +2600,11 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             const edge = rect.height * 0.25;
             let changed = false;
             if (y < edge) {
-                changed = this.reorderWorkspace(dragName, name, "before");
+                changed = this.plugin.reorderWorkspace(dragName, name, "before");
             } else if (y > rect.height - edge) {
-                changed = this.reorderWorkspace(dragName, name, "after");
+                changed = this.plugin.reorderWorkspace(dragName, name, "after");
             } else {
-                changed = this.reparentWorkspace(dragName, name);
+                changed = this.plugin.reparentWorkspace(dragName, name);
             }
             treeContainer.querySelectorAll(".hierarchy-row").forEach(r => {
                 r.removeClass("drag-over");
@@ -2616,95 +2616,6 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
                 this.renderHierarchy(treeContainer);
             }
         });
-    }
-    reparentWorkspace(dragName, targetName) {
-        // Make dragName a CHILD of targetName
-        if (dragName === targetName) return false;
-        // Circular check: prevent making a parent become child of its descendant
-        let check = targetName;
-        while (check) {
-            if (check === dragName) return false;
-            check = this.plugin.getWorkspaceParent(check);
-        }
-        // Ensure __root__ exists
-        if (!this.plugin.settings.workspaceChildren["__root__"]) {
-            this.plugin.settings.workspaceChildren["__root__"] = [];
-        }
-        // Remove dragName from its current parent
-        for (const [parent, children] of Object.entries(this.plugin.settings.workspaceChildren)) {
-            const idx = children.indexOf(dragName);
-            if (idx !== -1) {
-                children.splice(idx, 1);
-                if (children.length === 0 && parent !== "__root__") {
-                    delete this.plugin.settings.workspaceChildren[parent];
-                }
-                break;
-            }
-        }
-        // If targetName is orphan, insert it into __root__ in alphabetical order
-        let targetInHierarchy = false;
-        for (const [parent, children] of Object.entries(this.plugin.settings.workspaceChildren)) {
-            if (children.includes(targetName)) {
-                targetInHierarchy = true;
-                break;
-            }
-        }
-        if (!targetInHierarchy) {
-            this.plugin.settings.workspaceChildren["__root__"].push(targetName);
-        }
-        // Add dragName as child of targetName
-        if (!this.plugin.settings.workspaceChildren[targetName]) {
-            this.plugin.settings.workspaceChildren[targetName] = [];
-        }
-        this.plugin.settings.workspaceChildren[targetName].push(dragName);
-        return true;
-    }
-    reorderWorkspace(dragName, targetName, position) {
-        // Make dragName a sibling of targetName (same parent, before or after)
-        if (dragName === targetName) return false;
-        // Find current positions
-        let dragParent = null, dragIdx = -1;
-        for (const [parent, children] of Object.entries(this.plugin.settings.workspaceChildren)) {
-            const idx = children.indexOf(dragName);
-            if (idx !== -1) { dragParent = parent; dragIdx = idx; break; }
-        }
-        // Ensure __root__ exists
-        if (!this.plugin.settings.workspaceChildren["__root__"]) {
-            this.plugin.settings.workspaceChildren["__root__"] = [];
-        }
-        // Find targetName's parent and index
-        let targetParent = this.plugin.getWorkspaceParent(targetName);
-        let targetChildren;
-        if (targetParent) {
-            targetChildren = this.plugin.settings.workspaceChildren[targetParent];
-        } else {
-            targetParent = "__root__";
-            targetChildren = this.plugin.settings.workspaceChildren["__root__"];
-            if (!targetChildren.includes(targetName)) {
-                targetChildren.push(targetName);
-            }
-        }
-        let targetIdx = targetChildren.indexOf(targetName);
-        if (targetIdx === -1) return false;
-        // If same array, removing dragName shifts indices
-        if (dragParent === targetParent && dragIdx < targetIdx) {
-            targetIdx--;
-        }
-        // Remove dragName from its current parent
-        if (dragParent !== null) {
-            const children = this.plugin.settings.workspaceChildren[dragParent];
-            children.splice(dragIdx, 1);
-            if (children.length === 0 && dragParent !== "__root__") {
-                delete this.plugin.settings.workspaceChildren[dragParent];
-            }
-        }
-        // Insert at position
-        if (position === "before") {
-            targetChildren.splice(targetIdx, 0, dragName);
-        } else {
-            targetChildren.splice(targetIdx + 1, 0, dragName);
-        }
-        return true;
     }
     renameInSettings(oldName, newName) {
         this.plugin.workspacePlugin.workspaces[newName] = this.plugin.workspacePlugin.workspaces[oldName];
@@ -3037,53 +2948,59 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
         }
         wrapperEl.appendChild(childEl);
         parentEl.appendChild(wrapperEl);
-        // Drag to reorder in modal
+        // Drag: center=reparent, edge=reorder
         wrapperEl.setAttribute("draggable", "true");
         wrapperEl.addEventListener("dragstart", (e) => {
             e.dataTransfer.effectAllowed = "move";
             this._modalDragName = childEl.dataset.workspaceName;
             wrapperEl.addClass("dragging");
         });
-        wrapperEl.addEventListener("dragend", () => {
-            wrapperEl.removeClass("dragging");
-        });
+        wrapperEl.addEventListener("dragend", () => { wrapperEl.removeClass("dragging"); });
         wrapperEl.addEventListener("dragover", (e) => {
             e.preventDefault();
             e.dataTransfer.dropEffect = "move";
-            if (this._modalDragName && this._modalDragName !== childEl.dataset.workspaceName) {
-                wrapperEl.addClass("drag-over");
-            }
+            if (!this._modalDragName || this._modalDragName === childEl.dataset.workspaceName) return;
+            const rect = wrapperEl.getBoundingClientRect();
+            const y = e.clientY - rect.top;
+            const edge = rect.height * 0.25;
+            wrapperEl.removeClass("drag-over");
+            wrapperEl.removeClass("drag-insert-before");
+            wrapperEl.removeClass("drag-insert-after");
+            if (y < edge) wrapperEl.addClass("drag-insert-before");
+            else if (y > rect.height - edge) wrapperEl.addClass("drag-insert-after");
+            else wrapperEl.addClass("drag-over");
         });
         wrapperEl.addEventListener("dragleave", () => {
             wrapperEl.removeClass("drag-over");
+            wrapperEl.removeClass("drag-insert-before");
+            wrapperEl.removeClass("drag-insert-after");
         });
         wrapperEl.addEventListener("drop", (e) => {
             e.preventDefault();
             e.stopPropagation();
-            wrapperEl.removeClass("drag-over");
             const dragName = this._modalDragName;
             this._modalDragName = null;
-            if (!dragName || dragName === childEl.dataset.workspaceName) return;
-            // Reorder as sibling: determine insert position based on mouse Y relative to target
-            const rect = wrapperEl.getBoundingClientRect();
-            const pos = (e.clientY - rect.top) > rect.height / 2 ? "after" : "before";
-            // Remove from current parent, insert into target's parent
             const targetName = childEl.dataset.workspaceName;
-            this.plugin.settings.workspaceChildren["__root__"] = this.plugin.settings.workspaceChildren["__root__"] || [];
-            let dragParent = null, dragIdx = -1;
-            for (const [p, ch] of Object.entries(this.plugin.settings.workspaceChildren)) {
-                const idx = ch.indexOf(dragName);
-                if (idx !== -1) { dragParent = p; dragIdx = idx; break; }
+            if (!dragName || dragName === targetName) return;
+            const rect = wrapperEl.getBoundingClientRect();
+            const y = e.clientY - rect.top;
+            const edge = rect.height * 0.25;
+            wrapperEl.removeClass("drag-over");
+            wrapperEl.removeClass("drag-insert-before");
+            wrapperEl.removeClass("drag-insert-after");
+            let changed = false;
+            if (y < edge) changed = this.plugin.reorderWorkspace(dragName, targetName, "before");
+            else if (y > rect.height - edge) changed = this.plugin.reorderWorkspace(dragName, targetName, "after");
+            else changed = this.plugin.reparentWorkspace(dragName, targetName);
+            if (changed) {
+                this.plugin.saveData(this.plugin.settings);
+                const cur = this.chooser.values ? this.chooser.values[this.chooser.selectedItem] : null;
+                this.chooser.chooser.updateSuggestions();
+                if (cur) {
+                    const nv = this.chooser.values;
+                    if (nv) { const ni = nv.findIndex(v => v.item === cur.item); if (ni >= 0) this.chooser.setSelectedItem(ni, null); }
+                }
             }
-            let targetParent = this.plugin.getWorkspaceParent(targetName);
-            if (!targetParent) { targetParent = "__root__"; this.plugin.settings.workspaceChildren["__root__"].push(targetName); }
-            const tc = this.plugin.settings.workspaceChildren[targetParent];
-            let ti = tc.indexOf(targetName);
-            if (dragParent === targetParent && dragIdx < ti) ti--;
-            if (dragParent) { const c = this.plugin.settings.workspaceChildren[dragParent]; c.splice(dragIdx, 1); if (c.length === 0 && dragParent !== "__root__") delete this.plugin.settings.workspaceChildren[dragParent]; }
-            tc.splice(pos === "before" ? ti : ti + 1, 0, dragName);
-            this.plugin.saveData(this.plugin.settings);
-            this.chooser.chooser.updateSuggestions();
         });
         return wrapperEl;
     }
@@ -4749,6 +4666,63 @@ class WorkspacesPlus extends obsidian.Plugin {
             default:
                 return Object.assign({}, this.settings.collapsedWorkspaces);
         }
+    }
+    reparentWorkspace(dragName, targetName) {
+        if (dragName === targetName) return false;
+        let check = targetName;
+        while (check) {
+            if (check === dragName) return false;
+            check = this.getWorkspaceParent(check);
+        }
+        if (!this.settings.workspaceChildren["__root__"]) {
+            this.settings.workspaceChildren["__root__"] = [];
+        }
+        // Remove dragName from current parent
+        for (const [parent, children] of Object.entries(this.settings.workspaceChildren)) {
+            const idx = children.indexOf(dragName);
+            if (idx !== -1) {
+                children.splice(idx, 1);
+                if (children.length === 0 && parent !== "__root__") delete this.settings.workspaceChildren[parent];
+                break;
+            }
+        }
+        // Ensure target in hierarchy
+        let targetInHierarchy = false;
+        for (const [, children] of Object.entries(this.settings.workspaceChildren)) {
+            if (children.includes(targetName)) { targetInHierarchy = true; break; }
+        }
+        if (!targetInHierarchy) this.settings.workspaceChildren["__root__"].push(targetName);
+        if (!this.settings.workspaceChildren[targetName]) this.settings.workspaceChildren[targetName] = [];
+        this.settings.workspaceChildren[targetName].push(dragName);
+        return true;
+    }
+    reorderWorkspace(dragName, targetName, position) {
+        if (dragName === targetName) return false;
+        let dragParent = null, dragIdx = -1;
+        for (const [parent, children] of Object.entries(this.settings.workspaceChildren)) {
+            const idx = children.indexOf(dragName);
+            if (idx !== -1) { dragParent = parent; dragIdx = idx; break; }
+        }
+        if (!this.settings.workspaceChildren["__root__"]) this.settings.workspaceChildren["__root__"] = [];
+        let targetParent = this.getWorkspaceParent(targetName);
+        let targetChildren;
+        if (targetParent) {
+            targetChildren = this.settings.workspaceChildren[targetParent];
+        } else {
+            targetParent = "__root__";
+            targetChildren = this.settings.workspaceChildren["__root__"];
+            if (!targetChildren.includes(targetName)) targetChildren.push(targetName);
+        }
+        let targetIdx = targetChildren.indexOf(targetName);
+        if (targetIdx === -1) return false;
+        if (dragParent === targetParent && dragIdx < targetIdx) targetIdx--;
+        if (dragParent !== null) {
+            const children = this.settings.workspaceChildren[dragParent];
+            children.splice(dragIdx, 1);
+            if (children.length === 0 && dragParent !== "__root__") delete this.settings.workspaceChildren[dragParent];
+        }
+        targetChildren.splice(position === "before" ? targetIdx : targetIdx + 1, 0, dragName);
+        return true;
     }
     registerCommands() {
         this.addCommand({
