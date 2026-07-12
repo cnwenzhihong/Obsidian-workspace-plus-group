@@ -379,10 +379,14 @@ body.is-mobile .side-dock-actions div[aria-label="Manage modes"] svg {
   user-select: text;
   overflow: visible;
   white-space: pre;
+  pointer-events: auto;
+  -webkit-user-select: text;
+  -webkit-user-modify: read-write;
 }
 
 .hierarchy-row.is-editing {
   cursor: default;
+  user-select: auto;
 }
 
 .hierarchy-name.is-active {
