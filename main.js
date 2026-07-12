@@ -2498,37 +2498,30 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         renameBtn.setAttribute("aria-label", t("rename-workspace"));
         renameBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12.9 6.858l4.242 4.243L7.242 21H3v-4.243l9.9-9.9zm1.414-1.414l2.121-2.122a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414l-2.122 2.121-4.242-4.242z"/></svg>`;
         const startRename = () => {
-            if (nameEl.contentEditable === "true") return;
+            if (nameEl.style.display === "none") return;
             const originalName = nameEl.textContent;
-            nameEl.contentEditable = "true";
-            nameEl.focus();
+            nameEl.style.display = "none";
             row.addClass("is-editing");
-            row.setAttribute("draggable", "false");
-            // Prevent row drag from capturing clicks inside the editing name
-            nameEl.addEventListener("mousedown", ev => ev.stopPropagation(), { once: true });
-            const range = document.createRange();
-            range.selectNodeContents(nameEl);
-            const sel = window.getSelection();
-            sel.removeAllRanges();
-            sel.addRange(range);
+            const input = row.createEl("input", { type: "text", value: originalName, cls: "hierarchy-rename-input" });
+            input.style.marginLeft = nameEl.style.marginLeft || "";
             const commit = () => {
-                const newName = nameEl.textContent.trim();
-                nameEl.contentEditable = "false";
+                const newName = input.value.trim();
+                input.remove();
+                nameEl.style.display = "";
                 row.removeClass("is-editing");
-                row.setAttribute("draggable", "true");
                 if (newName && newName !== originalName && !this.plugin.workspacePlugin.workspaces[newName]) {
                     this.renameInSettings(originalName, newName);
                     this.plugin.saveData(this.plugin.settings);
                     this.renderHierarchy(treeContainer);
-                } else {
-                    nameEl.textContent = originalName;
                 }
             };
-            nameEl.onblur = commit;
-            nameEl.onkeydown = (ev) => {
+            input.addEventListener("blur", commit);
+            input.addEventListener("keydown", (ev) => {
                 if (ev.key === "Enter") { ev.preventDefault(); commit(); }
-                if (ev.key === "Escape") { nameEl.contentEditable = "false"; nameEl.textContent = originalName; row.removeClass("is-editing"); row.setAttribute("draggable", "true"); }
-            };
+                if (ev.key === "Escape") { input.remove(); nameEl.style.display = ""; row.removeClass("is-editing"); }
+            });
+            input.focus();
+            input.select();
         };
         renameBtn.addEventListener("click", (e) => { e.stopPropagation(); startRename(); });
         nameEl.addEventListener("dblclick", (e) => { e.stopPropagation(); startRename(); });
@@ -2560,27 +2553,27 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
                 if (newRow) {
                     const newNameEl = newRow.querySelector(".hierarchy-name");
                     if (newNameEl) {
-                        newNameEl.contentEditable = "true";
-                        newNameEl.focus();
-                        const range = document.createRange();
-                        range.selectNodeContents(newNameEl);
-                        const sel = window.getSelection();
-                        sel.removeAllRanges();
-                        sel.addRange(range);
+                        newNameEl.style.display = "none";
+                        newRow.addClass("is-editing");
+                        const input = newRow.createEl("input", { type: "text", value: finalName, cls: "hierarchy-rename-input" });
                         const commit = () => {
-                            const nn = newNameEl.textContent.trim();
-                            newNameEl.contentEditable = "false";
+                            const nn = input.value.trim();
+                            input.remove();
+                            newNameEl.style.display = "";
+                            newRow.removeClass("is-editing");
                             if (nn && nn !== finalName && !this.plugin.workspacePlugin.workspaces[nn]) {
                                 this.renameInSettings(finalName, nn);
                                 this.plugin.saveData(this.plugin.settings);
                                 this.renderHierarchy(treeContainer);
                             }
                         };
-                        newNameEl.onblur = commit;
-                        newNameEl.onkeydown = (ev) => {
+                        input.addEventListener("blur", commit);
+                        input.addEventListener("keydown", (ev) => {
                             if (ev.key === "Enter") { ev.preventDefault(); commit(); }
-                            if (ev.key === "Escape") { this.renderHierarchy(treeContainer); }
-                        };
+                            if (ev.key === "Escape") { input.remove(); newNameEl.style.display = ""; newRow.removeClass("is-editing"); }
+                        });
+                        input.focus();
+                        input.select();
                     }
                 }
             }, 50);

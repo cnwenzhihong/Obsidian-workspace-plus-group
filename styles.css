@@ -374,19 +374,21 @@ body.is-mobile .side-dock-actions div[aria-label="Manage modes"] svg {
   user-select: inherit;
 }
 
-.hierarchy-name[contenteditable="true"] {
-  cursor: text;
-  user-select: text;
-  overflow: visible;
-  white-space: pre;
-  pointer-events: auto;
-  -webkit-user-select: text;
-  -webkit-user-modify: read-write;
-}
-
 .hierarchy-row.is-editing {
   cursor: default;
   user-select: auto;
+}
+
+.hierarchy-rename-input {
+  flex: 1;
+  height: 22px;
+  padding: 0 4px;
+  border: 1px solid var(--interactive-accent);
+  border-radius: 3px;
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-size: var(--font-ui-small);
+  outline: none;
 }
 
 .hierarchy-name.is-active {
