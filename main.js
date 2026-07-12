@@ -2696,10 +2696,10 @@ class ConfirmationModal extends obsidian.Modal {
                 cls: "mod-cta",
                 text: cta,
             });
-            btnSumbit.addEventListener("click", (e) => __awaiter(this, void 0, void 0, function* () {
-                yield onAccept();
+            btnSumbit.addEventListener("click", () => {
+                onAccept();
                 this.close();
-            }));
+            });
             setTimeout(() => {
                 btnSumbit.focus();
             }, 50);
@@ -2775,7 +2775,6 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
             const range = document.createRange();
             selection.removeAllRanges();
             range.selectNodeContents(el);
-            range.collapse(false);
             selection.addRange(range);
             el.focus();
             el.onblur = ev => {
@@ -2889,6 +2888,8 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
             this.setWorkspace(newName);
             this.activeWorkspace = newName;
         }
+        this.plugin.renameInHierarchy(originalName, newName);
+        this.plugin.saveData(this.plugin.settings);
         this.chooser.chooser.updateSuggestions();
         targetEl.contentEditable = "false";
         let selectedIdx = this.getItems().findIndex((workspace) => workspace === newName);
@@ -3080,6 +3081,24 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
             this.plugin.reparentWorkspace(finalName, workspaceName);
             this.plugin.saveData(this.plugin.settings);
             this.chooser.chooser.updateSuggestions();
+            // Enter rename mode on the new workspace
+            setTimeout(() => {
+                const newIdx = this.getItems().indexOf(finalName);
+                if (newIdx >= 0) {
+                    this.chooser.setSelectedItem(newIdx, null);
+                    const newEl = this.chooser.suggestions[newIdx];
+                    if (newEl) {
+                        newEl.contentEditable = "true";
+                        newEl.focus();
+                        const range = document.createRange();
+                        range.selectNodeContents(newEl);
+                        const sel = window.getSelection();
+                        sel.removeAllRanges();
+                        sel.addRange(range);
+                        newEl.onblur = () => { newEl.contentEditable = "false"; };
+                    }
+                }
+            }, 100);
         });
     }
     doDelete(workspaceName) {
