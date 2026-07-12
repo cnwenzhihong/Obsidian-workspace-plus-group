@@ -2576,18 +2576,9 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             row.removeClass("drag-over");
             row.removeClass("drag-insert-before");
             row.removeClass("drag-insert-after");
-            if (y < edge) {
-                row.addClass("drag-insert-before");
-            } else if (y > rect.height - edge) {
-                row.addClass("drag-insert-after");
-            } else {
-                row.addClass("drag-over");
-            }
-        });
-        row.addEventListener("dragleave", () => {
-            row.removeClass("drag-over");
-            row.removeClass("drag-insert-before");
-            row.removeClass("drag-insert-after");
+            if (y < edge) row.addClass("drag-insert-before");
+            else if (y > rect.height - edge) row.addClass("drag-insert-after");
+            else row.addClass("drag-over");
         });
         row.addEventListener("drop", (e) => {
             e.preventDefault();
@@ -2955,7 +2946,14 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
             this._modalDragName = childEl.dataset.workspaceName;
             wrapperEl.addClass("dragging");
         });
-        wrapperEl.addEventListener("dragend", () => { wrapperEl.removeClass("dragging"); });
+        wrapperEl.addEventListener("dragend", () => {
+            wrapperEl.removeClass("dragging");
+            this.modalEl.querySelectorAll(".workspace-results").forEach(r => {
+                r.removeClass("drag-over");
+                r.removeClass("drag-insert-before");
+                r.removeClass("drag-insert-after");
+            });
+        });
         wrapperEl.addEventListener("dragover", (e) => {
             e.preventDefault();
             e.dataTransfer.dropEffect = "move";
@@ -2969,11 +2967,6 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
             if (y < edge) wrapperEl.addClass("drag-insert-before");
             else if (y > rect.height - edge) wrapperEl.addClass("drag-insert-after");
             else wrapperEl.addClass("drag-over");
-        });
-        wrapperEl.addEventListener("dragleave", () => {
-            wrapperEl.removeClass("drag-over");
-            wrapperEl.removeClass("drag-insert-before");
-            wrapperEl.removeClass("drag-insert-after");
         });
         wrapperEl.addEventListener("drop", (e) => {
             e.preventDefault();
