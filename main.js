@@ -3102,14 +3102,16 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
     }
     doDelete(workspaceName) {
         let currentSelection = this.chooser.selectedItem;
-        const resultsEl = this.modalEl.querySelector(".prompt-results");
-        const scrollTop = resultsEl ? resultsEl.scrollTop : 0;
+        const scrollTop = this.modalEl.querySelector(".prompt-results")?.scrollTop || 0;
         this.workspacePlugin.deleteWorkspace(workspaceName);
         this.chooser.chooser.updateSuggestions();
         const maxIdx = (this.chooser.values ? this.chooser.values.length : 0) - 1;
         this.chooser.setSelectedItem(Math.min(currentSelection, maxIdx), true);
         this.plugin.onWorkspaceDelete(workspaceName);
-        if (resultsEl) resultsEl.scrollTop = scrollTop;
+        requestAnimationFrame(() => {
+            const el = this.modalEl.querySelector(".prompt-results");
+            if (el) el.scrollTop = scrollTop;
+        });
     }
     getItems() {
         const allNames = Object.keys(this.workspacePlugin.workspaces)
