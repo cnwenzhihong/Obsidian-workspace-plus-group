@@ -2530,7 +2530,7 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         nameEl.addEventListener("dblclick", (e) => { e.stopPropagation(); startRename(); });
         const childBtn = actions.createSpan({ cls: "hierarchy-action-btn" });
         childBtn.setAttribute("aria-label", t("create-child-workspace"));
-        childBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2zm7 8h-3v3h-2v-3H9v-2h3V7h2v3h3v2z"/></svg>`;
+        childBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2zm7 8h-3v3h-2v-3H9v-2h3V7h2v3h3v2z"/></svg>`;
         childBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             const childName = name + "-child";
@@ -3063,7 +3063,7 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
         const childIcon = wrapperEl.createDiv("add-child-workspace");
         childIcon.setAttribute("aria-label", t("create-child-workspace"));
         childIcon.setAttribute("aria-label-position", "top");
-        childIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2zm7 8h-3v3h-2v-3H9v-2h3V7h2v3h3v2z"/></svg>`;
+        childIcon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2zm7 8h-3v3h-2v-3H9v-2h3V7h2v3h3v2z"/></svg>`;
         childIcon.addEventListener("click", (e) => {
             e.stopPropagation();
             const childName = workspaceName + "-child";
