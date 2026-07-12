@@ -2879,7 +2879,9 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
     handleRename(targetEl) {
         targetEl.parentElement.parentElement.removeClass("renaming");
         const originalName = targetEl.dataset.workspaceName;
-        const newName = targetEl.textContent;
+        const newName = targetEl.textContent.trim();
+        targetEl.contentEditable = "false";
+        if (newName === originalName) return;
         this.workspacePlugin.workspaces[newName] = this.workspacePlugin.workspaces[originalName];
         delete this.workspacePlugin.workspaces[originalName];
         if (originalName === this.activeWorkspace) {
@@ -2889,7 +2891,6 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
         this.plugin.renameInHierarchy(originalName, newName);
         this.plugin.saveData(this.plugin.settings);
         this.chooser.chooser.updateSuggestions();
-        targetEl.contentEditable = "false";
         let selectedIdx = this.getItems().findIndex((workspace) => workspace === newName);
         this.chooser.setSelectedItem(selectedIdx, true);
         this.app.workspace.trigger("workspace-rename", newName, originalName);
