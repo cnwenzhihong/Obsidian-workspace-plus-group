@@ -2589,12 +2589,13 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         deleteBtn.addEventListener("click", (e) => {
             e.stopPropagation();
             if (this.plugin.settings.showDeletePrompt) {
+                const self = this;
                 createConfirmationDialog(this.plugin.app, {
                     cta: t("delete"),
-                    onAccept: () => __awaiter(this, void 0, void 0, function* () {
-                        this.plugin.workspacePlugin.deleteWorkspace(name);
-                        this.renderHierarchy(treeContainer);
-                    }),
+                    onAccept: () => {
+                        self.plugin.workspacePlugin.deleteWorkspace(name);
+                        self.renderHierarchy(treeContainer);
+                    },
                     text: t("workspace-delete-confirm-text").replace("{}", name),
                     title: t("workspace-delete-confirm-title"),
                 });
@@ -3085,7 +3086,8 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
         let currentSelection = this.chooser.selectedItem;
         this.workspacePlugin.deleteWorkspace(workspaceName);
         this.chooser.chooser.updateSuggestions();
-        this.chooser.setSelectedItem(currentSelection - 1, true);
+        const maxIdx = (this.chooser.values ? this.chooser.values.length : 0) - 1;
+        this.chooser.setSelectedItem(Math.min(currentSelection, maxIdx), true);
         this.plugin.onWorkspaceDelete(workspaceName);
     }
     getItems() {
