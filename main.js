@@ -2218,6 +2218,7 @@ const STRINGS = {
     "new-workspace-placeholder": { en: "New workspace name...", zh: "新工作区名称..." },
     "create-workspace": { en: "Create", zh: "创建" },
     "create-child-workspace": { en: "Create as child", zh: "创建子工作区" },
+    "hint-drag-reorder": { en: "Drag to reorder · Enter to switch · Shift+Enter to save · Ctrl+Enter to rename · Shift+Del to delete", zh: "拖拽排序 · 回车切换 · Shift+回车保存 · Ctrl+回车改名 · Shift+Del 删除" },
 };
 
 let _lang = null;
@@ -2904,6 +2905,9 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
         var _a;
         super.onOpen();
         this.activeWorkspace = this.workspacePlugin.activeWorkspace;
+        const resultsEl = this.modalEl.querySelector(".prompt-results");
+        const hintBar = createDiv({ cls: "workspace-hint-bar", text: t("hint-drag-reorder") });
+        resultsEl.parentElement.insertBefore(hintBar, resultsEl);
         let selectedIdx = this.getItems().findIndex(workspace => workspace === this.activeWorkspace);
         this.chooser.setSelectedItem(selectedIdx);
         (_a = this.chooser.suggestions[this.chooser.selectedItem]) === null || _a === void 0 ? void 0 : _a.scrollIntoViewIfNeeded();
@@ -3033,7 +3037,54 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
         }
         wrapperEl.appendChild(childEl);
         parentEl.appendChild(wrapperEl);
-        // wrapperEl.appendChild(descEl);
+        // Drag to reorder in modal
+        wrapperEl.setAttribute("draggable", "true");
+        wrapperEl.addEventListener("dragstart", (e) => {
+            e.dataTransfer.effectAllowed = "move";
+            this._modalDragName = childEl.dataset.workspaceName;
+            wrapperEl.addClass("dragging");
+        });
+        wrapperEl.addEventListener("dragend", () => {
+            wrapperEl.removeClass("dragging");
+        });
+        wrapperEl.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = "move";
+            if (this._modalDragName && this._modalDragName !== childEl.dataset.workspaceName) {
+                wrapperEl.addClass("drag-over");
+            }
+        });
+        wrapperEl.addEventListener("dragleave", () => {
+            wrapperEl.removeClass("drag-over");
+        });
+        wrapperEl.addEventListener("drop", (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            wrapperEl.removeClass("drag-over");
+            const dragName = this._modalDragName;
+            this._modalDragName = null;
+            if (!dragName || dragName === childEl.dataset.workspaceName) return;
+            // Reorder as sibling: determine insert position based on mouse Y relative to target
+            const rect = wrapperEl.getBoundingClientRect();
+            const pos = (e.clientY - rect.top) > rect.height / 2 ? "after" : "before";
+            // Remove from current parent, insert into target's parent
+            const targetName = childEl.dataset.workspaceName;
+            this.plugin.settings.workspaceChildren["__root__"] = this.plugin.settings.workspaceChildren["__root__"] || [];
+            let dragParent = null, dragIdx = -1;
+            for (const [p, ch] of Object.entries(this.plugin.settings.workspaceChildren)) {
+                const idx = ch.indexOf(dragName);
+                if (idx !== -1) { dragParent = p; dragIdx = idx; break; }
+            }
+            let targetParent = this.plugin.getWorkspaceParent(targetName);
+            if (!targetParent) { targetParent = "__root__"; this.plugin.settings.workspaceChildren["__root__"].push(targetName); }
+            const tc = this.plugin.settings.workspaceChildren[targetParent];
+            let ti = tc.indexOf(targetName);
+            if (dragParent === targetParent && dragIdx < ti) ti--;
+            if (dragParent) { const c = this.plugin.settings.workspaceChildren[dragParent]; c.splice(dragIdx, 1); if (c.length === 0 && dragParent !== "__root__") delete this.plugin.settings.workspaceChildren[dragParent]; }
+            tc.splice(pos === "before" ? ti : ti + 1, 0, dragName);
+            this.plugin.saveData(this.plugin.settings);
+            this.chooser.chooser.updateSuggestions();
+        });
         return wrapperEl;
     }
     addRenameButton(wrapperEl, el) {

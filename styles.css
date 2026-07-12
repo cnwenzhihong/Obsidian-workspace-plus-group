@@ -450,3 +450,23 @@ body.is-mobile .side-dock-actions div[aria-label="Manage modes"] svg {
   height: 16px;
   display: block;
 }
+
+/* Hint bar in workspace switcher */
+.workspace-hint-bar {
+  padding: 4px 12px;
+  font-size: 11px;
+  color: var(--text-faint);
+  border-bottom: 1px solid var(--background-modifier-border);
+  white-space: nowrap;
+}
+
+/* Drag styles in modal */
+.workspace-plus-group-modal .workspace-results.dragging {
+  opacity: 0.5;
+}
+
+.workspace-plus-group-modal .workspace-results.drag-over {
+  outline: 2px solid var(--interactive-accent);
+  outline-offset: -2px;
+  border-radius: 4px;
+}
