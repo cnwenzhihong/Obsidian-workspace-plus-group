@@ -1205,7 +1205,7 @@ function flip(_ref) {
   }
 
   if (makeFallbackChecks) {
-    // `2` may be desired in some cases �?research later
+    // `2` may be desired in some cases – research later
     var numberOfChecks = flipVariations ? 3 : 1;
 
     var _loop = function _loop(_i) {
@@ -1864,7 +1864,7 @@ function popperGenerator(generatorOptions) {
         runModifierEffects();
         return instance.update();
       },
-      // Sync update �?it will always be executed, even if not necessary. This
+      // Sync update – it will always be executed, even if not necessary. This
       // is useful for low frequency updates where sync behavior simplifies the
       // logic.
       // For high frequency updates (e.g. `resize` and `scroll` events), always
@@ -1940,7 +1940,7 @@ function popperGenerator(generatorOptions) {
           }
         }
       },
-      // Async and optimistically optimized update �?it will not be executed if
+      // Async and optimistically optimized update – it will not be executed if
       // not necessary (debounced to run at most once-per-tick)
       update: debounce(function () {
         return new Promise(function (resolve) {
@@ -2163,49 +2163,49 @@ const DEFAULT_SETTINGS = {
 
 const STRINGS = {
     "auto-save-layout": { en: "Auto save the current workspace on layout change", zh: "布局变更时自动保存当前工作区" },
-    "auto-save-layout-desc": { en: "This option will auto save your current workspace on any layout change. Leave this disabled if you want full control over when your workspace is saved.", zh: "启用后，任何布局变更都会自动保存当前工作区。如需完全手动控制保存时机，请关闭此选项�? },
+    "auto-save-layout-desc": { en: "This option will auto save your current workspace on any layout change. Leave this disabled if you want full control over when your workspace is saved.", zh: "启用后，任何布局变更都会自动保存当前工作区。如需完全手动控制保存时机，请关闭此选项。" },
     "display": { en: "Display", zh: "显示" },
-    "show-delete-confirmation": { en: "Show a confirmation prompt on workspace deletion", zh: "删除工作区时显示确认提示�? },
-    "show-sidebar-ribbon": { en: "Show Sidebar Ribbon Icon", zh: "显示侧边�?Ribbon 图标" },
+    "show-delete-confirmation": { en: "Show a confirmation prompt on workspace deletion", zh: "删除工作区时显示确认提示框" },
+    "show-sidebar-ribbon": { en: "Show Sidebar Ribbon Icon", zh: "显示侧边栏 Ribbon 图标" },
     "advanced": { en: "Advanced", zh: "高级" },
-    "workspace-modes": { en: "Workspace Modes", zh: "工作区模�? },
-    "workspace-modes-desc": { en: "Bind a set of independent Obsidian global settings to each workspace (theme, font, editor config, etc.). When switching workspaces, the corresponding appearance config is automatically applied. Equivalent to each workspace having its own \"appearance skin\".", zh: "为每个工作区绑定一套独立的 Obsidian 全局设置方案（主题、字体、编辑器配置等）。启用后，切换工作区时会自动应用对应的外观配置。相当于每个工作区都有自己的\"外观皮肤\"�? },
-    "show-mode-ribbon": { en: "Show Workspace Mode Sidebar Ribbon Icon", zh: "显示模式侧边�?Ribbon 图标" },
+    "workspace-modes": { en: "Workspace Modes", zh: "工作区模式" },
+    "workspace-modes-desc": { en: "Bind a set of independent Obsidian global settings to each workspace (theme, font, editor config, etc.). When switching workspaces, the corresponding appearance config is automatically applied. Equivalent to each workspace having its own \"appearance skin\".", zh: "为每个工作区绑定一套独立的 Obsidian 全局设置方案（主题、字体、编辑器配置等）。启用后，切换工作区时会自动应用对应的外观配置。相当于每个工作区都有自己的\"外观皮肤\"。" },
+    "show-mode-ribbon": { en: "Show Workspace Mode Sidebar Ribbon Icon", zh: "显示模式侧边栏 Ribbon 图标" },
     "system-dark-mode": { en: "Respect system dark mode setting", zh: "跟随系统深色模式" },
-    "system-dark-mode-desc": { en: "Let the OS determine the light/dark mode setting when switching modes. This setting can only be used if Workspace Modes is enabled.", zh: "切换模式时由操作系统决定浅色/深色模式。仅在启用工作区模式后可用�? },
-    "auto-reload-live-preview": { en: "Automatically reload Obsidian on Live Preview setting change", zh: "Live Preview 设置变更时自动重�?Obsidian" },
-    "auto-reload-live-preview-desc": { en: "When switching between Modes with different Live Preview settings, reload Obsidian for the change to take effect. Note: Obsidian will reload automatically if needed, without prompts.", zh: "当切换的模式拥有不同�?Live Preview 设置时，自动重载 Obsidian 使设置生效。注意：如需重载将在无提示下自动执行�? },
-    "type-workspace-name": { en: "Type workspace name...", zh: "输入工作区名�?.." },
-    "no-match-found": { en: "No match found.", zh: "未找到匹配项�? },
-    "press-enter-to-save": { en: "Press Enter to save current layout as new workspace", zh: "�?Enter 将当前布局保存为新工作�? },
-    "save-as-new-workspace": { en: "Save as new workspace", zh: "保存为新工作�? },
+    "system-dark-mode-desc": { en: "Let the OS determine the light/dark mode setting when switching modes. This setting can only be used if Workspace Modes is enabled.", zh: "切换模式时由操作系统决定浅色/深色模式。仅在启用工作区模式后可用。" },
+    "auto-reload-live-preview": { en: "Automatically reload Obsidian on Live Preview setting change", zh: "Live Preview 设置变更时自动重载 Obsidian" },
+    "auto-reload-live-preview-desc": { en: "When switching between Modes with different Live Preview settings, reload Obsidian for the change to take effect. Note: Obsidian will reload automatically if needed, without prompts.", zh: "当切换的模式拥有不同的 Live Preview 设置时，自动重载 Obsidian 使设置生效。注意：如需重载将在无提示下自动执行。" },
+    "type-workspace-name": { en: "Type workspace name...", zh: "输入工作区名称..." },
+    "no-match-found": { en: "No match found.", zh: "未找到匹配项。" },
+    "press-enter-to-save": { en: "Press Enter to save current layout as new workspace", zh: "按 Enter 将当前布局保存为新工作区" },
+    "save-as-new-workspace": { en: "Save as new workspace", zh: "保存为新工作区" },
     "rename-workspace": { en: "Rename workspace", zh: "重命名工作区" },
-    "delete-workspace": { en: "Delete workspace", zh: "删除工作�? },
+    "delete-workspace": { en: "Delete workspace", zh: "删除工作区" },
     "saved-workspace": { en: "Successfully saved workspace: ", zh: "成功保存工作区：" },
     "saved-mode": { en: "Successfully saved mode", zh: "成功保存模式" },
     "type-mode-name": { en: "Type mode name...", zh: "输入模式名称..." },
     "save-as-new-mode": { en: "Save as new mode", zh: "保存为新模式" },
-    "rename-mode": { en: "Rename mode", zh: "重命名模�? },
+    "rename-mode": { en: "Rename mode", zh: "重命名模式" },
     "delete-mode": { en: "Delete mode", zh: "删除模式" },
-    "workspace-delete-confirm-title": { en: "Workspace Delete Confirmation", zh: "删除工作区确�? },
+    "workspace-delete-confirm-title": { en: "Workspace Delete Confirmation", zh: "删除工作区确认" },
     "workspace-delete-confirm-text": { en: "Do you really want to delete the '{}' workspace?", zh: "确定要删除工作区 '{}' 吗？" },
     "mode-delete-confirm-title": { en: "Mode Delete Confirmation", zh: "删除模式确认" },
-    "mode-delete-confirm-text": { en: "Do you really want to delete the '{}' mode?", zh: "确定要删除模�?'{}' 吗？" },
-    "switch-workspace": { en: "Switch workspace", zh: "切换工作�? },
+    "mode-delete-confirm-text": { en: "Do you really want to delete the '{}' mode?", zh: "确定要删除模式 '{}' 吗？" },
+    "switch-workspace": { en: "Switch workspace", zh: "切换工作区" },
     "switch-mode": { en: "Switch mode", zh: "切换模式" },
-    "manage-workspaces": { en: "Manage workspaces", zh: "管理工作�? },
+    "manage-workspaces": { en: "Manage workspaces", zh: "管理工作区" },
     "manage-modes": { en: "Manage modes", zh: "管理模式" },
-    "desktop-workspace": { en: "Desktop workspace", zh: "桌面工作�? },
-    "mobile-workspace": { en: "Mobile workspace", zh: "移动工作�? },
+    "desktop-workspace": { en: "Desktop workspace", zh: "桌面工作区" },
+    "mobile-workspace": { en: "Mobile workspace", zh: "移动工作区" },
     "open-workspace-plus-group": { en: "Open WorkSpace Plus Group", zh: "打开 WorkSpace Plus Group" },
     "open-workspace-plus-group-modes": { en: "Open WorkSpace Plus Group Modes", zh: "打开 WorkSpace Plus Group 模式" },
-    "load-workspace": { en: "Load: ", zh: "加载�? },
-    "error-workspaces-disabled": { en: "Error: The Workspaces core plugin is disabled", zh: "错误：Workspaces 核心插件未启�? },
-    "save-workspace-cmd": { en: "Save workspace", zh: "保存工作�? },
+    "load-workspace": { en: "Load: ", zh: "加载：" },
+    "error-workspaces-disabled": { en: "Error: The Workspaces core plugin is disabled", zh: "错误：Workspaces 核心插件未启用" },
+    "save-workspace-cmd": { en: "Save workspace", zh: "保存工作区" },
     "delete": { en: "Delete", zh: "删除" },
-    "enable-workspaces-plugin": { en: "Please enable the Workspaces plugin under Core Plugins before using this plugin", zh: "请先在核心插件中启用 Workspaces 插件后再使用此插�? },
-    "hierarchy": { en: "Workspace Hierarchy", zh: "工作区层�? },
-    "hierarchy-desc": { en: "Drag and drop workspaces to create parent-child relationships. Use the indent/outdent buttons or drag left/right to adjust levels.", zh: "拖拽工作区以创建父子层级关系。使用缩�?缩出按钮或左右拖拽调整层级�? },
+    "enable-workspaces-plugin": { en: "Please enable the Workspaces plugin under Core Plugins before using this plugin", zh: "请先在核心插件中启用 Workspaces 插件后再使用此插件" },
+    "hierarchy": { en: "Workspace Hierarchy", zh: "工作区层级" },
+    "hierarchy-desc": { en: "Drag and drop workspaces to create parent-child relationships. Use the indent/outdent buttons or drag left/right to adjust levels.", zh: "拖拽工作区以创建父子层级关系。使用缩进/缩出按钮或左右拖拽调整层级。" },
     "modal-collapse-mode": { en: "Modal collapse rule", zh: "弹窗折叠规则" },
     "modal-collapse-mode-inherit": { en: "Inherit from settings", zh: "继承插件设置" },
     "modal-collapse-mode-independent": { en: "Save independently", zh: "弹窗独立保存" },
@@ -2213,7 +2213,7 @@ const STRINGS = {
     "modal-collapse-mode-all-collapsed": { en: "Always collapse all", zh: "始终全部折叠" },
     "collapse-workspace": { en: "Collapse children", zh: "折叠子工作区" },
     "expand-workspace": { en: "Expand children", zh: "展开子工作区" },
-    "move-as-root": { en: "Move to root level", zh: "移至根层�? },
+    "move-as-root": { en: "Move to root level", zh: "移至根层级" },
     "set-as-child": { en: "Set as child", zh: "设为子工作区" },
     "new-workspace-placeholder": { en: "New workspace name...", zh: "新工作区名称..." },
     "create-workspace": { en: "Create", zh: "创建" },
@@ -2498,30 +2498,33 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         renameBtn.setAttribute("aria-label", t("rename-workspace"));
         renameBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12.9 6.858l4.242 4.243L7.242 21H3v-4.243l9.9-9.9zm1.414-1.414l2.121-2.122a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414l-2.122 2.121-4.242-4.242z"/></svg>`;
         const startRename = () => {
-            if (nameEl.style.display === "none") return;
+            if (nameEl.contentEditable === "true") return;
             const originalName = nameEl.textContent;
-            nameEl.style.display = "none";
+            nameEl.contentEditable = "true";
+            nameEl.focus();
             row.addClass("is-editing");
-            const input = row.createEl("input", { type: "text", value: originalName, cls: "hierarchy-rename-input" });
-            input.style.marginLeft = nameEl.style.marginLeft || "";
+            const range = document.createRange();
+            range.selectNodeContents(nameEl);
+            const sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
             const commit = () => {
-                const newName = input.value.trim();
-                input.remove();
-                nameEl.style.display = "";
+                const newName = nameEl.textContent.trim();
+                nameEl.contentEditable = "false";
                 row.removeClass("is-editing");
                 if (newName && newName !== originalName && !this.plugin.workspacePlugin.workspaces[newName]) {
                     this.renameInSettings(originalName, newName);
                     this.plugin.saveData(this.plugin.settings);
                     this.renderHierarchy(treeContainer);
+                } else {
+                    nameEl.textContent = originalName;
                 }
             };
-            input.addEventListener("blur", commit);
-            input.addEventListener("keydown", (ev) => {
+            nameEl.onblur = commit;
+            nameEl.onkeydown = (ev) => {
                 if (ev.key === "Enter") { ev.preventDefault(); commit(); }
-                if (ev.key === "Escape") { input.remove(); nameEl.style.display = ""; row.removeClass("is-editing"); }
-            });
-            input.focus();
-            input.select();
+                if (ev.key === "Escape") { nameEl.contentEditable = "false"; nameEl.textContent = originalName; row.removeClass("is-editing"); }
+            };
         };
         renameBtn.addEventListener("click", (e) => { e.stopPropagation(); startRename(); });
         nameEl.addEventListener("dblclick", (e) => { e.stopPropagation(); startRename(); });
@@ -2553,13 +2556,17 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
                 if (newRow) {
                     const newNameEl = newRow.querySelector(".hierarchy-name");
                     if (newNameEl) {
-                        newNameEl.style.display = "none";
+                        newNameEl.contentEditable = "true";
+                        newNameEl.focus();
                         newRow.addClass("is-editing");
-                        const input = newRow.createEl("input", { type: "text", value: finalName, cls: "hierarchy-rename-input" });
+                        const range = document.createRange();
+                        range.selectNodeContents(newNameEl);
+                        const sel = window.getSelection();
+                        sel.removeAllRanges();
+                        sel.addRange(range);
                         const commit = () => {
-                            const nn = input.value.trim();
-                            input.remove();
-                            newNameEl.style.display = "";
+                            const nn = newNameEl.textContent.trim();
+                            newNameEl.contentEditable = "false";
                             newRow.removeClass("is-editing");
                             if (nn && nn !== finalName && !this.plugin.workspacePlugin.workspaces[nn]) {
                                 this.renameInSettings(finalName, nn);
@@ -2567,13 +2574,11 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
                                 this.renderHierarchy(treeContainer);
                             }
                         };
-                        input.addEventListener("blur", commit);
-                        input.addEventListener("keydown", (ev) => {
+                        newNameEl.onblur = commit;
+                        newNameEl.onkeydown = (ev) => {
                             if (ev.key === "Enter") { ev.preventDefault(); commit(); }
-                            if (ev.key === "Escape") { input.remove(); newNameEl.style.display = ""; newRow.removeClass("is-editing"); }
-                        });
-                        input.focus();
-                        input.select();
+                            if (ev.key === "Escape") { newNameEl.contentEditable = "false"; newRow.removeClass("is-editing"); this.renderHierarchy(treeContainer); }
+                        };
                     }
                 }
             }, 50);
@@ -2598,9 +2603,9 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
                 this.renderHierarchy(treeContainer);
             }
         });
-        // Drag and drop �?two behaviors:
-        //   Drop on row center �?reparent (make child)
-        //   Drop on row edge 25% �?reorder (sibling before/after)
+        // Drag and drop — two behaviors:
+        //   Drop on row center → reparent (make child)
+        //   Drop on row edge 25% → reorder (sibling before/after)
         row.addEventListener("dragstart", (e) => {
             e.dataTransfer.setData("text/plain", name);
             e.dataTransfer.effectAllowed = "move";
