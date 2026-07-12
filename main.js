@@ -2508,8 +2508,14 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             const sel = window.getSelection();
             sel.removeAllRanges();
             sel.addRange(range);
+            // Prevent empty contentEditable from breaking input
+            const onInput = () => {
+                if (!nameEl.textContent) nameEl.textContent = "\u200B";
+            };
+            nameEl.addEventListener("input", onInput);
             const commit = () => {
-                const newName = nameEl.textContent.trim();
+                nameEl.removeEventListener("input", onInput);
+                const newName = nameEl.textContent.replace("\u200B", "").trim();
                 nameEl.contentEditable = "false";
                 row.removeClass("is-editing");
                 if (newName && newName !== originalName && !this.plugin.workspacePlugin.workspaces[newName]) {
@@ -2523,7 +2529,7 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             nameEl.onblur = commit;
             nameEl.onkeydown = (ev) => {
                 if (ev.key === "Enter") { ev.preventDefault(); commit(); }
-                if (ev.key === "Escape") { nameEl.contentEditable = "false"; nameEl.textContent = originalName; row.removeClass("is-editing"); }
+                if (ev.key === "Escape") { nameEl.removeEventListener("input", onInput); nameEl.contentEditable = "false"; nameEl.textContent = originalName; row.removeClass("is-editing"); }
             };
         };
         renameBtn.addEventListener("click", (e) => { e.stopPropagation(); startRename(); });
@@ -2563,8 +2569,11 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
                         const sel = window.getSelection();
                         sel.removeAllRanges();
                         sel.addRange(range);
+                        const onInput = () => { if (!newNameEl.textContent) newNameEl.textContent = "\u200B"; };
+                        newNameEl.addEventListener("input", onInput);
                         const commit = () => {
-                            const nn = newNameEl.textContent.trim();
+                            newNameEl.removeEventListener("input", onInput);
+                            const nn = newNameEl.textContent.replace("\u200B", "").trim();
                             newNameEl.contentEditable = "false";
                             if (nn && nn !== finalName && !this.plugin.workspacePlugin.workspaces[nn]) {
                                 this.renameInSettings(finalName, nn);
