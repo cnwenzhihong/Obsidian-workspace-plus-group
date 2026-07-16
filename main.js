@@ -2219,6 +2219,11 @@ const STRINGS = {
     "create-workspace": { en: "Create", zh: "创建" },
     "create-child-workspace": { en: "Create as child", zh: "创建子工作区" },
     "hint-drag-reorder": { en: "Drag to reorder · Enter to switch · Shift+Enter to save · Ctrl+Enter to rename · Shift+Del to delete", zh: "拖拽排序 · 回车切换 · Shift+回车保存 · Ctrl+回车改名 · Shift+Del 删除" },
+    "focus-folder": { en: "Focus this folder", zh: "\u805a\u7126\u672c\u6587\u4ef6\u5939" },
+    "clear-folder-focus": { en: "Clear folder focus", zh: "\u53d6\u6d88\u805a\u7126\u6587\u4ef6\u5939" },
+    "folder-focused": { en: "Focused folder: ", zh: "\u5df2\u805a\u7126\u6587\u4ef6\u5939\uff1a" },
+    "folder-focus-cleared": { en: "Folder focus cleared", zh: "\u5df2\u53d6\u6d88\u805a\u7126\u6587\u4ef6\u5939" },
+    "folder-focus-missing": { en: "Focused folder no longer exists: ", zh: "\u805a\u7126\u6587\u4ef6\u5939\u5df2\u4e0d\u5b58\u5728\uff1a" },
 };
 
 let _lang = null;
@@ -4399,8 +4404,14 @@ class WorkspacesPlus extends obsidian.Plugin {
                 if (this.settings.saveOnChange) {
                     this.debouncedSave(this.utils.activeWorkspace);
                 }
+                if (this.getActiveFolderFocusPath()) {
+                    this.debouncedApplyFolderFocus();
+                }
             }
         };
+        this.debouncedApplyFolderFocus = obsidian.debounce(() => {
+            this.applyFolderFocus();
+        }, 120, true);
         this.onWorkspaceRename = (name, oldName) => {
             this.setWorkspaceName();
             this.renameInHierarchy(oldName, name);
@@ -4471,6 +4482,7 @@ class WorkspacesPlus extends obsidian.Plugin {
             }
             if (settings)
                 this.utils.updateFoldState(settings);
+            this.applyFolderFocus();
             this.saveData(this.settings);
         };
         this.reloadIfNeeded = obsidian.debounce(() => {
@@ -4537,6 +4549,7 @@ class WorkspacesPlus extends obsidian.Plugin {
                         this.enableModesFeature();
                     this.updateRibbonDisplay();
                     this.toggleModeRibbonButton();
+                    this.applyFolderFocus();
                 }, 100);
             });
         });
@@ -4749,6 +4762,218 @@ class WorkspacesPlus extends obsidian.Plugin {
         targetChildren.splice(position === "before" ? targetIdx : targetIdx + 1, 0, dragName);
         return true;
     }
+    getActiveFolderFocusPath() {
+        var _a;
+        return ((_a = this.utils.activeWorkspaceSettings()) === null || _a === void 0 ? void 0 : _a.folderFocusPath) || "";
+    }
+    setActiveFolderFocusPath(path) {
+        const settings = this.utils.activeWorkspaceSettings();
+        if (!settings)
+            return;
+        settings.folderFocusPath = obsidian.normalizePath(path);
+        this.workspacePlugin.saveData();
+        this.applyFolderFocus();
+        new obsidian.Notice(t("folder-focused") + settings.folderFocusPath);
+    }
+    clearActiveFolderFocusPath(showNotice = true) {
+        const settings = this.utils.activeWorkspaceSettings();
+        if (settings && settings.folderFocusPath) {
+            delete settings.folderFocusPath;
+            this.workspacePlugin.saveData();
+        }
+        this.clearFolderFocusClasses();
+        if (showNotice)
+            new obsidian.Notice(t("folder-focus-cleared"));
+    }
+    getFileExplorerContainers() {
+        const leaves = this.app.workspace.getLeavesOfType("file-explorer");
+        return leaves
+            .map(leaf => { var _a; return (_a = leaf.view) === null || _a === void 0 ? void 0 : _a.containerEl; })
+            .filter(container => container);
+    }
+    clearFolderFocusClasses() {
+        for (const container of this.getFileExplorerContainers()) {
+            container.classList.remove("workspace-plus-group-folder-focus");
+            delete container.dataset.folderFocusPath;
+            container.querySelectorAll(".workspace-plus-group-folder-focus-hidden, .workspace-plus-group-folder-focus-ancestor, .workspace-plus-group-folder-focus-target").forEach(el => {
+                el.classList.remove("workspace-plus-group-folder-focus-hidden", "workspace-plus-group-folder-focus-ancestor", "workspace-plus-group-folder-focus-target");
+            });
+        }
+    }
+    applyFolderFocus() {
+        const focusPath = this.getActiveFolderFocusPath();
+        this.clearFolderFocusClasses();
+        if (!focusPath)
+            return;
+        const folder = this.app.vault.getAbstractFileByPath(focusPath);
+        if (!(folder instanceof obsidian.TFolder)) {
+            this.clearActiveFolderFocusPath(false);
+            new obsidian.Notice(t("folder-focus-missing") + focusPath);
+            return;
+        }
+        this.expandFocusedFolderInViews(folder);
+        for (const leaf of this.app.workspace.getLeavesOfType("file-explorer")) {
+            const view = leaf.view;
+            if (view && typeof view.revealInFolder === "function") {
+                try {
+                    view.revealInFolder(folder);
+                }
+                catch (err) {
+                    console.error("[WorkSpace Plus Group] failed to reveal focused folder", err);
+                }
+            }
+        }
+        this.expandFocusedFolderInViews(folder);
+        this.applyFolderFocusToDom(focusPath, folder);
+        for (const delay of [100, 300, 600]) {
+            window.setTimeout(() => {
+                if (this.getActiveFolderFocusPath() === focusPath)
+                    this.applyFolderFocusToDom(focusPath, folder);
+            }, delay);
+        }
+    }
+    applyFolderFocusToDom(focusPath, folder) {
+        let applied = false;
+        for (const container of this.getFileExplorerContainers()) {
+            const targetFolder = this.getFileExplorerFolderElement(container, focusPath);
+            if (!targetFolder)
+                continue;
+            this.expandFocusedFolderDom(targetFolder);
+            const childrenEl = this.getDirectFolderChildrenElement(targetFolder);
+            if (folder.children.length > 0 && (!childrenEl || !childrenEl.querySelector(".nav-folder, .nav-file")))
+                continue;
+            container.classList.add("workspace-plus-group-folder-focus");
+            container.dataset.folderFocusPath = focusPath;
+            const items = Array.from(container.querySelectorAll(".nav-folder, .nav-file"));
+            items.forEach(item => {
+                item.classList.remove("workspace-plus-group-folder-focus-ancestor", "workspace-plus-group-folder-focus-target");
+                item.classList.add("workspace-plus-group-folder-focus-hidden");
+            });
+            targetFolder.classList.remove("workspace-plus-group-folder-focus-hidden");
+            targetFolder.classList.add("workspace-plus-group-folder-focus-target");
+            targetFolder.querySelectorAll(".nav-folder, .nav-file").forEach(item => {
+                item.classList.remove("workspace-plus-group-folder-focus-hidden");
+            });
+            let ancestor = targetFolder.parentElement ? targetFolder.parentElement.closest(".nav-folder") : null;
+            while (ancestor && container.contains(ancestor)) {
+                ancestor.classList.remove("workspace-plus-group-folder-focus-hidden");
+                ancestor.classList.add("workspace-plus-group-folder-focus-ancestor");
+                ancestor = ancestor.parentElement ? ancestor.parentElement.closest(".nav-folder") : null;
+            }
+            applied = true;
+        }
+        return applied;
+    }
+    getFileExplorerFolderElement(container, folderPath) {
+        const title = Array.from(container.querySelectorAll(".nav-folder-title")).find(el => el.getAttribute("data-path") === folderPath);
+        return title ? title.closest(".nav-folder") : null;
+    }
+    getDirectFolderChildrenElement(folderEl) {
+        return Array.from(folderEl.children).find(child => child.classList && child.classList.contains("nav-folder-children"));
+    }
+    expandFocusedFolderInViews(folder) {
+        const folders = [];
+        let current = folder;
+        while (current instanceof obsidian.TFolder && current.path) {
+            folders.unshift(current);
+            current = current.parent;
+        }
+        for (const leaf of this.app.workspace.getLeavesOfType("file-explorer")) {
+            const view = leaf.view;
+            for (const folderItem of folders) {
+                this.expandFileExplorerItem(view, folderItem.path);
+            }
+        }
+    }
+    expandFileExplorerItem(view, path) {
+        var _a;
+        const item = (_a = view === null || view === void 0 ? void 0 : view.fileItems) === null || _a === void 0 ? void 0 : _a[path];
+        if (!item)
+            return;
+        for (const method of ["setCollapsed", "setCollapsedState"]) {
+            if (typeof item[method] === "function") {
+                try {
+                    item[method](false);
+                }
+                catch (err) {
+                    console.error("[WorkSpace Plus Group] failed to expand file explorer item", err);
+                }
+            }
+        }
+        if ("collapsed" in item)
+            item.collapsed = false;
+        const el = item.el || item.selfEl || item.containerEl;
+        if (el instanceof Element)
+            this.expandFocusedFolderDom(el.closest(".nav-folder") || el);
+    }
+    expandFocusedFolderDom(targetFolder) {
+        let folder = targetFolder;
+        while (folder) {
+            const title = Array.from(folder.children).find(child => child.classList && child.classList.contains("nav-folder-title"));
+            const wasCollapsed = folder.classList.contains("is-collapsed") || (title === null || title === void 0 ? void 0 : title.classList.contains("is-collapsed"));
+            if (wasCollapsed && title instanceof HTMLElement)
+                title.click();
+            folder.classList.remove("is-collapsed");
+            title === null || title === void 0 ? void 0 : title.classList.remove("is-collapsed");
+            const children = this.getDirectFolderChildrenElement(folder);
+            if (children) {
+                children.style.removeProperty("display");
+                children.style.removeProperty("height");
+            }
+            folder = folder.parentElement ? folder.parentElement.closest(".nav-folder") : null;
+        }
+    }
+    addFolderFocusMenuItem(menu, file) {
+        const isFocused = this.getActiveFolderFocusPath() === file.path;
+        let itemEl = null;
+        menu.addItem(item => {
+            item
+                .setTitle(t(isFocused ? "clear-folder-focus" : "focus-folder"))
+                .setIcon(isFocused ? "folder-open" : "folder-search")
+                .setSection("action")
+                .onClick(() => {
+                if (isFocused)
+                    this.clearActiveFolderFocusPath();
+                else
+                    this.setActiveFolderFocusPath(file.path);
+            });
+            itemEl = item.dom || item.menuItemEl || item.el || null;
+            itemEl === null || itemEl === void 0 ? void 0 : itemEl.classList.add("workspace-plus-group-folder-focus-menu-item");
+        });
+        this.moveFolderFocusMenuItemToActionTop(itemEl);
+    }
+    moveFolderFocusMenuItemToActionTop(itemEl) {
+        window.setTimeout(() => {
+            const candidate = itemEl || document.querySelector(".menu .workspace-plus-group-folder-focus-menu-item");
+            const candidateItem = candidate ? candidate.closest(".menu-item") || candidate : null;
+            if (!candidateItem || !candidateItem.parentElement)
+                return;
+            const firstActionItem = Array.from(candidateItem.parentElement.querySelectorAll(".menu-item[data-section='action']")).find(el => el !== candidateItem);
+            if (firstActionItem)
+                candidateItem.parentElement.insertBefore(candidateItem, firstActionItem);
+        }, 0);
+    }
+    showFolderFocusMenu(evt) {
+        const target = evt.target;
+        if (!this.getActiveFolderFocusPath() || !(target instanceof Element))
+            return;
+        if (target.closest(".nav-folder-title, .nav-file-title"))
+            return;
+        const container = this.getFileExplorerContainers().find(el => el.contains(target));
+        if (!container)
+            return;
+        evt.preventDefault();
+        evt.stopPropagation();
+        const menu = new obsidian.Menu();
+        menu.addItem(item => {
+            item
+                .setTitle(t("clear-folder-focus"))
+                .setIcon("folder-open")
+                .setSection("action")
+                .onClick(() => this.clearActiveFolderFocusPath());
+        });
+        menu.showAtMouseEvent(evt);
+    }
     registerCommands() {
         this.addCommand({
             id: "open-workspace-plus-group",
@@ -4763,6 +4988,11 @@ class WorkspacesPlus extends obsidian.Plugin {
                 new obsidian.Notice(t("saved-workspace") + this.workspacePlugin.activeWorkspace);
             },
         });
+        this.addCommand({
+            id: "clear-folder-focus",
+            name: t("clear-folder-focus"),
+            callback: () => this.clearActiveFolderFocusPath(),
+        });
     }
     registerEventHandlers() {
         this.registerEvent(this.app.workspace.on("workspace-delete", this.onWorkspaceDelete));
@@ -4771,6 +5001,12 @@ class WorkspacesPlus extends obsidian.Plugin {
         this.registerEvent(this.app.workspace.on("workspace-load", this.onWorkspaceLoad));
         this.registerEvent(this.app.workspace.on("layout-change", this.onLayoutChange));
         this.registerEvent(this.app.workspace.on("resize", this.onLayoutChange));
+        this.registerEvent(this.app.workspace.on("file-menu", (menu, file) => {
+            if (!(file instanceof obsidian.TFolder))
+                return;
+            this.addFolderFocusMenuItem(menu, file);
+        }));
+        this.registerDomEvent(document, "contextmenu", evt => this.showFolderFocusMenu(evt), true);
     }
     get changeWorkspaceButton() {
         var _a;
