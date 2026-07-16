@@ -40,6 +40,18 @@ Bind independent Obsidian global settings (theme, font, etc.) to each workspace.
 
 为每个工作区绑定独立设置方案，切换时自动应用。原作者的实验性功能，不推荐开启。
 
+### Folder Focus / 聚焦本文件夹
+
+Right-click a folder in the file explorer and choose **Focus this folder** to visually use that folder as the file explorer root. Other folders are hidden until folder focus is cleared.
+
+在文件浏览器中右键文件夹，选择 **聚焦本文件夹**，即可在视觉上把该文件夹作为文件浏览器根目录显示；取消聚焦后恢复完整文件树。
+
+### Independent File Explorer Fold State / 独立保存文件浏览器折叠状态
+
+Each workspace keeps its own file explorer folder expand/collapse state. Focused and non-focused file explorer states are saved separately, so switching workspaces restores the expected folder tree.
+
+每个 Workspace 独立保存文件浏览器中文件夹的展开/折叠状态。聚焦和非聚焦状态会分别保存，切换 Workspace 时恢复对应的文件树状态。
+
 ### Status Bar / 状态栏
 
 Shows current workspace and mode. **Shift+Click** to save.  
@@ -54,6 +66,7 @@ Shows current workspace and mode. **Shift+Click** to save.
 | Auto-save layout | Save on any layout change | 自动保存布局 | 布局变更时自动保存 |
 | Delete confirmation | Show confirmation before deleting | 删除确认 | 删除前显示确认提示 |
 | Sidebar ribbon icon | Show workspace switcher ribbon button | Ribbon 图标 | 显示工作区切换 Ribbon 按钮 |
+| Independent file explorer fold state | Save file explorer folder expand/collapse state independently per workspace. Enabled by default | 独立保存文件浏览器折叠状态 | 每个 Workspace 独立保存文件夹展开/折叠状态，默认开启 |
 | Workspace Modes | Enable per-workspace settings (beta) | 工作区模式 | 启用独立工作区设置 (beta) |
 | Mode ribbon icon | Show mode switcher ribbon button | 模式 Ribbon | 显示模式切换 Ribbon 按钮 |
 | System dark mode | Follow OS light/dark when switching modes | 系统深色模式 | 切换模式时跟随系统亮/暗 |
@@ -100,9 +113,13 @@ Shows current workspace and mode. **Shift+Click** to save.
 - **Open WorkSpace Plus Group**
 - **Save workspace**
 - **Open WorkSpace Plus Group Modes** (requires Workspace Modes)
+- **Clear folder focus**
+- **Resave current file explorer fold state**
 - **打开工作区切换器**
 - **保存工作区**
 - **打开模式切换器**(需要开启工作区模式)
+- **取消聚焦文件夹**
+- **重新保存当前文件浏览器折叠状态**
 
 Each workspace auto-registers as `workspace-plus-group:<name>`, bindable to custom hotkeys.  
 每个工作区自动注册为独立命令，可绑定快捷键。

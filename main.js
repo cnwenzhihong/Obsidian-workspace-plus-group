@@ -2145,6 +2145,7 @@ const DEFAULT_SETTINGS = {
     showDeletePrompt: true,
     saveOnSwitch: false,
     saveOnChange: false,
+    perWorkspaceExplorerFoldState: true,
     workspaceSettings: false,
     systemDarkMode: false,
     globalSettings: {},
@@ -2170,6 +2171,8 @@ const STRINGS = {
     "advanced": { en: "Advanced", zh: "高级" },
     "workspace-modes": { en: "Workspace Modes", zh: "工作区模式" },
     "workspace-modes-desc": { en: "Bind a set of independent Obsidian global settings to each workspace (theme, font, editor config, etc.). When switching workspaces, the corresponding appearance config is automatically applied. Equivalent to each workspace having its own \"appearance skin\".", zh: "为每个工作区绑定一套独立的 Obsidian 全局设置方案（主题、字体、编辑器配置等）。启用后，切换工作区时会自动应用对应的外观配置。相当于每个工作区都有自己的\"外观皮肤\"。" },
+    "per-workspace-explorer-fold-state": { en: "Save file explorer fold state independently", zh: "\u72ec\u7acb\u4fdd\u5b58\u6587\u4ef6\u6d4f\u89c8\u5668\u6298\u53e0\u72b6\u6001" },
+    "per-workspace-explorer-fold-state-desc": { en: "Keep folder expand/collapse state independent for each workspace. Focused and non-focused file explorer states are saved separately.", zh: "\u4e3a\u6bcf\u4e2a Workspace \u72ec\u7acb\u4fdd\u5b58\u6587\u4ef6\u5939\u5c55\u5f00/\u6298\u53e0\u72b6\u6001\uff0c\u805a\u7126\u548c\u975e\u805a\u7126\u72b6\u6001\u4f1a\u5206\u522b\u4fdd\u5b58\u3002" },
     "show-mode-ribbon": { en: "Show Workspace Mode Sidebar Ribbon Icon", zh: "显示模式侧边栏 Ribbon 图标" },
     "system-dark-mode": { en: "Respect system dark mode setting", zh: "跟随系统深色模式" },
     "system-dark-mode-desc": { en: "Let the OS determine the light/dark mode setting when switching modes. This setting can only be used if Workspace Modes is enabled.", zh: "切换模式时由操作系统决定浅色/深色模式。仅在启用工作区模式后可用。" },
@@ -2219,6 +2222,8 @@ const STRINGS = {
     "create-workspace": { en: "Create", zh: "创建" },
     "create-child-workspace": { en: "Create as child", zh: "创建子工作区" },
     "hint-drag-reorder": { en: "Drag to reorder · Enter to switch · Shift+Enter to save · Ctrl+Enter to rename · Shift+Del to delete", zh: "拖拽排序 · 回车切换 · Shift+回车保存 · Ctrl+回车改名 · Shift+Del 删除" },
+    "resave-explorer-fold-state": { en: "Resave current file explorer fold state", zh: "\u91cd\u65b0\u4fdd\u5b58\u5f53\u524d\u6587\u4ef6\u6d4f\u89c8\u5668\u6298\u53e0\u72b6\u6001" },
+    "resaved-explorer-fold-state": { en: "File explorer fold state resaved", zh: "\u5df2\u91cd\u65b0\u4fdd\u5b58\u6587\u4ef6\u6d4f\u89c8\u5668\u6298\u53e0\u72b6\u6001" },
     "focus-folder": { en: "Focus this folder", zh: "\u805a\u7126\u672c\u6587\u4ef6\u5939" },
     "clear-folder-focus": { en: "Clear folder focus", zh: "\u53d6\u6d88\u805a\u7126\u6587\u4ef6\u5939" },
     "folder-focused": { en: "Focused folder: ", zh: "\u5df2\u805a\u7126\u6587\u4ef6\u5939\uff1a" },
@@ -2293,6 +2298,20 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             this.plugin.updateRibbonDisplay();
         }));
         const advancedEl = this.addSection(containerEl, "advanced", t("advanced"));
+        new obsidian.Setting(advancedEl)
+            .setName(t("per-workspace-explorer-fold-state"))
+            .setDesc(t("per-workspace-explorer-fold-state-desc"))
+            .addToggle(toggle => toggle.setValue(this.plugin.settings.perWorkspaceExplorerFoldState).onChange(value => {
+            this.plugin.settings.perWorkspaceExplorerFoldState = value;
+            this.plugin.saveData(this.plugin.settings);
+            if (value) {
+                this.plugin.flushExplorerFoldState();
+                this.plugin.refreshExplorerFoldObservers();
+            }
+            else {
+                this.plugin.disconnectExplorerFoldObservers();
+            }
+        }));
         new obsidian.Setting(advancedEl)
             .setName(createFragment(function (e) {
             e.appendText(t("workspace-modes")),
@@ -2821,7 +2840,8 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
             });
         }
         this.onOpen();
-        this.app.workspace.pushClosable(this);
+        if (typeof this.app.workspace.pushClosable === "function")
+            this.app.workspace.pushClosable(this);
     }
     onOpen() {
         var _a;
@@ -3259,7 +3279,8 @@ class WorkspacesPlusPluginModeModal extends obsidian.FuzzySuggestModal {
             });
         }
         this.onOpen();
-        this.app.workspace.pushClosable(this);
+        if (typeof this.app.workspace.pushClosable === "function")
+            this.app.workspace.pushClosable(this);
     }
     onOpen() {
         var _a;
@@ -4218,11 +4239,9 @@ class Utils {
         // load the mode's sidebar layouts, if enabled
         if ((modeSettings === null || modeSettings === void 0 ? void 0 : modeSettings.saveSidebar) && workspaceSettings.mode) {
             mode && this.mergeSidebarLayout(mode);
-            this.updateFoldState(modeSettings);
         }
         else {
             workspace && this.mergeSidebarLayout(workspace);
-            this.updateFoldState(workspaceSettings);
         }
         this.workspacePlugin.saveData(); // call saveData on the workspace plugin to persist the workspace metadata to disk
         return true;
@@ -4293,10 +4312,6 @@ class Utils {
     getModeSettings(name) {
         if (this.isMode(name))
             return this.getWorkspaceSettings(name);
-    }
-    updateFoldState(settings) {
-        if (settings === null || settings === void 0 ? void 0 : settings.explorerFoldState)
-            this.app.saveLocalStorage("file-explorer-unfold", settings.explorerFoldState);
     }
     getDarkModeFromOS() {
         const isDarkMode = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
@@ -4404,6 +4419,10 @@ class WorkspacesPlus extends obsidian.Plugin {
                 if (this.settings.saveOnChange) {
                     this.debouncedSave(this.utils.activeWorkspace);
                 }
+                if (this.settings.perWorkspaceExplorerFoldState) {
+                    this.refreshExplorerFoldObservers();
+                    this.scheduleExplorerFoldStateSave();
+                }
                 if (this.getActiveFolderFocusPath()) {
                     this.debouncedApplyFolderFocus();
                 }
@@ -4450,9 +4469,8 @@ class WorkspacesPlus extends obsidian.Plugin {
             if (this.settings.workspaceSettings && this.utils.isMode(workspaceName)) {
                 customSettings.app = this.app.vault.config;
             }
-            let explorerFoldState = yield this.app.loadLocalStorage("file-explorer-unfold");
-            if (explorerFoldState)
-                customSettings.explorerFoldState = explorerFoldState;
+            if (this.settings.perWorkspaceExplorerFoldState && workspaceName === this.utils.activeWorkspace)
+                this.flushExplorerFoldState(workspaceName);
             this.workspacePlugin.saveData();
         });
         this.onWorkspaceLoad = (name) => {
@@ -4480,9 +4498,9 @@ class WorkspacesPlus extends obsidian.Plugin {
                 this.needsReload(combinedSettings) && this.reloadIfNeeded();
                 this.applySettings(combinedSettings);
             }
-            if (settings)
-                this.utils.updateFoldState(settings);
+            this.applyCurrentExplorerFoldState(settings, name);
             this.applyFolderFocus();
+            this.refreshExplorerFoldObservers();
             this.saveData(this.settings);
         };
         this.reloadIfNeeded = obsidian.debounce(() => {
@@ -4510,6 +4528,10 @@ class WorkspacesPlus extends obsidian.Plugin {
     onload() {
         return __awaiter(this, void 0, void 0, function* () {
             this.debug = false;
+            this.restoringExplorerFoldState = false;
+            this.explorerFoldObservers = [];
+            this.explorerFoldSaveTimer = null;
+            this.explorerFoldRestoreId = 0;
             // load settings
             yield this.loadSettings();
             this.utils = new Utils(this);
@@ -4533,6 +4555,7 @@ class WorkspacesPlus extends obsidian.Plugin {
             }));
             // add the settings tab
             this.addSettingTab(new WorkspacesPlusSettingsTab(this.app, this));
+            this.register(() => this.disconnectExplorerFoldObservers());
             this.registerEventHandlers();
             this.registerCommands();
             this.app.workspace.onLayoutReady(() => {
@@ -4549,7 +4572,9 @@ class WorkspacesPlus extends obsidian.Plugin {
                         this.enableModesFeature();
                     this.updateRibbonDisplay();
                     this.toggleModeRibbonButton();
+                    this.applyCurrentExplorerFoldState();
                     this.applyFolderFocus();
+                    this.refreshExplorerFoldObservers();
                 }, 100);
             });
         });
@@ -4571,6 +4596,8 @@ class WorkspacesPlus extends obsidian.Plugin {
         });
     }
     onunload() {
+        this.flushExplorerFoldState();
+        this.disconnectExplorerFoldObservers();
         if (this.settings.workspaceSettings) {
             let combinedSettings = this.mergeGlobalSettings();
             this.applySettings(combinedSettings);
@@ -4762,28 +4789,230 @@ class WorkspacesPlus extends obsidian.Plugin {
         targetChildren.splice(position === "before" ? targetIdx : targetIdx + 1, 0, dragName);
         return true;
     }
+    getCurrentExplorerFoldState() {
+        return this.readNativeExplorerFoldState();
+    }
+    cloneExplorerFoldState(state) {
+        if (!Array.isArray(state))
+            return null;
+        const seen = new Set();
+        const paths = [];
+        for (const path of state) {
+            if (typeof path !== "string" || seen.has(path))
+                continue;
+            seen.add(path);
+            paths.push(path);
+        }
+        return paths;
+    }
+    readNativeExplorerFoldState() {
+        if (typeof this.app.loadLocalStorage !== "function")
+            return null;
+        try {
+            const value = this.app.loadLocalStorage("file-explorer-unfold");
+            if (value && typeof value.then === "function") {
+                return null;
+            }
+            return this.cloneExplorerFoldState(value);
+        }
+        catch (err) {
+            return null;
+        }
+    }
+    writeNativeExplorerFoldState(state) {
+        const nativeState = this.cloneExplorerFoldState(state);
+        if (!nativeState || typeof this.app.saveLocalStorage !== "function")
+            return false;
+        try {
+            this.app.saveLocalStorage("file-explorer-unfold", nativeState);
+            return true;
+        }
+        catch (err) {
+            return false;
+        }
+    }
+    saveCurrentExplorerFoldState(workspaceName = this.utils.activeWorkspace) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.flushExplorerFoldState(workspaceName);
+        });
+    }
+    scheduleExplorerFoldStateSave(delay = 250) {
+        if (!this.settings.perWorkspaceExplorerFoldState || this.restoringExplorerFoldState || this.workspaceLoading)
+            return;
+        if (this.explorerFoldSaveTimer)
+            window.clearTimeout(this.explorerFoldSaveTimer);
+        this.explorerFoldSaveTimer = window.setTimeout(() => {
+            this.explorerFoldSaveTimer = null;
+            this.flushExplorerFoldState();
+        }, delay);
+    }
+    flushExplorerFoldState(workspaceName = this.utils.activeWorkspace) {
+        if (!this.settings.perWorkspaceExplorerFoldState || this.restoringExplorerFoldState || !workspaceName)
+            return false;
+        if (this.explorerFoldSaveTimer) {
+            window.clearTimeout(this.explorerFoldSaveTimer);
+            this.explorerFoldSaveTimer = null;
+        }
+        const workspaceSettings = this.utils.getWorkspaceSettings(workspaceName);
+        if (!workspaceSettings)
+            return false;
+        const explorerFoldState = this.getCurrentExplorerFoldState();
+        if (explorerFoldState == null) {
+            return false;
+        }
+        const focusPath = workspaceSettings.folderFocusPath || "";
+        if (focusPath) {
+            if (!workspaceSettings.folderFocusFoldStates)
+                workspaceSettings.folderFocusFoldStates = {};
+            workspaceSettings.folderFocusFoldStates[focusPath] = explorerFoldState;
+        }
+        else {
+            workspaceSettings.explorerFoldState = explorerFoldState;
+        }
+        this.workspacePlugin.saveData();
+        return true;
+    }
+    refreshExplorerFoldObservers() {
+        if (!this.settings.perWorkspaceExplorerFoldState || this.restoringExplorerFoldState)
+            return;
+        this.disconnectExplorerFoldObservers();
+        this.explorerFoldObservers = [];
+        for (const container of this.getFileExplorerContainers()) {
+            if (typeof MutationObserver !== "function")
+                continue;
+            const observer = new MutationObserver(() => this.scheduleExplorerFoldStateSave());
+            observer.observe(container, {
+                subtree: true,
+                childList: true,
+                attributes: true,
+                attributeFilter: ["class", "style", "aria-expanded"],
+            });
+            this.explorerFoldObservers.push(observer);
+        }
+    }
+    disconnectExplorerFoldObservers() {
+        if (this.explorerFoldObservers) {
+            this.explorerFoldObservers.forEach(observer => observer.disconnect());
+        }
+        this.explorerFoldObservers = [];
+        if (this.explorerFoldSaveTimer) {
+            window.clearTimeout(this.explorerFoldSaveTimer);
+            this.explorerFoldSaveTimer = null;
+        }
+    }
+    getExplorerFoldStateForSettings(settings) {
+        if (!settings)
+            return null;
+        const focusPath = settings.folderFocusPath || "";
+        if (focusPath)
+            return settings.folderFocusFoldStates && settings.folderFocusFoldStates[focusPath] != null
+                ? settings.folderFocusFoldStates[focusPath]
+                : null;
+        return settings.explorerFoldState != null ? settings.explorerFoldState : null;
+    }
+    applyCurrentExplorerFoldState(settings = this.utils.activeWorkspaceSettings(), workspaceName = this.utils.activeWorkspace) {
+        if (!this.settings.perWorkspaceExplorerFoldState)
+            return false;
+        const explorerFoldState = this.getExplorerFoldStateForSettings(settings);
+        const nativeState = this.cloneExplorerFoldState(explorerFoldState);
+        if (nativeState == null)
+            return false;
+        return this.restoreNativeExplorerFoldState(nativeState);
+    }
+    restoreNativeExplorerFoldState(explorerFoldState) {
+        const nativeState = this.cloneExplorerFoldState(explorerFoldState);
+        if (!nativeState)
+            return false;
+        if (this.explorerFoldSaveTimer) {
+            window.clearTimeout(this.explorerFoldSaveTimer);
+            this.explorerFoldSaveTimer = null;
+        }
+        const restoreId = (this.explorerFoldRestoreId || 0) + 1;
+        this.explorerFoldRestoreId = restoreId;
+        this.restoringExplorerFoldState = true;
+        const written = this.writeNativeExplorerFoldState(nativeState);
+        if (!written) {
+            this.restoringExplorerFoldState = false;
+            return false;
+        }
+        window.setTimeout(() => {
+            if (this.explorerFoldRestoreId !== restoreId)
+                return;
+            this.restoringExplorerFoldState = false;
+            this.refreshExplorerFoldObservers();
+        }, 250);
+        return true;
+    }
+    getFileExplorerItem(path) {
+        for (const leaf of this.app.workspace.getLeavesOfType("file-explorer")) {
+            const view = leaf.view;
+            const item = view && view.fileItems ? view.fileItems[path] : null;
+            if (item)
+                return item;
+        }
+        return null;
+    }
+    setFileExplorerItemCollapsed(item, collapsed) {
+        if (!item)
+            return false;
+        let handled = false;
+        for (const method of ["setCollapsed", "setCollapsedState"]) {
+            if (typeof item[method] === "function") {
+                try {
+                    item[method](collapsed);
+                    handled = true;
+                }
+                catch (err) {
+                    console.error("[WorkSpace Plus Group] failed to set file explorer item fold state", err);
+                }
+            }
+        }
+        if (!handled) {
+            const method = collapsed ? "collapse" : "expand";
+            if (typeof item[method] === "function") {
+                try {
+                    item[method]();
+                    handled = true;
+                }
+                catch (err) {
+                    console.error("[WorkSpace Plus Group] failed to toggle file explorer item fold state", err);
+                }
+            }
+        }
+        if ("collapsed" in item)
+            item.collapsed = collapsed;
+        return handled;
+    }
     getActiveFolderFocusPath() {
         var _a;
         return ((_a = this.utils.activeWorkspaceSettings()) === null || _a === void 0 ? void 0 : _a.folderFocusPath) || "";
     }
     setActiveFolderFocusPath(path) {
-        const settings = this.utils.activeWorkspaceSettings();
-        if (!settings)
-            return;
-        settings.folderFocusPath = obsidian.normalizePath(path);
-        this.workspacePlugin.saveData();
-        this.applyFolderFocus();
-        new obsidian.Notice(t("folder-focused") + settings.folderFocusPath);
+        return __awaiter(this, void 0, void 0, function* () {
+            const settings = this.utils.activeWorkspaceSettings();
+            if (!settings)
+                return;
+            yield this.saveCurrentExplorerFoldState();
+            settings.folderFocusPath = obsidian.normalizePath(path);
+            this.applyCurrentExplorerFoldState(settings);
+            this.workspacePlugin.saveData();
+            this.applyFolderFocus();
+            new obsidian.Notice(t("folder-focused") + settings.folderFocusPath);
+        });
     }
     clearActiveFolderFocusPath(showNotice = true) {
-        const settings = this.utils.activeWorkspaceSettings();
-        if (settings && settings.folderFocusPath) {
-            delete settings.folderFocusPath;
-            this.workspacePlugin.saveData();
-        }
-        this.clearFolderFocusClasses();
-        if (showNotice)
-            new obsidian.Notice(t("folder-focus-cleared"));
+        return __awaiter(this, void 0, void 0, function* () {
+            const settings = this.utils.activeWorkspaceSettings();
+            yield this.saveCurrentExplorerFoldState();
+            if (settings && settings.folderFocusPath) {
+                delete settings.folderFocusPath;
+                this.clearFolderFocusClasses();
+                this.applyCurrentExplorerFoldState(settings);
+                this.workspacePlugin.saveData();
+            }
+            if (showNotice)
+                new obsidian.Notice(t("folder-focus-cleared"));
+        });
     }
     getFileExplorerContainers() {
         const leaves = this.app.workspace.getLeavesOfType("file-explorer");
@@ -4890,18 +5119,7 @@ class WorkspacesPlus extends obsidian.Plugin {
         const item = (_a = view === null || view === void 0 ? void 0 : view.fileItems) === null || _a === void 0 ? void 0 : _a[path];
         if (!item)
             return;
-        for (const method of ["setCollapsed", "setCollapsedState"]) {
-            if (typeof item[method] === "function") {
-                try {
-                    item[method](false);
-                }
-                catch (err) {
-                    console.error("[WorkSpace Plus Group] failed to expand file explorer item", err);
-                }
-            }
-        }
-        if ("collapsed" in item)
-            item.collapsed = false;
+        this.setFileExplorerItemCollapsed(item, false);
         const el = item.el || item.selfEl || item.containerEl;
         if (el instanceof Element)
             this.expandFocusedFolderDom(el.closest(".nav-folder") || el);
@@ -4953,6 +5171,19 @@ class WorkspacesPlus extends obsidian.Plugin {
                 candidateItem.parentElement.insertBefore(candidateItem, firstActionItem);
         }, 0);
     }
+    onFileExplorerFoldClick(evt) {
+        if (!this.settings.perWorkspaceExplorerFoldState)
+            return;
+        const target = evt.target;
+        if (!(target instanceof Element) || !target.closest(".nav-folder-title"))
+            return;
+        const inFileExplorer = this.getFileExplorerContainers().some(container => container.contains(target));
+        if (!inFileExplorer)
+            return;
+        for (const delay of [100, 300]) {
+            window.setTimeout(() => this.scheduleExplorerFoldStateSave(0), delay);
+        }
+    }
     showFolderFocusMenu(evt) {
         const target = evt.target;
         if (!this.getActiveFolderFocusPath() || !(target instanceof Element))
@@ -4989,6 +5220,14 @@ class WorkspacesPlus extends obsidian.Plugin {
             },
         });
         this.addCommand({
+            id: "resave-explorer-fold-state",
+            name: t("resave-explorer-fold-state"),
+            callback: () => {
+                if (this.flushExplorerFoldState())
+                    new obsidian.Notice(t("resaved-explorer-fold-state"));
+            },
+        });
+        this.addCommand({
             id: "clear-folder-focus",
             name: t("clear-folder-focus"),
             callback: () => this.clearActiveFolderFocusPath(),
@@ -5007,6 +5246,7 @@ class WorkspacesPlus extends obsidian.Plugin {
             this.addFolderFocusMenuItem(menu, file);
         }));
         this.registerDomEvent(document, "contextmenu", evt => this.showFolderFocusMenu(evt), true);
+        this.registerDomEvent(document, "click", evt => this.onFileExplorerFoldClick(evt));
     }
     get changeWorkspaceButton() {
         var _a;
@@ -5231,24 +5471,27 @@ class WorkspacesPlus extends obsidian.Plugin {
                 return function loadWorkspace(workspaceName, ...etc) {
                     if (!workspaceName || !plugin.isNativePluginEnabled)
                         return;
+                    plugin.flushExplorerFoldState();
                     plugin.setLoadingStatus();
                     let result;
                     if (plugin.settings.workspaceSettings && plugin.utils.isMode(workspaceName)) {
                         // if the workspace being loaded is a mode, invoke the mode loader
                         let modeName = workspaceName;
                         workspaceName = plugin.utils.activeWorkspace;
+                        plugin.applyCurrentExplorerFoldState(plugin.utils.getWorkspaceSettings(workspaceName), workspaceName);
                         result = plugin.utils.loadMode(workspaceName, modeName);
                     }
-                else {
-                    // result = old.call(this, workspaceName, ...etc);
-                    const workspace = this.workspaces[workspaceName];
-                    if (workspace) {
-                        // TODO: Ensure this stays in sync with the native Obsidian function
-                        this.activeWorkspace = workspaceName;
-                        this.app.workspace.changeLayout(workspace);
-                        this.saveData();
+                    else {
+                        // result = old.call(this, workspaceName, ...etc);
+                        const workspace = this.workspaces[workspaceName];
+                        if (workspace) {
+                            // TODO: Ensure this stays in sync with the native Obsidian function
+                            plugin.applyCurrentExplorerFoldState(plugin.utils.getWorkspaceSettings(workspaceName), workspaceName);
+                            this.activeWorkspace = workspaceName;
+                            this.app.workspace.changeLayout(workspace);
+                            this.saveData();
+                        }
                     }
-                }
                     this.app.workspace.trigger("workspace-load", workspaceName);
                     return result;
                 };
