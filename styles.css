@@ -518,3 +518,21 @@ body.is-mobile .side-dock-actions div[aria-label="Manage modes"] svg {
   width: 18px;
   height: 18px;
 }
+
+/* Folder focus in Obsidian's native file explorer */
+.workspace-plus-group-folder-focus .workspace-plus-group-folder-focus-hidden {
+  display: none !important;
+}
+
+.workspace-plus-group-folder-focus .workspace-plus-group-folder-focus-ancestor > .nav-folder-title,
+.workspace-plus-group-folder-focus .workspace-plus-group-folder-focus-target > .nav-folder-title {
+  display: none !important;
+}
+
+.workspace-plus-group-folder-focus .workspace-plus-group-folder-focus-ancestor > .nav-folder-children,
+.workspace-plus-group-folder-focus .workspace-plus-group-folder-focus-target > .nav-folder-children {
+  display: block !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  border-left: 0 !important;
+}
