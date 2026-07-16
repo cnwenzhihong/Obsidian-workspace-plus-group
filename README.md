@@ -15,6 +15,7 @@ Enhanced workspace management for Obsidian's built-in Workspaces core plugin —
 
 Open via command palette or click the status bar workspace name or bind shortcut keys(**recommend shift+tab**). Fuzzy search with keyboard shortcuts — type a new name and press **Enter** to create a new workspace.  
 通过命令面板或状态栏或快捷键(**推荐 shift+tab**)打开，模糊搜索，输入新名称按 **Enter** 直接创建新工作区。
+![](https://github.com/cnwenzhihong/Obsidian-workspace-plus-group/blob/main/docs/Assets/Example_HotKey.png)
 ![](https://github.com/cnwenzhihong/Obsidian-workspace-plus-group/blob/main/docs/Assets/Example_pop.png)
 
 ### Workspace Hierarchy / 工作区层级
@@ -34,17 +35,12 @@ Drag and drop workspaces in the settings panel to build parent-child relationshi
 
 ![](https://github.com/cnwenzhihong/Obsidian-workspace-plus-group/blob/main/docs/Assets/Example_Settings.png)
 
-### Workspace Modes / 工作区模式
-
-Bind independent Obsidian global settings (theme, font, etc.) to each workspace. Switching applies them automatically.  The experimental function of the original author is not recommended.
-
-为每个工作区绑定独立设置方案，切换时自动应用。原作者的实验性功能，不推荐开启。
-
-### Folder Focus / 聚焦本文件夹
+### Folder Focus / 聚焦文件夹
 
 Right-click a folder in the file explorer and choose **Focus this folder** to visually use that folder as the file explorer root. Other folders are hidden until folder focus is cleared.
 
 在文件浏览器中右键文件夹，选择 **聚焦本文件夹**，即可在视觉上把该文件夹作为文件浏览器根目录显示；取消聚焦后恢复完整文件树。
+![](https://github.com/cnwenzhihong/Obsidian-workspace-plus-group/blob/main/docs/Assets/Example_Focus.png)
 
 ### Independent File Explorer Fold State / 独立保存文件浏览器折叠状态
 
@@ -56,6 +52,12 @@ Each workspace keeps its own file explorer folder expand/collapse state. Focused
 
 Shows current workspace and mode. **Shift+Click** to save.  
 显示当前名称，Shift+Click 快速保存。
+
+### Workspace Modes / 工作区模式
+
+Bind independent Obsidian global settings (theme, font, etc.) to each workspace. Switching applies them automatically.  The experimental function of the original author is not recommended.
+
+为每个工作区绑定独立设置方案，切换时自动应用。原作者的实验性功能，不推荐开启。
 
 ---
 

@@ -2144,7 +2144,7 @@ class TextInputSuggest {
 const DEFAULT_SETTINGS = {
     showDeletePrompt: true,
     saveOnSwitch: false,
-    saveOnChange: false,
+    saveOnChange: true,
     perWorkspaceExplorerFoldState: true,
     workspaceSettings: false,
     systemDarkMode: false,
@@ -2502,7 +2502,7 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         row.createSpan({ cls: "hierarchy-spacer" });
         // Rename / Delete action buttons
         const actions = row.createSpan({ cls: "hierarchy-actions" });
-        const renameBtn = actions.createSpan({ cls: "hierarchy-action-btn" });
+        const renameBtn = actions.createSpan({ cls: "hierarchy-action-btn hierarchy-rename-btn" });
         renameBtn.setAttribute("aria-label", t("rename-workspace"));
         renameBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M12.9 6.858l4.242 4.243L7.242 21H3v-4.243l9.9-9.9zm1.414-1.414l2.121-2.122a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1 0 1.414l-2.122 2.121-4.242-4.242z"/></svg>`;
         const startRename = () => {
@@ -2536,7 +2536,7 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
         };
         renameBtn.addEventListener("click", (e) => { e.stopPropagation(); startRename(); });
         nameEl.addEventListener("dblclick", (e) => { e.stopPropagation(); startRename(); });
-        const childBtn = actions.createSpan({ cls: "hierarchy-action-btn" });
+        const childBtn = actions.createSpan({ cls: "hierarchy-action-btn hierarchy-child-btn" });
         childBtn.setAttribute("aria-label", t("create-child-workspace"));
         childBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2zm7 8h-3v3h-2v-3H9v-2h3V7h2v3h3v2z"/></svg>`;
         childBtn.addEventListener("click", (e) => {
@@ -2546,18 +2546,19 @@ class WorkspacesPlusSettingsTab extends obsidian.PluginSettingTab {
             const finalName = childName + n;
             this.plugin.workspacePlugin.saveWorkspace(finalName);
             this.plugin.reparentWorkspace(finalName, name);
+            this.plugin.settings.collapsedWorkspaces[name] = false;
             this.plugin.saveData(this.plugin.settings);
             this.renderHierarchy(treeContainer);
-            // Reuse rename logic: trigger pencil button click on the new row
+            // Reuse rename logic without relying on button order.
             setTimeout(() => {
                 const newRow = treeContainer.querySelector(`[data-workspace-name="${finalName}"]`);
                 if (newRow) {
-                    const renameBtn = newRow.querySelectorAll(".hierarchy-action-btn")[1];
+                    const renameBtn = newRow.querySelector(".hierarchy-rename-btn");
                     if (renameBtn) renameBtn.click();
                 }
             }, 50);
         });
-        const deleteBtn = actions.createSpan({ cls: "hierarchy-action-btn" });
+        const deleteBtn = actions.createSpan({ cls: "hierarchy-action-btn hierarchy-delete-btn" });
         deleteBtn.setAttribute("aria-label", t("delete-workspace"));
         deleteBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path fill="none" d="M0 0h24v24H0z"/><path fill="currentColor" d="M7 4V2h10v2h5v2h-2v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6H2V4h5zM6 6v14h12V6H6zm3 3h2v8H9V9zm4 0h2v8h-2V9z"/></svg>`;
         deleteBtn.addEventListener("click", (e) => {
