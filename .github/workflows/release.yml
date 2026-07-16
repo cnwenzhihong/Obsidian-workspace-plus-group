@@ -39,6 +39,8 @@ jobs:
 
       - name: Update versions.json
         run: |
+          git fetch origin main
+          git checkout -B main origin/main
           TAG="${{ github.ref_name }}"
           if [ -f versions.json ]; then
             jq --arg tag "$TAG" --arg minApp "1.0.0" '. + {($tag): $minApp}' versions.json > tmp.json && mv tmp.json versions.json
