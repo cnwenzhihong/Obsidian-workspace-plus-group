@@ -2059,6 +2059,7 @@ class Suggest {
         this.values = values;
         this.suggestions = suggestionEls;
         this.setSelectedItem(0, false);
+        this.containerEl.scrollTop = 0;
     }
     useSelectedItem(event) {
         const currentValue = this.values[this.selectedItem];
@@ -2922,6 +2923,13 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
         const collapsed = this.plugin.getModalCollapseState();
         const isCollapsed = collapsed[workspaceName];
         const resultEl = document.body.querySelector("div.workspace-plus-group-modal div.prompt-results");
+        // Clean up orphaned wrappers and reset scroll on first render of each update cycle
+        if (resultEl && !this._renderedInCycle) {
+            this._renderedInCycle = true;
+            resultEl.querySelectorAll(".workspace-results").forEach(el => el.remove());
+            resultEl.scrollTop = 0;
+            requestAnimationFrame(() => { this._renderedInCycle = false; });
+        }
         const existingEl = resultEl.querySelector('div[data-workspace-name="' + workspaceName + '"]');
         let wrapperEl;
         if (existingEl) {
@@ -3349,6 +3357,13 @@ class WorkspacesPlusPluginModeModal extends obsidian.FuzzySuggestModal {
     renderSuggestion(item, el) {
         super.renderSuggestion(item, el);
         const resultEl = document.body.querySelector("div.workspace-plus-group-mode-modal div.prompt-results");
+        // Clean up orphaned wrappers and reset scroll on first render of each update cycle
+        if (resultEl && !this._renderedInCycle) {
+            this._renderedInCycle = true;
+            resultEl.querySelectorAll(".workspace-results").forEach(el => el.remove());
+            resultEl.scrollTop = 0;
+            requestAnimationFrame(() => { this._renderedInCycle = false; });
+        }
         const existingEl = resultEl.querySelector('div[data-workspace-name="' + el.textContent + '"]');
         let wrapperEl;
         if (existingEl) {
@@ -5031,6 +5046,12 @@ class WorkspacesPlus extends obsidian.Plugin {
         }
     }
     applyFolderFocus() {
+        // Prevent re-entrant calls triggered by layout-change feedback loop.
+        // applyFolderFocusToDom modifies CSS classes → layout-change event →
+        // onLayoutChange → debouncedApplyFolderFocus → applyFolderFocus again.
+        if (this._applyingFolderFocus) return;
+        this._applyingFolderFocus = true;
+        setTimeout(() => { this._applyingFolderFocus = false; }, 600);
         const focusPath = this.getActiveFolderFocusPath();
         this.clearFolderFocusClasses();
         if (!focusPath)
@@ -5055,10 +5076,43 @@ class WorkspacesPlus extends obsidian.Plugin {
         }
         this.expandFocusedFolderInViews(folder);
         this.applyFolderFocusToDom(focusPath, folder);
+        // Multi-layer scroll fix: revealInFolder is async (lazy-loads parents),
+        // so its internal scroll may override scrollTop=0 after we set it.
+        // We use scrollIntoView on the first visible child + multiple timing
+        // attempts to win the race condition.
+        const scrollToFocusedContent = () => {
+            // Guard: skip if focus has changed since this was scheduled
+            if (this.getActiveFolderFocusPath() !== focusPath) return;
+            for (const container of this.getFileExplorerContainers()) {
+                const targetFolder = this.getFileExplorerFolderElement(container, focusPath);
+                if (!targetFolder) continue;
+                // Target folder title is hidden by CSS; scroll to first visible child
+                const childrenEl = this.getDirectFolderChildrenElement(targetFolder);
+                if (childrenEl) {
+                    const firstItem = childrenEl.querySelector(".nav-folder-title, .nav-file-title");
+                    if (firstItem) {
+                        firstItem.scrollIntoView({ block: "start", behavior: "instant" });
+                        continue;
+                    }
+                }
+                // Fallback: reset scroll container to top
+                const scrollEl = container.querySelector(".nav-files-container") || container;
+                scrollEl.scrollTop = 0;
+            }
+        };
+        // Attempt 1: after next paint (single rAF)
+        requestAnimationFrame(scrollToFocusedContent);
+        // Attempt 2: after another frame (double rAF, for deeply async revealInFolder)
+        requestAnimationFrame(() => requestAnimationFrame(scrollToFocusedContent));
+        // Attempt 3: setTimeout fallback at 50ms
+        setTimeout(scrollToFocusedContent, 50);
         for (const delay of [100, 300, 600]) {
             window.setTimeout(() => {
-                if (this.getActiveFolderFocusPath() === focusPath)
+                if (this.getActiveFolderFocusPath() === focusPath) {
                     this.applyFolderFocusToDom(focusPath, folder);
+                    // Re-scroll at 100ms and 300ms only (skip 600ms - user may have scrolled)
+                    if (delay <= 300) scrollToFocusedContent();
+                }
             }, delay);
         }
     }
