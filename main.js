@@ -2833,17 +2833,14 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
         this.close();
     }
     open() {
-        this.app.keymap.pushScope(this.scope);
-        document.body.appendChild(this.containerEl);
-        if (!this.invokedViaHotkey) {
+        // Obsidian owns modal state and scope registration required by close().
+        super.open();
+        if (!this.invokedViaHotkey && !this.popper) {
             this.popper = createPopper(document.body.querySelector(".plugin-workspace-plus-group"), this.modalEl, {
                 placement: "top-start",
                 modifiers: [{ name: "offset", options: { offset: [0, 10] } }],
             });
         }
-        this.onOpen();
-        if (typeof this.app.workspace.pushClosable === "function")
-            this.app.workspace.pushClosable(this);
     }
     onOpen() {
         var _a;
@@ -2859,7 +2856,10 @@ class WorkspacesPlusPluginWorkspaceModal extends obsidian.FuzzySuggestModal {
         (_a = this.chooser.suggestions[this.chooser.selectedItem]) === null || _a === void 0 ? void 0 : _a.scrollIntoViewIfNeeded();
     }
     onClose() {
-        this.app.keymap.popScope(this.scope);
+        if (this.popper) {
+            this.popper.destroy();
+            this.popper = null;
+        }
         super.onClose();
     }
     handleRename(targetEl) {
@@ -3279,17 +3279,14 @@ class WorkspacesPlusPluginModeModal extends obsidian.FuzzySuggestModal {
         this.close();
     }
     open() {
-        this.app.keymap.pushScope(this.scope);
-        document.body.appendChild(this.containerEl);
-        if (!this.invokedViaHotkey) {
+        // Obsidian owns modal state and scope registration required by close().
+        super.open();
+        if (!this.invokedViaHotkey && !this.popper) {
             this.popper = createPopper(document.body.querySelector(".plugin-workspace-plus-group.mode-switcher"), this.modalEl, {
                 placement: "top-start",
                 modifiers: [{ name: "offset", options: { offset: [0, 10] } }],
             });
         }
-        this.onOpen();
-        if (typeof this.app.workspace.pushClosable === "function")
-            this.app.workspace.pushClosable(this);
     }
     onOpen() {
         var _a;
@@ -3300,7 +3297,10 @@ class WorkspacesPlusPluginModeModal extends obsidian.FuzzySuggestModal {
         (_a = this.chooser.suggestions[this.chooser.selectedItem]) === null || _a === void 0 ? void 0 : _a.scrollIntoViewIfNeeded();
     }
     onClose() {
-        this.app.keymap.popScope(this.scope);
+        if (this.popper) {
+            this.popper.destroy();
+            this.popper = null;
+        }
         super.onClose();
     }
     handleRename(targetEl) {
